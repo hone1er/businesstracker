@@ -1,65 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{url_for('static', filename='styles/style.css')}}">
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-    <title>Hone Code LLC</title>
-</head>
-
-<body>
-    <form action="/get_income" method="GET">
-        <button type="submit">Get Income</button>
+{% extends "layout.html" %} 
+    {% block form %}<form action="/get_expenses" method="GET">
+      <button type="submit">Check Expenses</button>
     </form>
-    <div class="wrapper">
-        <div class="totals">
-            <div>
-            <h3 class="income">Total Income:</h3>
-            {% for total in honecode.income %}
-            <p id="totalincome">${{ total.totalAmount }}</p>
-            {% endfor %}
+    {% endblock %}
+    {% block banner %}Income{% endblock %}
+{% block body %}
+    {% for file in income_statement %}
+    <div class="container-fluid project">
+      <div class=" container-fluid client">
+        <div class="container">
+          <ul>
+            <li id="clientname" class="jobattr">{{ file.client.name }}</li>
+            {% if file.client.job.platform %}
+            <li id="jobname" class="jobattr">{{ file.client.job.name }}</li>
+            <li id="clientplatform" class="jobattr">
+              Platform: {{ file.client.job.platform }}
+            </li>
+            {% endif %}
+          </ul>
         </div>
-        <div>
-            <h3 class="expenses">Total Expenses:</h3>
-            {% for total in honecode.expenses %}
-            <p id="totalexpenses">${{ total.totalAmount }}</p>
-            {% endfor %}
+        <div class="container">
+          <ul>
+            <li id="income" class="jobattr">
+              Income: ${{ file.income.total }}
+            </li>
+            <li id="fee" class="jobattr">
+              Fees: ${{ file.income.fee.amount }}
+            </li>
+            <li id="jobdate" class="jobattr">
+              Date: {{ file.client.job.date }}
+            </li>
+          </ul>
         </div>
-        <div>
-            <h3>Total Profit/Loss:</h3>
-            <p id="profitloss"></p>
-        </div>
-        </div>
-    <div class="headc"><h1 class="clienthead">Client</h1></div>
-    <div class="headj"><h1 class="jobhead">Job</h1></div>
-    </div>
-        {% for file in income_statement %}
-    <div class="project">
-        <div class="client">
-
-            <ul>
-                <li id="clientname" class="jobattr">{{ file.client.name }}</li>
-                {% if file.client.job.platform %}
-                <li id="jobname" class="jobattr">{{ file.client.job.name }}</li>
-                <li id="clientplatform" class="jobattr">Platform: {{ file.client.job.platform }}</li>
-                {% endif %}
-            </ul>
-        </div>
-
-        <div class="job">
-            
-            <ul>
-                <li id="income" class="jobattr">Income: ${{ file.income.total }}</li>
-                <li id="fee" class="jobattr">Fees: ${{ file.income.fee.amount }}</li>
-                <li id="jobdate" class="jobattr">Date: {{ file.client.job.date }}</li>
-            </ul>
-        </div>
+      </div>
     </div>
     {% endfor %}
-<script src="{{ url_for('static', filename='js/app.js')}}"></script>
-</body>
+{% endblock %}
 
-</html>

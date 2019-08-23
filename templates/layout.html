@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='styles/style.css')}}"
+    />
+    <link href="https://fonts.googleapis.com/css?family=Righteous|Roboto|Special+Elite&display=swap" rel="stylesheet"> 
+    <title>Hone Code LLC</title>
+  </head>
+
+  <body>
+    {% block form %}<form action="/get_expenses" method="GET">
+      <button type="submit">Check Expenses</button>
+    </form>
+    {% endblock %}
+    <center>
+    <h1 id="main">Hone Code LLC</h1>
+    </center>
+    <div class="container-fluid wrapper">
+      <div class="container totals">
+        <div class="container-fluid">
+          <h3 class="income">Income</h3>
+          {% for total in honecode.income %}
+          <p id="totalincome">${{ total.totalAmount }}</p>
+          {% endfor %}
+        </div>
+        <div class="container-fluid">
+          <h3 class="fees">Fees</h3>
+          {% for total in honecode.total_fees %}
+          <p id="totalfees">${{ total.totalAmount }}</p>
+          {% endfor %}
+        </div>
+        <div class="container-fluid">
+          <h3 class="expenses">Expenses</h3>
+          {% for total in honecode.expenses %}
+          <p id="totalexpenses">${{ total.totalAmount }}</p>
+          {% endfor %}
+        </div>
+
+        <div class="container-fluid">
+          <h3>Profit/Loss</h3>
+          <p id="profitloss"></p>
+        </div>
+      </div>
+      <div class="headc"><h1 class="clienthead">{% block banner %}Income{% endblock %}</h1></div>
+    </div>
+{% block body %}
+    {% for file in income_statement %}
+    <div class="container-fluid project">
+      <div class=" container-fluid client">
+        <div class="container">
+          <ul>
+            <li id="clientname" class="jobattr">{{ file.client.name }}</li>
+            {% if file.client.job.platform %}
+            <li id="jobname" class="jobattr">{{ file.client.job.name }}</li>
+            <li id="clientplatform" class="jobattr">
+              Platform: {{ file.client.job.platform }}
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+        <div class="container">
+          <ul>
+            <li id="income" class="jobattr">
+              Income: ${{ file.income.total }}
+            </li>
+            <li id="fee" class="jobattr">
+              Fees: ${{ file.income.fee.amount }}
+            </li>
+            <li id="jobdate" class="jobattr">
+              Date: {{ file.client.job.date }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+{% endblock %}
+    <script src="{{ url_for('static', filename='js/app.js')}}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  </body>
+</html>
