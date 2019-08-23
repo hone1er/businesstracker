@@ -8,6 +8,10 @@ html {
     font-size: 100%;
 }
 
+.newexpense {
+    border-top: 135px solid rgb(48, 48, 48);
+    grid-area: expense
+}
 .container-fluid {
     justify-content: center;
 }
@@ -15,7 +19,6 @@ html {
     grid-area: totals;
     background: white;
     text-align: center;
-    border-top: 135px solid rgb(48, 48, 48);
     padding: 150px 0 0px;
     display: inline-flex;
     justify-content: center;
@@ -44,7 +47,10 @@ html {
 .wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: 'totals totals''headc headc';
+    grid-template-areas:
+    'totals totals'
+    'headc headc'
+    'expense expense';
     grid-gap: 0px;
     
     color: rgb(43, 43, 43);
@@ -88,7 +94,26 @@ li{
     list-style: none;
     line-height: 2.25rem;
 }
+.button {
+    margin: 20px;
+    width: 134px;
+    text-decoration: none;
+    background-color: #EEEEEE;
+    color: #333333;
+    padding: 4px 13px 4px 13px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+    -webkit-appearance: button;
+    -webkit-appearance: default-button
 
+}
+.button:hover {
+    text-decoration: none;
+    color: #333333;
+    cursor: default;
+}
 
 #jobname, #itemcost {
     color: #222;
@@ -97,6 +122,7 @@ li{
 
 #itemcost {
     color: rgb(145, 34, 34);
+    font-size: 1.1rem;
 }
 
 #income {
@@ -128,6 +154,17 @@ li{
     text-decoration: underline;
 }
 
+#itemdate {
+    font-size: 0.75rem;
+}
+
+#totalincome {
+    color: green;
+}
+#totalfees, #totalexpenses {
+    color: rgba(158, 9, 9, 0.877);
+}
+
 @media only screen and (max-width: 1024px) {
     .client, .item {
         display: flex;
@@ -142,6 +179,7 @@ li{
 
 #main {
     font-family: 'Righteous', cursive;
+    padding: 50px;
 }
 
 @media only screen and (max-width: 765px) {

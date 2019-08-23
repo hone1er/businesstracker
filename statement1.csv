@@ -1,0 +1,10 @@
+Date,"Ref ID",Type,Description,Agency,Freelancer,Team,"Account Name",PO,Amount,"Amount in local currency",Currency,Balance
+"Aug 28, 2019",253909069,"Service Fee","Service Fee - Hourly - Ref ID 253909066",,"Joseph Villavicencio","Argos Digital","Joseph Villavicencio",,-27.50,,,
+"Aug 28, 2019",253909066,Hourly,"Invoice for 08/12/2019-08/18/2019 - 9:10 hrs @ $30.00/hr",,"Joseph Villavicencio","Argos Digital","Joseph Villavicencio",,275.00,,,
+"Aug 21, 2019",254294267,Withdrawal,"ACH: xxxx-7853",,,,"Joseph Villavicencio",,-372.00,,,0.00
+"Aug 21, 2019",252764925,"Service Fee","Service Fee - Hourly - Ref ID 252764922",,"Joseph Villavicencio","Argos Digital","Joseph Villavicencio",,-80.00,,,372.00
+"Aug 21, 2019",252764922,Hourly,"Invoice for 08/05/2019-08/11/2019 - 15:00 hrs @ $30.00/hr",,"Joseph Villavicencio","Argos Digital","Joseph Villavicencio",,450.00,,,452.00
+"Aug 15, 2019",253333399,"Membership Fee","Fees for additional Connects (20)",,,,"Joseph Villavicencio",,-3.00,,,2.00
+"Aug 14, 2019",253182404,Withdrawal,"ACH: xxxx-7853",,,,"Joseph Villavicencio",,-115.00,,,5.00
+"Aug 14, 2019",251611652,"Service Fee","Service Fee - Hourly - Ref ID 251611650",,"Joseph Villavicencio","Argos Digital","Joseph Villavicencio",,-30.00,,,120.00
+"Aug 14, 2019",251611650,Hourly,"Invoice for 07/29/2019-08/04/2019 - 5:00 hrs @ $30.00/hr",,"Joseph Villavicencio","Argos Digital","Joseph Villavicencio",,150.00,,,150.00

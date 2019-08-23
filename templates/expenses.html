@@ -1,24 +1,46 @@
-{% extends "layout.html" %} 
-    {% block form %}<form action="/" method="GET">
-      <button type="submit">Check Income</button>
-    </form>
-    {% endblock %}
-    {% block banner %}Exenses{% endblock %}
-{% block body %}
-    {% for file in business_expenses %}
-    <div class="container-fluid expense" >
-      <div class=" container-fluid item">
-        <div class="container">
-          <ul>
-            <li id="itemname" class="itemattr" style="font-size: 1.25rem">{{ file.item.name }}</li>
-            <li id="itemcost" class="itemattr">${{ file.item.cost }}</li>
-            <li id="itemcategory" class="itemattr">
-              Category: {{ file.item.category }}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    {% endfor %}
-{% endblock %}
+{% extends "layout.html" %} {% block form %}
+<center style="margin-bottom: 20px;">
+  <form action="/" method="GET">
+    <button type="submit" style="margin-bottom: 25px;margin-top: 25px;">Check Income</button>
+  </form>
+  <a href="#addexpense" class="button">Add Expense</a>
+</center>
 
+{% endblock %} {% block banner %}Exenses{% endblock %} {% block body %} {% for
+file in business_expenses %}
+
+<div class="container-fluid expense">
+  <div class=" container-fluid item">
+    <div class="container">
+      <ul>
+        <li id="itemname" class="itemattr" style="font-size: 1.25rem">
+          {{ file.item.name }}
+        </li>
+        <li id="itemcost" class="itemattr">${{ file.item.cost }}</li>
+        <li id="itemcategory" class="itemattr">
+          Category: {{ file.item.category }}
+        </li>
+        <li id="itemdate" class="itemattr">{{ file.date }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endfor %} {% endblock %} {% block addexpense %}
+<center>
+  <section id="addexpense">
+  <div class="container-fluid" style="margin: 25px;">
+    <h4>Enter New Expense</h4>
+    {% from "_formhelpers.html" import render_field %}
+    <form method="post">
+      <dl>
+        {{ render_field(form.item) }}
+        {{ render_field(form.category) }}
+        {{ render_field(form.cost) }}
+        {{ render_field(form.date) }}
+      </dl>
+      <p><input type="submit" value="ADD" /></p>
+    </form>
+  </div>
+</section>
+</center>
+{% endblock %}

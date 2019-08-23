@@ -1,10 +1,21 @@
 {% extends "layout.html" %} 
-    {% block form %}<form action="/get_expenses" method="GET">
+    {% block form %}
+    <center>
+    <form action="/get_expenses" method="GET" style="padding: 15px">
       <button type="submit">Check Expenses</button>
     </form>
+  </center>
     {% endblock %}
     {% block banner %}Income{% endblock %}
 {% block body %}
+<center>
+<title style="padding: 15px">Upload new File</title>
+<h1>Upload new File</h1>
+<form method=post enctype=multipart/form-data>
+  <input type=file name=file>
+  <input type=submit value=Upload>
+</form>
+</center>
     {% for file in income_statement %}
     <div class="container-fluid project">
       <div class=" container-fluid client">
