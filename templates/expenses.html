@@ -8,7 +8,7 @@
 
 {% endblock %} {% block banner %}Exenses{% endblock %} {% block body %} {% for
 file in business_expenses %}
-
+<center>
 <div class="container-fluid expense">
   <div class=" container-fluid item">
     <div class="container">
@@ -22,9 +22,10 @@ file in business_expenses %}
         </li>
         <li id="itemdate" class="itemattr">{{ file.date }}</li>
         <li>
-          <form action="{{ url_for('remove_expense') }}" method="post">
-            <input type="hidden" name="object" value={{ file._id }}>
-          <input type="submit" id="object" value="Remove"></input>
+          <form action="/remove_expense" method="post">
+            <input type="hidden" id="objid" name="object" value={{ file._id }}>
+          <input type="submit" id="object" value="Remove">
+        </input>
         </form>
         </li>
 
@@ -32,9 +33,10 @@ file in business_expenses %}
     </div>
   </div>
 </div>
+</center>
 {% endfor %} {% endblock %} {% block addexpense %}
 <center>
-  <section id="addexpense">
+  <section id="addexpense" style="display: flex">
   <div class="container-fluid" style="margin: 25px;">
     <h4>Enter New Expense</h4>
     {% from "_formhelpers.html" import render_field %}

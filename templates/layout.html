@@ -22,9 +22,14 @@
       rel="stylesheet"
     />
     <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet"> 
+    <script
+    type="text/javascript"
+    src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+    crossorigin="anonymous"></script>
     <title>Hone Code LLC</title>
         <!-- script for scroll down arrow -->
-        <script>
+        <script type="text/javascript">
           $(function() {
             $("a[href*=#]").on("click", function(e) {
               e.preventDefault();
@@ -92,11 +97,8 @@
     </div>
     {% block body %} {% endblock %}
     {% block addexpense %}{% endblock %}
-    <script
-    src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-    crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='js/app.js')}}"></script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/app.js')}}"></script>
     
     <link
       rel="stylesheet"

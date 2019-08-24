@@ -7,15 +7,9 @@ import time
 import re
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, redirect, send_from_directory, request, flash, url_for
-from wtforms import Form, StringField, DateField,validators, FileField
+from myForms import ExpenseForm
+from config import SECRET_KEY
 
-
-class ExpenseForm(Form):
- 
-    item = StringField('Item', [validators.Length(min=3, max=35), validators.InputRequired()])
-    category = StringField('Category', [validators.Length(min=3, max=35), validators.InputRequired()])
-    cost = StringField('Cost', [validators.regexp(r'^[1-9][\.\d]*(,\d+)?$'),validators.InputRequired()])
-    date = DateField('Date', default=datetime.date.today)
 
 
 
@@ -25,7 +19,8 @@ app = Flask(__name__)
 UPLOAD_FOLDER = 'static/import'
 ALLOWED_EXTENSIONS = {'xlsx', 'csv', 'xlrd'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.secret_key = b'_5#y274hbnL"F4Q8z\n\xec]/'
+app.secret_key = SECRET_KEY
+
 
 
 def allowed_file(filename):
@@ -68,7 +63,7 @@ def get_expenses():
     form = ExpenseForm(request.form)
     if request.method == 'POST' and form.validate():
         try:
-            honecode.insert_expenses(form.item.data, float(form.cost.data), category=form.category.data, date=form.date.data)
+            honecode.insert_expenses(form.item.data, float(form.cost.data), category=form.category.data, date=datetime.datetime.combine(form.date.data, datetime.datetime.min.time()))
         except:
             honecode.insert_expenses(form.item.data, form.cost.data, category=form.category.data, date=datetime.datetime.combine(form.date.data, datetime.datetime.min.time()))
         return redirect(url_for('get_expenses'))
@@ -94,6 +89,7 @@ def remove_expense():
 
 
     return redirect(url_for('get_expenses'))
+
 
 if __name__ == "__main__":
     app.run(debug=True)

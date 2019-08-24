@@ -14,15 +14,21 @@ if (totalid.innerHTML >= "0") {
   totalid.setAttribute("style", "color:rgba(158, 9, 9);");
 }
 
-totalid.innerHTML = total;
+totalid.innerHTML = total.toFixed(2);
 
-if ($("#message").text() != 'No selected file') {
+if ($("#message").text() != "No selected file") {
   $(".alert").removeClass("alert-danger");
   $(".alert").addClass("alert-primary");
-
 }
-$(".close").click(function(){
+$(".close").click(function () {
   $(".alert").css("display", "none");
-  console.log($("#message").text())
+  console.log($("#message").text());
 });
 
+$(".close").on("click touchend", function (event) {
+  if (event.type == "click") detectTap = true; //detects click events
+  if (detectTap) {
+    $(".alert.alert-dismissable").css("display", "none");
+    console.log($("#message").text());
+  }
+});
