@@ -69,25 +69,12 @@ def get_expenses():
         return redirect(url_for('get_expenses'))
     return render_template('expenses.html', form=form, honecode=honecode, income_statement=honecode.income_statment, business_expenses=honecode.business_expenses)
 
-@app.route('/new_expense', methods=['POST'])
-def new_expense():
-    print('this is where it prints')
-    # honecode = Business()
-    # form = ExpenseForm(request.form)
-    # if request.method == 'POST' and form.validate():
 
-    #     print(form.item.data)
-    #     honecode.insert_expenses(item, cost, category=category, date=date)
-        # return redirect(url_for('get_expenses'))
-    return render_template('expenses.html', form=None)
-
-@app.route('/remove_expense', methods=['POST'])
-def remove_expense():
+@app.route('/remove_expense/<expense>', methods=['POST'])
+def remove_expense(expense):
     honecode = Business()
     if request.method == 'POST':
-        honecode.remove_expense(request.form.get('object'))
-
-
+        honecode.remove_expense(expense)
     return redirect(url_for('get_expenses'))
 
 

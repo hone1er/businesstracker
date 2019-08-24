@@ -21,50 +21,81 @@
       href="https://fonts.googleapis.com/css?family=Righteous|Roboto|Special+Elite&display=swap"
       rel="stylesheet"
     />
-    <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet"> 
+    <link
+      href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap"
+      rel="stylesheet"
+    />
     <script
-    type="text/javascript"
-    src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-    crossorigin="anonymous"></script>
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="http://code.jquery.com/jquery-2.2.0.min.js"
+      type="text/javascript"
+    ></script>
     <title>Hone Code LLC</title>
-        <!-- script for scroll down arrow -->
-        <script type="text/javascript">
-          $(function() {
-            $("a[href*=#]").on("click", function(e) {
-              e.preventDefault();
-              $("html, body").animate(
-                { scrollTop: $($(this).attr("href")).offset().top },
-                500,
-                "linear"
-              );
-            });
-          });
-        </script>
+
+    <script type="text/javascript">
+      function success(result) {
+        alert("Item Removed!");
+      }
+      function sendPost(value) {
+        console.log(value)
+        var data = {
+          item: value,
+        };
+
+        $.ajax({
+          type: "POST",
+          url: "/remove_expense/" + data.item,
+          data: { json: JSON.stringify(data) },
+          success: success,
+        });
+
+          $(`[name=${value}]`).parents("div").css("display", "none");
+          expenses()
+          calculate()
+      }
+    </script>
+    <!-- script for scroll down arrow -->
+    <script type="text/javascript">
+      $(function() {
+        $("a[href*=#]").on("click", function(e) {
+          e.preventDefault();
+          $("html, body").animate(
+            { scrollTop: $($(this).attr("href")).offset().top },
+            500,
+            "linear"
+          );
+        });
+      });
+    </script>
   </head>
 
   <body>
-
     <center>
       <h1 id="main">Hone Code LLC</h1>
     </center>
 
-    {% with messages = get_flashed_messages() %}
-	  {% if messages %}
-	    {% for message in messages %}
-      <div class="alert alert-danger alert-dismissible" runat ="server" id="modalEditError" visible ="false">
-        <button class="close" type="button" data-dismiss="alert">×</button>
-        <strong id="message">{{ message }}</strong> <div id="Div2" runat="server" ></div>
-      </div>
-		{% endfor %}
-	  {% endif %}
-  {% endwith %}
-
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for
+    message in messages %}
+    <div
+      class="alert alert-danger alert-dismissible"
+      runat="server"
+      id="modalEditError"
+      visible="false"
+    >
+      <button class="close" type="button" data-dismiss="alert">×</button>
+      <strong id="message">{{ message }}</strong>
+      <div id="Div2" runat="server"></div>
+    </div>
+    {% endfor %} {% endif %} {% endwith %}
 
     <div class="container-fluid wrapper">
       <div class="newexpense">
-        {% block form %}
-        {% endblock %}
+        {% block form %} {% endblock %}
       </div>
       <div class="container totals">
         <div class="container-fluid">
@@ -95,11 +126,13 @@
         <h1 class="clienthead">{% block banner %}{% endblock %}</h1>
       </div>
     </div>
-    {% block body %} {% endblock %}
-    {% block addexpense %}{% endblock %}
+    {% block body %} {% endblock %} {% block addexpense %}{% endblock %}
 
-    <script type="text/javascript" src="{{ url_for('static', filename='js/app.js')}}"></script>
-    
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='js/app.js')}}"
+    ></script>
+
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"

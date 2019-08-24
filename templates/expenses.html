@@ -16,19 +16,14 @@ file in business_expenses %}
         <li id="itemname" class="itemattr" style="font-size: 1.25rem">
           {{ file.item.name }}
         </li>
-        <li id="itemcost" class="itemattr">${{ file.item.cost }}</li>
+        <li id="itemcost" class="itemattr itemcost">${{ file.item.cost }}</li>
         <li id="itemcategory" class="itemattr">
           Category: {{ file.item.category }}
         </li>
         <li id="itemdate" class="itemattr">{{ file.date }}</li>
         <li>
-          <form action="/remove_expense" method="post">
-            <input type="hidden" id="objid" name="object" value={{ file._id }}>
-          <input type="submit" id="object" value="Remove">
-        </input>
-        </form>
+          <input type="button" id="removeobject" name="{{ file._id }}" value="Remove" onclick="sendPost(this.name)">
         </li>
-
       </ul>
     </div>
   </div>
