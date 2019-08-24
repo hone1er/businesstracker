@@ -165,6 +165,13 @@ li{
     color: rgba(158, 9, 9, 0.877);
 }
 
+dt label {
+    font-family: 'Comfortaa', cursive;
+}
+dd input {
+    border-radius: 6px;
+    text-align: center;
+}
 @media only screen and (max-width: 1024px) {
     .client, .item {
         display: flex;

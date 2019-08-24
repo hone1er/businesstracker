@@ -21,6 +21,13 @@ file in business_expenses %}
           Category: {{ file.item.category }}
         </li>
         <li id="itemdate" class="itemattr">{{ file.date }}</li>
+        <li>
+          <form action="{{ url_for('remove_expense') }}" method="post">
+            <input type="hidden" name="object" value={{ file._id }}>
+          <input type="submit" id="object" value="Remove"></input>
+        </form>
+        </li>
+
       </ul>
     </div>
   </div>
@@ -34,8 +41,8 @@ file in business_expenses %}
     <form method="post">
       <dl>
         {{ render_field(form.item) }}
-        {{ render_field(form.category) }}
         {{ render_field(form.cost) }}
+        {{ render_field(form.category) }}
         {{ render_field(form.date) }}
       </dl>
       <p><input type="submit" value="ADD" /></p>

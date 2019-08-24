@@ -7,15 +7,15 @@ import time
 import re
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, redirect, send_from_directory, request, flash, url_for
-from wtforms import Form, StringField, DateTimeField,validators, FileField
+from wtforms import Form, StringField, DateField,validators, FileField
 
 
 class ExpenseForm(Form):
-
-    item = StringField('item', [validators.Length(min=3, max=35), validators.InputRequired()])
-    category = StringField('category', [validators.Length(min=3, max=35), validators.InputRequired()])
-    cost = StringField('cost', [validators.regexp(r'^[1-9][\.\d]*(,\d+)?$'),validators.InputRequired()])
-    date = DateTimeField('date', default=datetime.date.today)
+ 
+    item = StringField('Item', [validators.Length(min=3, max=35), validators.InputRequired()])
+    category = StringField('Category', [validators.Length(min=3, max=35), validators.InputRequired()])
+    cost = StringField('Cost', [validators.regexp(r'^[1-9][\.\d]*(,\d+)?$'),validators.InputRequired()])
+    date = DateField('Date', default=datetime.date.today)
 
 
 
@@ -70,7 +70,7 @@ def get_expenses():
         try:
             honecode.insert_expenses(form.item.data, float(form.cost.data), category=form.category.data, date=form.date.data)
         except:
-            honecode.insert_expenses(form.item.data, form.cost.data, category=form.category.data, date=form.date.data)
+            honecode.insert_expenses(form.item.data, form.cost.data, category=form.category.data, date=datetime.datetime.combine(form.date.data, datetime.datetime.min.time()))
         return redirect(url_for('get_expenses'))
     return render_template('expenses.html', form=form, honecode=honecode, income_statement=honecode.income_statment, business_expenses=honecode.business_expenses)
 
@@ -85,6 +85,15 @@ def new_expense():
     #     honecode.insert_expenses(item, cost, category=category, date=date)
         # return redirect(url_for('get_expenses'))
     return render_template('expenses.html', form=None)
+
+@app.route('/remove_expense', methods=['POST'])
+def remove_expense():
+    honecode = Business()
+    if request.method == 'POST':
+        honecode.remove_expense(request.form.get('object'))
+
+
+    return redirect(url_for('get_expenses'))
 
 if __name__ == "__main__":
     app.run(debug=True)

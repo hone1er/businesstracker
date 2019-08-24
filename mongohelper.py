@@ -2,7 +2,7 @@ import datetime
 import re
 import pandas as pd
 from pymongo import MongoClient
-
+from bson.objectid import ObjectId
 class Business:
     def __init__(self):
         # CONNECT TO MONGODB
@@ -90,5 +90,9 @@ class Business:
 
 
     def insert_expenses(self, item_name, cost, receiptIMG=None, category=None, date=None):
-        self.business_expenses_collection.insert_one({'item': {'name': item_name, 'category': category, 'cost': cost, 'receipt': receiptIMG}, 'date': date})
+      self.business_expenses_collection.insert_one({'item': {'name': item_name, 'category': category, 'cost': cost, 'receipt': receiptIMG}, 'date': date})
 
+    def remove_expense(self, id):
+      found = {"_id": ObjectId(id)}
+      result = self.db.business_expenses.delete_one( found )
+      print(result.deleted_count)
