@@ -37,28 +37,7 @@
     ></script>
     <title>Hone Code LLC</title>
 
-    <script type="text/javascript">
-      function success(result) {
-        alert("Item Removed!");
-      }
-      function sendPost(value) {
-        console.log(value)
-        var data = {
-          item: value,
-        };
 
-        $.ajax({
-          type: "POST",
-          url: "/remove_expense/" + data.item,
-          data: { json: JSON.stringify(data) },
-          success: success,
-        });
-
-          $(`[name=${value}]`).parents("div").css("display", "none");
-          expenses()
-          calculate()
-      }
-    </script>
     <!-- script for scroll down arrow -->
     <script type="text/javascript">
       $(function() {
