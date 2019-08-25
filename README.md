@@ -48,3 +48,6 @@ You're all set!
 ## Meta
 
 Joseph Villavicencio – [@Hone1er](https://twitter.com/hone1er)
+
+                    GNU GENERAL PUBLIC LICENSE
+                       Version 3, 29 June 2007
