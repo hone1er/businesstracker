@@ -2,7 +2,7 @@
     {% block form %}
     <center>
     <form action="/get_expenses" method="GET" style="padding: 15px">
-      <button type="submit">Check Expenses</button>
+      <button type="submit" class="btn btn-primary">Check Expenses</button>
     </form>
   </center>
     {% endblock %}
@@ -13,7 +13,9 @@
 <h1>Upload new File</h1>
 <form method=post enctype=multipart/form-data>
   <input type=file name=file>
-  <input type=submit value=Upload>
+  <br>
+  <br>
+  <button type=submit class="btn btn-success" value=Upload style="margin-bottom: 15px">Upload</button>
 </form>
 </center>
     {% for file in income_statement %}

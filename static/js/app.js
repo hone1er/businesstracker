@@ -7,7 +7,7 @@ function sendPost(value) {
   var data = {
     item: value,
   };
-  
+
   $.ajax({
     type: "POST",
     url: "/remove_expense/" + data.item,
@@ -35,13 +35,14 @@ function calculate() {
   });
 
   totalid = document.getElementById("profitloss");
-  if (totalid.innerHTML >= "0") {
-    totalid.setAttribute("style", "color:#222");
+
+  if ( total >= 0) {
+    totalid.style.color = "green";
   } else {
-    totalid.setAttribute("style", "color:rgba(158, 9, 9);");
+    totalid.style.color = "rgba(158, 9, 9)";
   }
 
-  totalid.innerHTML = total.toFixed(2);
+  totalid.innerHTML = '$'+total.toFixed(2);
 }
 
 //// DOES CALCULATION TO CHANGE EXPENSES VALUE WHEN AN EXPENSE IS REMOVED
@@ -61,7 +62,7 @@ function removeExpenses() {
         }
       };
   console.log(total)
-  $('#totalexpenses').text(total)
+  $('#totalexpenses').text('$'+total*(-1))
 }
 
 //// IF FILE UPLOAD IS SUCCESSFUL, SET THE CLASS OF THE BANNER TO ALERT-PRIMARY TO SHOW BLUE BANNER
@@ -87,4 +88,11 @@ $(".close").on("click touchend", function(event) {
 });
 
 calculate()
+
+let item =  document.getElementsByClassName('itemcost') 
+for (let i = 0; i < item.length; i++) {
+  const element = item[i];
+  element.innerText = element.innerText.replace('$-', "$")
+  
+}
 

@@ -61,14 +61,15 @@
     {% with messages = get_flashed_messages() %} {% if messages %} {% for
     message in messages %}
     <div
-      class="alert alert-danger alert-dismissible"
+      class="alert alert-danger alert-dismissible fade show"
       runat="server"
       id="modalEditError"
       visible="false"
     >
-      <button class="close" type="button" data-dismiss="alert">×</button>
       <strong id="message">{{ message }}</strong>
-      <div id="Div2" runat="server"></div>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     {% endfor %} {% endif %} {% endwith %}
 
@@ -92,7 +93,7 @@
         <div class="container-fluid">
           <h3 class="expenses">Expenses</h3>
           {% for total in honecode.expenses %}
-          <p id="totalexpenses">$-{{ total.totalAmount }}</p>
+          <p id="totalexpenses">${{ total.totalAmount }}</p>
           {% endfor %}
         </div>
 

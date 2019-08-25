@@ -12,8 +12,6 @@ from config import SECRET_KEY
 
 
 
-
-
 app = Flask(__name__)
 
 UPLOAD_FOLDER = 'static/import'
@@ -63,7 +61,7 @@ def get_expenses():
     form = ExpenseForm(request.form)
     if request.method == 'POST' and form.validate():
         try:
-            honecode.insert_expenses(form.item.data, float(form.cost.data), category=form.category.data, date=datetime.datetime.combine(form.date.data, datetime.datetime.min.time()))
+            honecode.insert_expenses(form.item.data, float(form.cost.data)*-(1), category=form.category.data, date=datetime.datetime.combine(form.date.data, datetime.datetime.min.time()))
         except:
             honecode.insert_expenses(form.item.data, form.cost.data, category=form.category.data, date=datetime.datetime.combine(form.date.data, datetime.datetime.min.time()))
         return redirect(url_for('get_expenses'))
@@ -80,9 +78,3 @@ def remove_expense(expense):
 
 if __name__ == "__main__":
     app.run(debug=True)
-    #honecode.insert_income('Argos Digital', 'Python Automation/Web Scraper', 275, ref_id=253909066, fee=27.5, platform="UpWork", date=datetime.datetime(2019,8,28))
-    # honecode.insert_expenses('27" Imac', '2099.19', category='computer/electronics', date=datetime.datetime(2019, 8, 16))
-    # honecode.insert_expenses('Legal Zoom', '368', category='business', date=datetime.datetime(2019, 8, 14))
-    # honecode.insert_expenses('Legal Zoom RA Renewal', '159', category='business', date=datetime.datetime(2019, 8, 14))
-    # honecode.insert_expenses('DevCard - Bootstrap 4 theme', '29', category='dev tools', date=datetime.datetime(2019, 8, 21))
-    

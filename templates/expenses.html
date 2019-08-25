@@ -1,28 +1,32 @@
 {% extends "layout.html" %} {% block form %}
 <center style="margin-bottom: 20px;">
   <form action="/" method="GET">
-    <button type="submit" style="margin-bottom: 25px;margin-top: 25px;">Check Income</button>
+    <button type="submit" class="btn btn-primary" style="margin-bottom: 25px;margin-top: 25px;">Check Income</button>
   </form>
-  <a href="#addexpense" class="button">Add Expense</a>
+  <a href="#addexpense"><button class="btn btn-outline-primary">Add Expense</button></a>
 </center>
 
-{% endblock %} {% block banner %}Exenses{% endblock %} {% block body %} {% for
-file in business_expenses %}
+{% endblock %} 
+{% block banner %}
+Expenses
+{% endblock %} 
+{% block body %} 
+{% for doc in business_expenses %}
 <center>
 <div class="container-fluid expense">
   <div class=" container-fluid item">
     <div class="container">
       <ul>
         <li id="itemname" class="itemattr" style="font-size: 1.25rem">
-          {{ file.item.name }}
+          {{ doc.item.name }}
         </li>
-        <li id="itemcost" class="itemattr itemcost">${{ file.item.cost }}</li>
+        <li id="itemcost" class="itemattr itemcost">${{ doc.item.cost }}</li>
         <li id="itemcategory" class="itemattr">
-          Category: {{ file.item.category }}
+          Category: {{ doc.item.category }}
         </li>
-        <li id="itemdate" class="itemattr">{{ file.date }}</li>
+        <li id="itemdate" class="itemattr">{{ doc.date }}</li>
         <li>
-          <input type="button" id="removeobject" name="{{ file._id }}" value="Remove" onclick="sendPost(this.name)">
+          <button type="button" id="removeobject" class="btn btn-outline-danger" name="{{ doc._id }}" value="Remove" onclick="sendPost(this.name)">Remove</button>
         </li>
       </ul>
     </div>
@@ -42,7 +46,7 @@ file in business_expenses %}
         {{ render_field(form.category) }}
         {{ render_field(form.date) }}
       </dl>
-      <p><input type="submit" value="ADD" /></p>
+      <button type="submit" class="btn btn-primary">Add</button>
     </form>
   </div>
 </section>

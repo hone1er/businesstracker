@@ -94,26 +94,7 @@ li{
     list-style: none;
     line-height: 2.25rem;
 }
-.button {
-    margin: 20px;
-    width: 134px;
-    text-decoration: none;
-    background-color: #EEEEEE;
-    color: #333333;
-    padding: 4px 13px 4px 13px;
-    border-top: 1px solid #CCCCCC;
-    border-right: 1px solid #333333;
-    border-bottom: 1px solid #333333;
-    border-left: 1px solid #CCCCCC;
-    -webkit-appearance: button;
-    -webkit-appearance: default-button
 
-}
-.button:hover {
-    text-decoration: none;
-    color: #333333;
-    cursor: default;
-}
 
 #jobname, #itemcost {
     color: #222;
