@@ -33,8 +33,12 @@ flask run
 
 You're all set!
 
+
+## Expenses
 ![](gitimg/img1.png)
 
+
+## Income
 ![](gitimg/img2.png)
 
 ## Release History
