@@ -19,6 +19,7 @@ pip install -r requirements.txt
 ```
 in your shell
 
+- You will also need to install MongoDB. https://docs.mongodb.com/manual/administration/install-community/
 - Make sure you are in the directory where app.py is located 
 
 
