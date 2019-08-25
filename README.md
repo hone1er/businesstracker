@@ -18,7 +18,6 @@ in your shell
 
 - Make sure you are in the directory where app.py is located 
 
-![](images/path.PNG)
 
 - Run the following command
 
