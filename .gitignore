@@ -1,7 +1,11 @@
 config.py
 .ipynb_checkpoints
 __pycache__
-__pycache__/app.cpython-37.pyc
-__pycache__/config.cpython-37.pyc
-__pycache__/mongohelper.cpython-37.pyc
-__pycache__/myForms.cpython-37.pyc
+app.cpython-37.pyc
+config.cpython-37.pyc
+mongohelper.cpython-37.pyc
+myForms.cpython-37.pyc
+app.cpython-37.pyc
+config.cpython-37.pyc
+mongohelper.cpython-37.pyc
+myForms.cpython-37.pyc

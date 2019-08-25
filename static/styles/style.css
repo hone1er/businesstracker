@@ -9,7 +9,7 @@ html {
 }
 
 .newexpense {
-    border-top: 135px solid rgb(48, 48, 48);
+    border-top: 135px solid rgba(95, 91, 104, 0.856);
     grid-area: expense
 }
 .container-fluid {
