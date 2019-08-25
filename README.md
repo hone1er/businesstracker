@@ -3,10 +3,13 @@
 
 This software is designed to help organize income and expenses, with freelancers in mind. 
 
+## Current features
+- Add income from csv files generated on UpWork.com
+- Add/remove expenses
+- Keep a running total of income, fees, expenses
 
 ## Installation
 
-Windows:
 - Clone this repository to a local directory
 - cd to the directory where requirements.txt is located.
 - Activate your virtualenv.
