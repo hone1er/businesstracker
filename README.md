@@ -33,7 +33,9 @@ flask run
 
 You're all set!
 
+![](gitimg/img1.png)
 
+![](gitimg/img2.png)
 
 ## Release History
 * 0.0.1 init
