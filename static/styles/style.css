@@ -163,11 +163,15 @@ dd input {
     .container-fluid.project {
         padding: 0 9vw;
     }
+    .svghead {
+        height: 300px;
+    }
 }
 
 #main {
     font-family: 'Righteous', cursive;
     padding: 50px;
+    font-size: 200%;
 }
 
 @media only screen and (max-width: 765px) {
@@ -190,6 +194,18 @@ ul {
     font-size: 90%
 }
 
+.svghead {
+    height: 250px;
+}
+#main {
+    margin-top: 25px;
+    font-size: 150%;
+}
+
+#fileinput {
+    margin-left: 5vw;
+}
+
 }
 
 @media only screen and (max-width: 560px) {
@@ -206,5 +222,20 @@ ul {
     }
     .container-fluid { 
         padding: 0 !important
+    }
+
+    .svghead {
+        height: 150px;
+    }
+    #main {
+        margin-top: 25px;
+        font-size: 100%;
+    }
+    #newfile {
+        font-size: 100%;
+    }
+
+    #fileinput {
+        margin-left: 15vw;
     }
 }

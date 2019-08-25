@@ -55,7 +55,12 @@
 
   <body>
     <center>
-      <h1 id="main">Hone Code LLC</h1>
+      <h1 id="main">
+        Hone Code LLC
+     </h1>
+     {% block svgimg %}
+
+     {% endblock %}
     </center>
 
     {% with messages = get_flashed_messages() %} {% if messages %} {% for
@@ -107,7 +112,7 @@
       </div>
     </div>
     {% block body %} {% endblock %} {% block addexpense %}{% endblock %}
-
+    <footer style="margin-top: 45px"></footer>
     <script
       type="text/javascript"
       src="{{ url_for('static', filename='js/app.js')}}"

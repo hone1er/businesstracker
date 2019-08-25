@@ -1,4 +1,8 @@
 {% extends "layout.html" %} 
+
+{% block svgimg %}
+<img class="svghead" height="400px" src="{{ url_for('static', filename='images/invoices.svg') }}" alt="" srcset="">
+{% endblock %}
     {% block form %}
     <center>
     <form action="/get_expenses" method="GET" style="padding: 15px">
@@ -10,12 +14,12 @@
 {% block body %}
 <center>
 <title style="padding: 15px">Upload new File</title>
-<h1>Upload new File</h1>
+<h1 id="newfile">Upload new File</h1>
 <form method=post enctype=multipart/form-data>
-  <input type=file name=file>
+  <input id="fileinput" type=file name=file>
   <br>
   <br>
-  <button type=submit class="btn btn-success" value=Upload style="margin-bottom: 15px">Upload</button>
+  <button type=submit class="btn btn-outline-success" value=Upload style="margin-bottom: 15px">Upload</button>
 </form>
 </center>
     {% for file in income_statement %}

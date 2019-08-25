@@ -1,11 +1,16 @@
-{% extends "layout.html" %} {% block form %}
+{% extends "layout.html" %} 
+{% block svgimg %}
+<img class="svghead" height="400px" src="{{ url_for('static', filename='images/expenses.svg') }}" alt="" srcset="">
+{% endblock %}
+{% block form %}
 <center style="margin-bottom: 20px;">
+  
+
   <form action="/" method="GET">
     <button type="submit" class="btn btn-primary" style="margin-bottom: 25px;margin-top: 25px;">Check Income</button>
   </form>
   <a href="#addexpense"><button class="btn btn-outline-primary">Add Expense</button></a>
 </center>
-
 {% endblock %} 
 {% block banner %}
 Expenses
@@ -26,7 +31,7 @@ Expenses
         </li>
         <li id="itemdate" class="itemattr">{{ doc.date }}</li>
         <li>
-          <button type="button" id="removeobject" class="btn btn-outline-danger" name="{{ doc._id }}" value="Remove" onclick="sendPost(this.name)">Remove</button>
+          <button type="button" id="removeobject" class="btn btn-outline-danger" name="{{ doc._id }}" value="Remove"  onclick="sendPost(this.name)">Remove</button>
         </li>
       </ul>
     </div>
