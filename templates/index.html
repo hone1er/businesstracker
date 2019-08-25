@@ -3,6 +3,7 @@
 {% block svgimg %}
 <img class="svghead" height="400px" src="{{ url_for('static', filename='images/invoices.svg') }}" alt="" srcset="">
 {% endblock %}
+<!-- EXPENSES BUTTON -->
     {% block form %}
     <center>
     <form action="/get_expenses" method="GET" style="padding: 15px">
@@ -10,8 +11,15 @@
     </form>
   </center>
     {% endblock %}
+    <!-- END EXPENSES BUTTON -->
+
+    <!-- BANNER -->
     {% block banner %}Income{% endblock %}
+    <!-- END BANNER -->
+
+
 {% block body %}
+<!-- UPLOAD FILE -->
 <center>
 <title style="padding: 15px">Upload new File</title>
 <h1 id="newfile">Upload new File</h1>
@@ -22,6 +30,9 @@
   <button type=submit class="btn btn-outline-success" value=Upload style="margin-bottom: 15px">Upload</button>
 </form>
 </center>
+<!-- END UPLOAD FILE -->
+
+<!-- INCOME LIST -->
     {% for file in income_statement %}
     <div class="container-fluid project">
       <div class=" container-fluid client">
@@ -52,5 +63,6 @@
       </div>
     </div>
     {% endfor %}
+<!-- END INCOME LIST -->
 {% endblock %}
 

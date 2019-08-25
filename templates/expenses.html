@@ -1,21 +1,29 @@
 {% extends "layout.html" %} 
+
 {% block svgimg %}
 <img class="svghead" height="400px" src="{{ url_for('static', filename='images/expenses.svg') }}" alt="" srcset="">
 {% endblock %}
+
+<!-- CHECK INCOME AND ADD EXPENSE BUTTONS -->
 {% block form %}
 <center style="margin-bottom: 20px;">
-  
-
   <form action="/" method="GET">
     <button type="submit" class="btn btn-primary" style="margin-bottom: 25px;margin-top: 25px;">Check Income</button>
   </form>
   <a href="#addexpense"><button class="btn btn-outline-primary">Add Expense</button></a>
 </center>
 {% endblock %} 
+<!-- END INCOME EXPENSE BUTTONS -->
+
+<!-- BANNER -->
 {% block banner %}
 Expenses
 {% endblock %} 
+<!-- END BANNER -->
+
 {% block body %} 
+
+<!-- BUSINESS EXPENSE LIST -->
 {% for doc in business_expenses %}
 <center>
 <div class="container-fluid expense">
@@ -38,7 +46,11 @@ Expenses
   </div>
 </div>
 </center>
-{% endfor %} {% endblock %} {% block addexpense %}
+{% endfor %} {% endblock %} 
+<!-- END BUSINESS EXPENSE LIST -->
+
+<!-- ADD EXPENSE FORM  -->
+{% block addexpense %}
 <center>
   <section id="addexpense" style="display: flex">
   <div class="container-fluid" style="margin: 25px;">
@@ -57,3 +69,4 @@ Expenses
 </section>
 </center>
 {% endblock %}
+ <!-- END ADD EXPENSE FORM -->

@@ -1,3 +1,24 @@
+
+    # TRACK EXPENSES AND INCOME WITH BUSINESS TRACKER
+    # Copyright (C) 2019  Joseph Villavicencio
+
+    # This program is free software: you can redistribute it and/or modify
+    # it under the terms of the GNU General Public License as published by
+    # the Free Software Foundation, either version 3 of the License, or
+    # (at your option) any later version.
+
+    # This program is distributed in the hope that it will be useful,
+    # but WITHOUT ANY WARRANTY; without even the implied warranty of
+    # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    # GNU General Public License for more details.
+
+    # You should have received a copy of the GNU General Public License
+    # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+
+
+
 from pymongo import MongoClient, ASCENDING
 import datetime
 from mongohelper import Business
@@ -11,14 +32,12 @@ from myForms import ExpenseForm
 from config import SECRET_KEY
 
 
-
 app = Flask(__name__)
 
 UPLOAD_FOLDER = 'static/import'
 ALLOWED_EXTENSIONS = {'xlsx', 'csv', 'xlrd'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = SECRET_KEY
-
 
 
 def allowed_file(filename):
@@ -30,7 +49,7 @@ def allowed_file(filename):
 def index():
     honecode = Business()
     if request.method == 'POST':
-    # check if the post request has the file part
+        # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
             return redirect(request.url)
@@ -50,20 +69,17 @@ def index():
     return render_template('index.html', honecode=honecode, income_statement=honecode.income_statment, business_expenses=honecode.business_expenses)
 
 
-# @app.route('/uploads/<filename>')
-# def uploaded_file(filename):
-#     return send_from_directory(app.config['UPLOAD_FOLDER'],
-#                                filename)
-
-@app.route('/get_expenses', methods=['GET','POST'])
+@app.route('/get_expenses', methods=['GET', 'POST'])
 def get_expenses():
     honecode = Business()
     form = ExpenseForm(request.form)
     if request.method == 'POST' and form.validate():
         try:
-            honecode.insert_expenses(form.item.data, float(form.cost.data)*-(1), category=form.category.data, date=datetime.datetime.combine(form.date.data, datetime.datetime.min.time()))
+            honecode.insert_expenses(form.item.data, float(form.cost.data)*-(1), category=form.category.data,
+                                     date=datetime.datetime.combine(form.date.data, datetime.datetime.min.time()))
         except:
-            honecode.insert_expenses(form.item.data, form.cost.data, category=form.category.data, date=datetime.datetime.combine(form.date.data, datetime.datetime.min.time()))
+            honecode.insert_expenses(form.item.data, form.cost.data, category=form.category.data,
+                                     date=datetime.datetime.combine(form.date.data, datetime.datetime.min.time()))
         return redirect(url_for('get_expenses'))
     return render_template('expenses.html', form=form, honecode=honecode, income_statement=honecode.income_statment, business_expenses=honecode.business_expenses)
 
