@@ -1,5 +1,6 @@
 config.py
 .ipynb_checkpoints
+.vscode
 __pycache__
 app.cpython-37.pyc
 config.cpython-37.pyc

@@ -5,16 +5,12 @@
 {% endblock %}
 
 
-<!-- BANNER -->
-{% block banner %}
-Expenses
-{% endblock %} 
-<!-- END BANNER -->
+
 
 <!-- CHECK INCOME AND ADD EXPENSE BUTTONS -->
 {% block form %}
 <center style="margin-bottom: 20px;">
-  <form action="/" method="GET">
+  <form action="/income" method="GET">
     <button type="submit" class="btn btn-primary" style="margin-bottom: 25px;margin-top: 25px;">Check Income</button>
   </form>
   <a href="#addexpense"><button class="btn btn-outline-success">Add Expense</button></a>
@@ -23,6 +19,42 @@ Expenses
 <!-- END INCOME EXPENSE BUTTONS -->
 
 {% block body %} 
+
+<!-- TOTAL EXPENSE HEADER -->
+<div class="container-fluid wrapper">
+  <div class="newexpense">
+
+  </div>
+  <div class="container totals">
+    <div class="container-fluid">
+      <h3 class="income">Income</h3>
+      {% for total in honecode.income %}
+      <p id="totalincome">${{ total.totalAmount }}</p>
+      {% endfor %}
+    </div>
+    <div class="container-fluid">
+      <h3 class="fees">Fees</h3>
+      {% for total in honecode.total_fees %}
+      <p id="totalfees">${{ total.totalAmount }}</p>
+      {% endfor %}
+    </div>
+    <div class="container-fluid">
+      <h3 class="expenses">Expenses</h3>
+      {% for total in honecode.expenses %}
+      <p id="totalexpenses">${{ total.totalAmount }}</p>
+      {% endfor %}
+    </div>
+
+    <div class="container-fluid">
+      <h3>Profit/Loss</h3>
+      <p id="profitloss"></p>
+    </div>
+  </div>
+  <div class="headc">
+    <h1 class="clienthead">Expenses</h1>
+  </div>
+</div>
+<!-- END TOTAL EXPENSE HEADER -->
 
 <!-- BUSINESS EXPENSE LIST -->
 {% for doc in business_expenses %}

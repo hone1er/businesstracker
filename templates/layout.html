@@ -59,7 +59,7 @@
         Hone Code LLC
      </h1>
      {% block svgimg %}
-
+<!-- IMAGE BLOCK -->
      {% endblock %}
     </center>
 
@@ -80,43 +80,15 @@
     {% endfor %} {% endif %} {% endwith %}
 <!-- END MESSAGE FLASH -->
 
-<!-- TOTAL EXPENSE HEADER -->
-    <div class="container-fluid wrapper">
-      <div class="newexpense">
-        {% block form %} {% endblock %}
-      </div>
-      <div class="container totals">
-        <div class="container-fluid">
-          <h3 class="income">Income</h3>
-          {% for total in honecode.income %}
-          <p id="totalincome">${{ total.totalAmount }}</p>
-          {% endfor %}
-        </div>
-        <div class="container-fluid">
-          <h3 class="fees">Fees</h3>
-          {% for total in honecode.total_fees %}
-          <p id="totalfees">${{ total.totalAmount }}</p>
-          {% endfor %}
-        </div>
-        <div class="container-fluid">
-          <h3 class="expenses">Expenses</h3>
-          {% for total in honecode.expenses %}
-          <p id="totalexpenses">${{ total.totalAmount }}</p>
-          {% endfor %}
-        </div>
-
-        <div class="container-fluid">
-          <h3>Profit/Loss</h3>
-          <p id="profitloss"></p>
-        </div>
-      </div>
-      <div class="headc">
-        <h1 class="clienthead">{% block banner %}{% endblock %}</h1>
-      </div>
-    </div>
-<!-- END TOTAL EXPENSE HEADER -->
-    {% block body %} {% endblock %} 
-    {% block addexpense %}{% endblock %}
+    {% block form %}
+<!-- FORM BLOCK -->
+    {% endblock %}
+    {% block body %} 
+    <!-- BODY BLOCK -->
+    {% endblock %} 
+    {% block addexpense %}
+    <!-- ADD EXPENSE FORM BLOCK -->
+    {% endblock %}
     <footer style="margin-top: 45px"></footer>
     <script
       type="text/javascript"

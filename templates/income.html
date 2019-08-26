@@ -13,12 +13,46 @@
     {% endblock %}
     <!-- END EXPENSES BUTTON -->
 
-    <!-- BANNER -->
-    {% block banner %}Income{% endblock %}
-    <!-- END BANNER -->
 
 
 {% block body %}
+
+<!-- TOTAL EXPENSE HEADER -->
+<div class="container-fluid wrapper">
+  <div class="newexpense">
+  </div>
+  <div class="container totals">
+    <div class="container-fluid">
+      <h3 class="income">Income</h3>
+      {% for total in honecode.income %}
+      <p id="totalincome">${{ total.totalAmount }}</p>
+      {% endfor %}
+    </div>
+    <div class="container-fluid">
+      <h3 class="fees">Fees</h3>
+      {% for total in honecode.total_fees %}
+      <p id="totalfees">${{ total.totalAmount }}</p>
+      {% endfor %}
+    </div>
+    <div class="container-fluid">
+      <h3 class="expenses">Expenses</h3>
+      {% for total in honecode.expenses %}
+      <p id="totalexpenses">${{ total.totalAmount }}</p>
+      {% endfor %}
+    </div>
+
+    <div class="container-fluid">
+      <h3>Profit/Loss</h3>
+      <p id="profitloss"></p>
+    </div>
+  </div>
+  <div class="headc">
+    <h1 class="clienthead">Income</h1>
+  </div>
+</div>
+<!-- END TOTAL EXPENSE HEADER -->
+
+
 <!-- UPLOAD FILE -->
 <center>
 <title style="padding: 15px">Upload new File</title>

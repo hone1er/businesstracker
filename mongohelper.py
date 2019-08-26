@@ -87,11 +87,38 @@ class Business:
                     self.db.income.insert_one({'client': {'name': client, 'job': {'name': job_description, 'date': date, 'platform': 'UpWork', 'ref_id': job_id}}, 'income': {
                                               'total': income, 'fee': {'amount': fee_amount, 'ref_id': fee_id}, 'net': net}})
 
-    def insert_expenses(self, item_name, cost, receiptIMG=None, category=None, date=None):
+    def insert_expenses(self, form, receiptIMG=None):
         self.business_expenses_collection.insert_one(
-            {'item': {'name': item_name, 'category': category, 'cost': cost, 'receipt': receiptIMG}, 'date': date})
+            {'item': {'name': form.item.data, 'category': form.category.data, 'cost': float(form.cost.data)*-(1), 'receipt': receiptIMG}, 'date': datetime.datetime.combine(form.date.data, datetime.datetime.min.time())})
 
     def remove_expense(self, id):
         found = {"_id": ObjectId(id)}
         result = self.db.business_expenses.delete_one(found)
         print(result.deleted_count)
+
+
+
+class User:
+    def __init__(self, username, email, password, business):
+        # CONNECT TO MONGODB
+        conn = "mongodb://localhost:27017"
+        client = MongoClient(conn)
+        self.db = client.HoneCode
+        self.username = username
+        self.email = email
+        self.password = password
+        self.business = business
+        self.is_active = False
+
+    def add_user(self):
+        self.db.users.insert_one({'username': self.username, 'password': self.password, 'email': self.email, 'business': self.business})
+
+    def find_user(self, email):
+        return self.db.users.find({'email': email})
+
+    def get_id(self):
+        users = self.find_user(self.email)
+        user_id = [user for user in users][0]['_id']
+        print(user_id)
+        return user_id
+
