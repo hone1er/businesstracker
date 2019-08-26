@@ -51,7 +51,12 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-
+##### THIS IS NOT SAVING THE USER AT THE MOMENT ###############
+@login_manager.user_loader
+def load_user(user_id):
+    print(User().get_id(int(user_id)))
+    return User().get_user_by_id(int(user_id))
+    
 ################################################### WORKING ON REGISTRATION AND LOGIN
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -81,6 +86,7 @@ def login():
             if user and bcrypt.check_password_hash(user['password'], form.password.data):
                 user = User(username=user['username'], password=user['password'], email=user['email'], business=user['business'])
                 login_user(user, remember=form.remember.data)
+                print("LOGGED IN")
                 next_page = request.args.get('next')
                 return redirect(next_page) if next_page else redirect(url_for('income'))
             else:

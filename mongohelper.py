@@ -99,7 +99,7 @@ class Business:
 
 
 class User:
-    def __init__(self, username, email, password, business):
+    def __init__(self, username=None, email=None, password=None, business=None):
         # CONNECT TO MONGODB
         conn = "mongodb://localhost:27017"
         client = MongoClient(conn)
@@ -113,12 +113,21 @@ class User:
     def add_user(self):
         self.db.users.insert_one({'username': self.username, 'password': self.password, 'email': self.email, 'business': self.business})
 
-    def find_user(self, email):
-        return self.db.users.find({'email': email})
+    def find_email(self, email):
+        return [user for user in self.db.users.find({'email': email})][0]
 
-    def get_id(self):
-        users = self.find_user(self.email)
-        user_id = [user for user in users][0]['_id']
+    def find_user(self, username):
+        return [user for user in self.db.users.find({'username': username})][0]
+
+    def get_id(self, user_id=None):
+        if user_id == None:
+            users = self.find_email(self.email)
+            user_id = [user for user in users][0]['_id']
+        else:
+            users = self.db.users({'_id': ObjectId(user_id)})
+            user_id = [user for user in users][0]['_id']
         print(user_id)
         return user_id
 
+    def get_user_by_id(self, id):
+        return [user for user in self.db.users.find({'_id': ObjectId(f'{id}')})][0]
