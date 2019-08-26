@@ -4,7 +4,7 @@ import pandas as pd
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 import time
-
+from flask_login import UserMixin
 
 class Business:
     def __init__(self):
@@ -99,27 +99,29 @@ class Business:
 
 
 
-class User:
-    def __init__(self, username=None, email=None, password=None, business=None, idx=None):
+class User(UserMixin):
+    def __init__(self, username=None, email=None, password=None, business=None):
         # CONNECT TO MONGODB
         conn = "mongodb://localhost:27017"
         client = MongoClient(conn)
         self.db = client.HoneCode
         self.username = username
-        self.email = email
-        self.password = password
         self.business = business
-        self.id = idx
-        self.anonymous = True
+        self.password = password
+        self.email = email
 
-    def is_active(self):
+
+    @staticmethod
+    def is_authenticated():
         return True
 
-    def is_authenticated(self):
-        return self.is_authenticated
-
-    def is_anonymous(self):
+    @staticmethod
+    def is_active():
         return True
+
+    @staticmethod
+    def is_anonymous():
+        return False
 
     def add_user(self):
         self.db.users.insert_one({'username': self.username, 'password': self.password, 'email': self.email, 'business': self.business})
@@ -141,9 +143,6 @@ class User:
     def get_name(self):
         return self.username
 
-    def get_business(self):
-        return self.business
 
     def get_id(self):
-        ''' return one user object based on the id '''
-        return self.id
+        return self.username

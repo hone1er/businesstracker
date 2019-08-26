@@ -17,7 +17,6 @@
 
 from pymongo import MongoClient, ASCENDING
 import datetime
-from mongohelper import Business, User
 import os
 import pandas as pd
 import time
@@ -25,9 +24,10 @@ import re
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, redirect, send_from_directory, request, flash, url_for
 from flask_bcrypt import Bcrypt
-from myForms import ExpenseForm, RegistrationForm, LoginForm
 from config import SECRET_KEY
-from flask_login import LoginManager, login_user, current_user, logout_user, login_required
+from flask_login import LoginManager, login_user, current_user, logout_user, login_required, UserMixin
+from myForms import ExpenseForm, RegistrationForm, LoginForm
+from mongohelper import Business, User
 
 
 app = Flask(__name__)
@@ -52,10 +52,14 @@ def allowed_file(filename):
 
 
 ##### THIS IS NOT SAVING THE USER AT THE MOMENT ###############
+
 @login_manager.user_loader
-def load_user(user_id):
-    user = User()
-    return user.get_id(int(user_id))
+def load_user(username):
+    u = db.users.find_one({"username": username})
+    if not u:
+        return None
+    return User(username=u['username'])
+
 ################################################### WORKING ON REGISTRATION AND LOGIN
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -78,15 +82,14 @@ def login():
     honecode = Business()
     form = LoginForm()
     if form.validate_on_submit():
-        users = honecode.db.users.find({'email': form.email.data})
-        for user in users:
-            if user and bcrypt.check_password_hash(user['password'], form.password.data):
-                user = User(username=user['username'], password=user['password'], email=user['email'], business=user['business'])
-                login_user(user, remember=form.remember.data)
-                next_page = request.args.get('next')
-                return redirect(next_page) if next_page else redirect(url_for('income'))
-            else:
-                flash('Login Unsuccessful. Please check email and password', 'danger')
+        user = honecode.db.users.find_one({'email': form.email.data})
+        if user and bcrypt.check_password_hash(user['password'], form.password.data):
+            user = User(username=user['username'], business=user['business'])
+            login_user(user)
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('income'))
+        else:
+            flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
 
 
