@@ -4,22 +4,23 @@
 <img class="svghead" height="400px" src="{{ url_for('static', filename='images/expenses.svg') }}" alt="" srcset="">
 {% endblock %}
 
-<!-- CHECK INCOME AND ADD EXPENSE BUTTONS -->
-{% block form %}
-<center style="margin-bottom: 20px;">
-  <form action="/" method="GET">
-    <button type="submit" class="btn btn-primary" style="margin-bottom: 25px;margin-top: 25px;">Check Income</button>
-  </form>
-  <a href="#addexpense"><button class="btn btn-outline-primary">Add Expense</button></a>
-</center>
-{% endblock %} 
-<!-- END INCOME EXPENSE BUTTONS -->
 
 <!-- BANNER -->
 {% block banner %}
 Expenses
 {% endblock %} 
 <!-- END BANNER -->
+
+<!-- CHECK INCOME AND ADD EXPENSE BUTTONS -->
+{% block form %}
+<center style="margin-bottom: 20px;">
+  <form action="/" method="GET">
+    <button type="submit" class="btn btn-primary" style="margin-bottom: 25px;margin-top: 25px;">Check Income</button>
+  </form>
+  <a href="#addexpense"><button class="btn btn-outline-success">Add Expense</button></a>
+</center>
+{% endblock %} 
+<!-- END INCOME EXPENSE BUTTONS -->
 
 {% block body %} 
 
@@ -63,7 +64,7 @@ Expenses
         {{ render_field(form.category) }}
         {{ render_field(form.date) }}
       </dl>
-      <button type="submit" class="btn btn-primary">Add</button>
+      <button type="submit" class="btn btn-success">Add</button>
     </form>
   </div>
 </section>

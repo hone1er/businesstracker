@@ -17,8 +17,6 @@
 
 
 
-
-
 from pymongo import MongoClient, ASCENDING
 import datetime
 from mongohelper import Business
