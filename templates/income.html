@@ -19,13 +19,18 @@
 <!-- TOTAL EXPENSE HEADER -->
 <div class="container-fluid wrapper">
   <div class="newexpense">
+      
   </div>
-  
   <div class="container totals">
     <div class="container-fluid">
       <h3 class="income">Income</h3>
       {% for total in honecode.income %}
-      <p id="totalincome">${{ total.totalAmount }}</p>
+      <p id="totalincome">${{ total.totalAmount }} 
+        
+        <!-- CURRENT USER HERE FOR TESTING UNTIL LOGIN IS WORKING -->
+          {{ current_user }}
+        <!--  -->
+        </p>
       {% endfor %}
     </div>
     <div class="container-fluid">

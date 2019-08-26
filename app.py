@@ -54,9 +54,8 @@ def allowed_file(filename):
 ##### THIS IS NOT SAVING THE USER AT THE MOMENT ###############
 @login_manager.user_loader
 def load_user(user_id):
-    print(User().get_id(int(user_id)))
-    return User().get_user_by_id(int(user_id))
-    
+    user = User()
+    return user.get_id(int(user_id))
 ################################################### WORKING ON REGISTRATION AND LOGIN
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -67,7 +66,6 @@ def register():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(username=form.username.data, email=form.email.data, password=hashed_password, business=form.business.data)
         user.add_user()
-        user.get_id()
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
@@ -80,13 +78,11 @@ def login():
     honecode = Business()
     form = LoginForm()
     if form.validate_on_submit():
-        print(form.email.data)
         users = honecode.db.users.find({'email': form.email.data})
         for user in users:
             if user and bcrypt.check_password_hash(user['password'], form.password.data):
                 user = User(username=user['username'], password=user['password'], email=user['email'], business=user['business'])
                 login_user(user, remember=form.remember.data)
-                print("LOGGED IN")
                 next_page = request.args.get('next')
                 return redirect(next_page) if next_page else redirect(url_for('income'))
             else:

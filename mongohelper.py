@@ -3,6 +3,7 @@ import re
 import pandas as pd
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+import time
 
 
 class Business:
@@ -94,12 +95,12 @@ class Business:
     def remove_expense(self, id):
         found = {"_id": ObjectId(id)}
         result = self.db.business_expenses.delete_one(found)
-        print(result.deleted_count)
+
 
 
 
 class User:
-    def __init__(self, username=None, email=None, password=None, business=None):
+    def __init__(self, username=None, email=None, password=None, business=None, idx=None):
         # CONNECT TO MONGODB
         conn = "mongodb://localhost:27017"
         client = MongoClient(conn)
@@ -108,26 +109,41 @@ class User:
         self.email = email
         self.password = password
         self.business = business
-        self.is_active = False
+        self.id = idx
+        self.anonymous = True
+
+    def is_active(self):
+        return True
+
+    def is_authenticated(self):
+        return self.is_authenticated
+
+    def is_anonymous(self):
+        return True
 
     def add_user(self):
         self.db.users.insert_one({'username': self.username, 'password': self.password, 'email': self.email, 'business': self.business})
 
     def find_email(self, email):
-        return [user for user in self.db.users.find({'email': email})][0]
+        if self.db.users.count_documents({'email': email.data}) > 0:
+            return 1
+        return None
 
-    def find_user(self, username):
-        return [user for user in self.db.users.find({'username': username})][0]
+    def find_user(self, user):
+        print(user)
+        if self.db.users.count_documents({'username': user.data}) > 0:
+            return 1
+        return None
 
-    def get_id(self, user_id=None):
-        if user_id == None:
-            users = self.find_email(self.email)
-            user_id = [user for user in users][0]['_id']
-        else:
-            users = self.db.users({'_id': ObjectId(user_id)})
-            user_id = [user for user in users][0]['_id']
-        print(user_id)
-        return user_id
+    def get_user(self):
+        return self.username
 
-    def get_user_by_id(self, id):
-        return [user for user in self.db.users.find({'_id': ObjectId(f'{id}')})][0]
+    def get_name(self):
+        return self.username
+
+    def get_business(self):
+        return self.business
+
+    def get_id(self):
+        ''' return one user object based on the id '''
+        return self.id
