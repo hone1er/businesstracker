@@ -125,7 +125,7 @@ def income():
             return redirect(url_for('income'))
     # END FILE UPLOAD
     honecode = Business(current_user.username)
-    return render_template('income.html', honecode=honecode, income_statement=honecode.income_statment, business_expenses=honecode.business_expenses)
+    return render_template('income.html', honecode=honecode, income_statement=[], business_expenses=[])
 
 @app.route('/get_expenses', methods=['GET', 'POST'])
 @login_required
@@ -140,7 +140,7 @@ def get_expenses():
         except:
             pass
         return redirect(url_for('get_expenses'))
-    return render_template('expenses.html', form=form, honecode=honecode, income_statement=honecode.income_statment, business_expenses=honecode.business_expenses)
+    return render_template('expenses.html', form=form, honecode=honecode, income_statement=[], business_expenses=[])
 
 
 @app.route('/remove_expense/<expense>', methods=['POST'])
