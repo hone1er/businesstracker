@@ -23,7 +23,7 @@ import re
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, redirect, send_from_directory, request, flash, url_for
 from flask_bcrypt import Bcrypt
-from config import SECRET_KEY
+from config import SECRET_KEY, mongo
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required, UserMixin
 from myForms import ExpenseForm, RegistrationForm, LoginForm
 from mongohelper import Business, User
@@ -40,7 +40,7 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
-client = pymongo.MongoClient("mongodb+srv://hone1er:<password>@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority")
+client = MongoClient(f"mongodb+srv://hone1er:{mongo}@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority")
 db = client.test
 db = client.HoneCode
 
