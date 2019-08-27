@@ -43,6 +43,7 @@ You're all set!
 ![](gitimg/img2.png)
 
 ## Release History
+* 0.0.2 added Users login/registration
 * 0.0.1 init
 
 ## Meta
