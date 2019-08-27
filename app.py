@@ -40,8 +40,8 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
-conn = "mongodb://localhost:27017"
-client = MongoClient(conn)
+client = pymongo.MongoClient("mongodb+srv://hone1er:<password>@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority")
+db = client.test
 db = client.HoneCode
 
 
