@@ -23,7 +23,7 @@ import re
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, redirect, send_from_directory, request, flash, url_for
 from flask_bcrypt import Bcrypt
-from config import SECRET_KEY, mongo
+from config import SECRET_KEY, mongop
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required, UserMixin
 from myForms import ExpenseForm, RegistrationForm, LoginForm
 from mongohelper import Business, User
@@ -40,10 +40,9 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
-client = MongoClient(f"mongodb+srv://hone1er:{mongo}@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority")
-db = client.test
+conn = "mongodb+srv://hone1er:Penalbaby1@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority"
+client = MongoClient(conn)
 db = client.HoneCode
-
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -84,7 +83,7 @@ def login():
         return redirect(url_for('income'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = db.users.find_one({'username': form.username.data})
+        user = db.users.find_one({'email': form.email.data})
         if user and bcrypt.check_password_hash(user['password'], form.password.data):
             user = User(username=user['username'],
                         business=user['business'], email=user['email'])

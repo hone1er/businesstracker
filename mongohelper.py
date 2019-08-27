@@ -10,7 +10,7 @@ from flask_login import UserMixin
 class Business:
     def __init__(self, username):
         # CONNECT TO MONGODB
-        conn = "mongodb://localhost:27017"
+        conn = "mongodb+srv://hone1er:Penalbaby1@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority"
         client = MongoClient(conn)
         self.db = client.HoneCode
         self.username = username
@@ -112,7 +112,7 @@ class Business:
 class User(UserMixin):
     def __init__(self, username=None, email=None, password=None, business=None):
         # CONNECT TO MONGODB
-        conn = "mongodb://localhost:27017"
+        conn = "mongodb+srv://hone1er:Penalbaby1@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority"
         client = MongoClient(conn)
         self.db = client.HoneCode
         self.username = username

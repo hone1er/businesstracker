@@ -32,7 +32,7 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    username = StringField('Username',
+    email = StringField('Email',
                         validators=[validators.DataRequired()])
     password = PasswordField('Password', validators=[
                              validators.DataRequired()])
