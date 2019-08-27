@@ -5,12 +5,12 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 import time
 from flask_login import UserMixin
-
+from config import mongop
 
 class Business:
     def __init__(self, username):
         # CONNECT TO MONGODB
-        conn = "mongodb+srv://hone1er:Penalbaby1@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority"
+        conn = f"mongodb+srv://hone1er:{mongop}@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority"
         client = MongoClient(conn)
         self.db = client.HoneCode
         self.username = username
@@ -96,23 +96,27 @@ class Business:
         self.db.users.update(
             {'username': self.username}, {'$push': {'expenses': {'item_id': ObjectId(), 'name': form.item.data, 'category': form.category.data, 'cost': float(form.cost.data)*-(1), 'receipt': receiptIMG, 'date': datetime.datetime.combine(form.date.data, datetime.datetime.min.time())}}}, upsert=True)
 
-    def remove_expense(self, eid):
-        self.db.users.update(
-            {},
+    def remove_expense(self, eid, db):
+        print(eid)
+        result = db.update_one(
+            {'username': self.username},
             {'$pull': {'expenses': {'item_id': ObjectId(eid)}}}
         )
+        print(result)
 
     def remove_income(self, iid):
-        self.db.users.update(
-            {},
+        result = self.db.users.update(
+            {'username': self.username},
             {'$pull': {'clients': {'job.ref_id': iid}}}
         )
+
+        print(result)
 
 
 class User(UserMixin):
     def __init__(self, username=None, email=None, password=None, business=None):
         # CONNECT TO MONGODB
-        conn = "mongodb+srv://hone1er:Penalbaby1@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority"
+        conn = f"mongodb+srv://hone1er:{mongop}@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority"
         client = MongoClient(conn)
         self.db = client.HoneCode
         self.username = username

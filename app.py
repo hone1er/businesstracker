@@ -40,9 +40,12 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
-conn = "mongodb+srv://hone1er:Penalbaby1@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority"
+conn = f"mongodb+srv://hone1er:{mongop}@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority"
 client = MongoClient(conn)
 db = client.HoneCode
+users = db.users
+
+
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -151,20 +154,16 @@ def get_expenses():
 @login_required
 def remove_expense(expense):
     ''' removes an expense based on the item_id '''
-    print(expense)
-    honecode = Business(current_user.username)
     if request.method == 'POST':
-        honecode.remove_expense(expense)
+        Business(current_user.username).remove_expense(expense, users)
     return redirect(url_for('get_expenses'))
 
 @app.route('/remove_income/<income>', methods=['POST'])
 @login_required
 def remove_income(income):
     ''' removes an incomebased on the item_id '''
-    print(income)
-    honecode = Business(current_user.username)
     if request.method == 'POST':
-        honecode.remove_income(income)
+        Business(current_user.username).remove_income(income)
     return redirect(url_for('income'))
 
 
