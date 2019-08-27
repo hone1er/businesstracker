@@ -1,248 +1,255 @@
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: rgb(255, 255, 255);
-    overflow-x: hidden;
+  font-family: "Roboto", sans-serif;
+  background-color: rgb(255, 255, 255);
+  overflow-x: hidden;
 }
 
 .headc {
-    background-color: rgba(36, 131, 36, 0.829);
--webkit-box-shadow: 0px 8px 15px 0px rgba(50, 50, 50, 0.44);
--moz-box-shadow:    0px 8px 15px 0px rgba(50, 50, 50, 0.44);
-box-shadow:         0px 8px 15px 0px rgba(50, 50, 50, 0.44);
+  background-color: rgba(36, 131, 36, 0.829);
+  -webkit-box-shadow: 0px 8px 15px 0px rgba(50, 50, 50, 0.44);
+  -moz-box-shadow: 0px 8px 15px 0px rgba(50, 50, 50, 0.44);
+  box-shadow: 0px 8px 15px 0px rgba(50, 50, 50, 0.44);
+}
+
+button {
+  box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.35);
+  -webkit-box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.35);
 }
 
 html {
-    font-size: 100%;
+  font-size: 100%;
 }
 
 .newexpense {
-    border-top: 135px solid rgba(95, 91, 104, 0.856);
-    grid-area: expense
+  border-top: 135px solid rgba(95, 91, 104, 0.856);
+  grid-area: expense;
 }
 .container-fluid {
-    justify-content: center;
+  justify-content: center;
 }
 .totals {
-    grid-area: totals;
-    background: white;
-    text-align: center;
-    padding: 150px 0 0px;
-    display: inline-flex;
-    justify-content: center;
+  grid-area: totals;
+  background: white;
+  text-align: center;
+  padding: 150px 0 0px;
+  display: inline-flex;
+  justify-content: center;
 }
 
 .totals div {
-    padding: 0 2vw;
+  padding: 0 2vw;
 }
 
 .totals h3 {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 .headc {
-    grid-area: headc;
-    border-right: 1px solid rgb(255, 255, 255)
-
+  grid-area: headc;
+  border-right: 1px solid rgb(255, 255, 255);
 }
 
- .client, .item {
-    grid-area: client
-
+.client,
+.item {
+  grid-area: client;
 }
 .job {
-    grid-area: job
+  grid-area: job;
 }
 .wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-    'totals totals'
-    'headc headc'
-    'expense expense';
-    grid-gap: 0px;
-    
-    color: rgb(43, 43, 43);
-    padding: 0px;
-    box-shadow: -1px -1px -1px #222;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "totals totals"
+    "headc headc"
+    "expense expense";
+  grid-gap: 0px;
+
+  color: rgb(43, 43, 43);
+  padding: 0px;
+  box-shadow: -1px -1px -1px #222;
 }
 
-
-
-.client, .item {
-    display: inline-flex;
-    justify-content: center;
-    align-items: flex-end;
-    background-color: #f9f9f9;
-    color: rgb(43, 43, 43);
-    border-radius: 0px;
-    font-size: 150%;
-    margin: 1px auto;
+.client,
+.item {
+  display: inline-flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-color: #f9f9f9;
+  color: rgb(43, 43, 43);
+  border-radius: 0px;
+  font-size: 150%;
+  margin: 1px auto;
 }
 
-
-.container-fluid.project, .container-fluid.expense {
-    padding: 0 15vw
+.container-fluid.project,
+.container-fluid.expense {
+  padding: 0 15vw;
 }
-
 
 .headc h1 {
-    box-shadow: 10px, 10px, 10px, #222;
-    color: #f9f9f9;
-    text-align: center;
-    padding: 15px;
-    
-    font-size: 2.25rem;
+  box-shadow: 10px, 10px, 10px, #222;
+  color: #f9f9f9;
+  text-align: center;
+  padding: 15px;
+
+  font-size: 2.25rem;
 }
 
 ul {
-    padding: 0 100px;
+  padding: 0 100px;
 }
-li{ 
-    text-align: left;
-    list-style: none;
-    line-height: 2.25rem;
+li {
+  text-align: left;
+  list-style: none;
+  line-height: 2.25rem;
 }
 
-
-#jobname, #itemcost {
-    color: #222;
-    font-size: 0.9rem
+#jobname,
+#itemcost {
+  color: #222;
+  font-size: 0.9rem;
 }
 
 #itemcost {
-    color: rgb(145, 34, 34);
-    font-size: 1.1rem;
+  color: rgb(145, 34, 34);
+  font-size: 1.1rem;
 }
 
 #income {
-    color: green;
-    font-size: 1rem;
+  color: green;
+  font-size: 1rem;
 }
 
 #fee {
-    color: rgba(158, 9, 9, 0.877);
-    font-size: 0.9rem;
+  color: rgba(158, 9, 9, 0.877);
+  font-size: 0.9rem;
 }
-#jobdate{
-    font-size: 0.8rem;
-    color: rgb(99, 99, 0);
-}
-
-#clientname{
-    color: green;
-    font-size: 1.5rem;
-    text-decoration: underline;
+#jobdate {
+  font-size: 0.8rem;
+  color: rgb(99, 99, 0);
 }
 
-#clientplatform, #itemcategory {
-    font-size: 0.8rem;
+#clientname {
+  color: green;
+  font-size: 1.5rem;
+  text-decoration: underline;
+}
+
+#clientplatform,
+#itemcategory {
+  font-size: 0.8rem;
 }
 
 #itemname {
-    color: rgb(34, 32, 32);
-    text-decoration: underline;
+  color: rgb(34, 32, 32);
+  text-decoration: underline;
 }
 
 #itemdate {
-    font-size: 0.75rem;
+  font-size: 0.75rem;
 }
 
 #totalincome {
-    color: green;
+  color: green;
 }
-#totalfees, #totalexpenses {
-    color: rgba(158, 9, 9, 0.877);
+#totalfees,
+#totalexpenses {
+  color: rgba(158, 9, 9, 0.877);
 }
 
 dt label {
-    font-family: 'Comfortaa', cursive;
+  font-family: "Comfortaa", cursive;
 }
 dd input {
-    border-radius: 6px;
-    text-align: center;
+  border-radius: 6px;
+  text-align: center;
 }
 @media only screen and (max-width: 1024px) {
-    .client, .item {
-        display: flex;
-        justify-content: center;
-        margin: 5px auto;
-    }
+  .client,
+  .item {
+    display: flex;
+    justify-content: center;
+    margin: 5px auto;
+  }
 
-    .container-fluid.project {
-        padding: 0 9vw;
-    }
-    .svghead {
-        height: 300px;
-    }
+  .container-fluid.project {
+    padding: 0 9vw;
+  }
+  .svghead {
+    height: 300px;
+  }
 }
 
 #main {
-    font-family: 'Righteous', cursive;
-    padding: 50px;
-    font-size: 200%;
+  font-family: "Righteous", cursive;
+  padding: 50px;
+  font-size: 200%;
 }
 
 @media only screen and (max-width: 765px) {
+  .container-fluid.project,
+  .container-fluid.expense {
+    padding: 0;
+  }
 
-    .container-fluid.project, .container-fluid.expense {
-        padding: 0;
-    }
-
-ul {
+  ul {
     padding: 0 50px;
-}
-.totals h3 {
+  }
+  .totals h3 {
     font-size: 1rem;
-}
-.totals div {
-    padding: 0 .5vw;
-}
+  }
+  .totals div {
+    padding: 0 0.5vw;
+  }
 
-.item {
-    font-size: 90%
-}
+  .item {
+    font-size: 90%;
+  }
 
-.svghead {
+  .svghead {
     height: 250px;
-}
-#main {
+  }
+  #main {
     margin-top: 25px;
     font-size: 150%;
-}
+  }
 
-#fileinput {
+  #fileinput {
     margin-left: 5vw;
-}
-
+  }
 }
 
 @media only screen and (max-width: 560px) {
-    .client, .item {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin: 5px auto;
-    
-    }
-    
-    .wrapper, .project, .expense{
-        padding: 0px;
-    }
-    .container-fluid { 
-        padding: 0 !important
-    }
+  .client,
+  .item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 5px auto;
+  }
 
-    .svghead {
-        height: 150px;
-    }
-    #main {
-        margin-top: 25px;
-        font-size: 100%;
-    }
-    #newfile {
-        font-size: 100%;
-    }
+  .wrapper,
+  .project,
+  .expense {
+    padding: 0px;
+  }
+  .container-fluid {
+    padding: 0 !important;
+  }
 
-    #fileinput {
-        margin-left: 15vw;
-    }
+  .svghead {
+    height: 150px;
+  }
+  #main {
+    margin-top: 25px;
+    font-size: 100%;
+  }
+  #newfile {
+    font-size: 100%;
+  }
+
+  #fileinput {
+    margin-left: 15vw;
+  }
 }

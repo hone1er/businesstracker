@@ -15,6 +15,7 @@
     <form action="/get_expenses" method="GET" style="padding: 15px">
       <button type="submit" class="btn btn-primary">Check Expenses</button>
     </form>
+    <a href="#addIncome"><button class="btn btn-outline-success">Add Income</button></a>
   </center>
     {% endblock %}
     <!-- END EXPENSES BUTTON -->
@@ -55,8 +56,8 @@
 
 <!-- UPLOAD FILE -->
 <center>
-<title style="padding: 15px">Upload new File</title>
-<h1 id="newfile">Upload new File</h1>
+<title style="padding: 15px">Upload file from UpWork</title>
+<h1 id="newfile">Upload UpWork file or manually enter income below</h1>
 <form method=post enctype=multipart/form-data>
   <input id="fileinput" type=file name=file>
   <br>
@@ -78,10 +79,10 @@
             <li id="clientplatform" class="jobattr">
               Platform: {{ file.job.platform }}
             </li>
+            {% endif %}
             <li>
               <button type="button" id="removeobject" class="btn btn-outline-danger" name="{{ file.job.ref_id }}" value="Remove"  onclick="removeIncome(this.name)">Remove</button>
             </li>
-            {% endif %}
           </ul>
         </div>
         <div class="container">
@@ -103,3 +104,24 @@
 <!-- END INCOME LIST -->
 {% endblock %}
 
+{% block addexpense %}
+<center>
+  <section id="addIncome" style="display: flex">
+  <div class="container-fluid" style="margin: 25px;">
+    <h4>Enter Income</h4>
+    {% from "_formhelpers.html" import render_field %}
+    <form name="newjob" method="post">
+      <dl>
+        {{ render_field(form.client) }}
+        {{ render_field(form.job) }}
+        {{ render_field(form.earnings) }}
+        {{ render_field(form.fees) }}
+        {{ render_field(form.platform) }}
+        {{ render_field(form.date) }}
+      </dl>
+      <button type="submit" class="btn btn-success">Add</button>
+    </form>
+  </div>
+</section>
+</center>
+{% endblock %}

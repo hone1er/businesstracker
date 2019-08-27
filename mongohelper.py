@@ -52,14 +52,6 @@ class Business:
             self.total_fees = 0
             self.total_income = 0
 
-    def insert_income(self, name, job, amount, ref_id=None, fee=None, fee_ref=None, platform=None, date=None):
-        ''' manually insert data '''
-        if name == None or job == None:
-            return
-        if date == None:
-            date = datetime.datetime.utcnow()
-        self.db.users.insert_one({'username': self.username, 'client': {'name': name, 'job': {'name': job, 'date': date, 'platform': platform, 'ref_id': ref_id}}, 'income': {
-            'total': float(amount), 'fee': {'amount': fee, 'ref_id': fee_ref}, 'net': (float(amount)+float(fee))}})
 
     def auto_insert_income(self, csv):
         ''' for csv files downloaded from UpWork '''
@@ -91,18 +83,30 @@ class Business:
                         result = self.db.users.update(
                             {'username': self.username}, {'$push': {'clients': {'name': client, 'job': {'name': job_description, 'date': date, 'platform': 'UpWork', 'ref_id': job_id}, 'income': {
                                 'total': income, 'fee': {'amount': fee_amount, 'ref_id': fee_id}, 'net': net}}}}, upsert=True)
-                        print(result)
+              
     def insert_expenses(self, form, receiptIMG=None):
         self.db.users.update(
             {'username': self.username}, {'$push': {'expenses': {'item_id': ObjectId(), 'name': form.item.data, 'category': form.category.data, 'cost': float(form.cost.data)*-(1), 'receipt': receiptIMG, 'date': datetime.datetime.combine(form.date.data, datetime.datetime.min.time())}}}, upsert=True)
 
+    def add_income(self, form, receiptIMG=None):
+        income = float(form.earnings.data)
+        try:
+            fees = float(form.fees.data)
+        except:
+            fees = 0
+        if form.platform.data == None:
+            print('NONE')
+        net = income - fees
+        self.db.users.update(
+            {'username': self.username}, {'$push': {'clients': {'name': form.client.data, 'job': {'name': form.job.data, 'date': datetime.datetime.combine(form.date.data, datetime.datetime.min.time()), 'platform': form.platform.data, 'ref_id': ObjectId()}, 'income': {'total': income, 'fee': {'amount': fees}, 'net': net}}}}, upsert=True)
+
     def remove_expense(self, eid, db):
-        print(eid)
+
         result = db.update_one(
             {'username': self.username},
             {'$pull': {'expenses': {'item_id': ObjectId(eid)}}}
         )
-        print(result)
+
 
     def remove_income(self, iid):
         result = self.db.users.update(
@@ -110,7 +114,12 @@ class Business:
             {'$pull': {'clients': {'job.ref_id': iid}}}
         )
 
-        print(result)
+        if result['nModified'] == 0:
+            self.db.users.update(
+            {'username': self.username},
+            {'$pull': {'clients': {'job.ref_id': ObjectId(iid)}}}
+        )
+
 
 
 class User(UserMixin):

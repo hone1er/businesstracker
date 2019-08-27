@@ -46,6 +46,20 @@ class ExpenseForm(Form):
         min=3, max=35), validators.InputRequired()])
     category = StringField('Category', [validators.Length(
         min=3, max=35), validators.InputRequired()])
-    cost = StringField('Cost', [validators.regexp(
+    cost  = StringField('Cost', [validators.regexp(
         r'^[1-9][\.\d]*(,\d+)?$'), validators.InputRequired()])
+    date = DateField('Date', default=datetime.date.today)
+
+class IncomeForm(Form):
+
+    client = StringField('Client', [validators.Length(
+        min=3, max=55), validators.InputRequired()])
+    job = StringField('Job', [validators.Length(
+        min=3, max=65), validators.InputRequired()])
+    earnings = StringField('Earnings', [validators.regexp(
+        r'^[1-9][\.\d]*(,\d+)?$'), validators.InputRequired()])
+    fees = StringField('Fees (optional)', [validators.regexp(
+        r'^[1-9][\.\d]*(,\d+)?$'), validators.Optional()])
+    platform = StringField('Platform (optional)', [validators.Length(
+        min=3, max=55), validators.Optional()])
     date = DateField('Date', default=datetime.date.today)
