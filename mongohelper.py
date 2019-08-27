@@ -10,7 +10,7 @@ from config import mongop
 class Business:
     def __init__(self, username):
         # CONNECT TO MONGODB
-        conn = f"mongodb+srv://hone1er:{mongop}@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority"
+        conn = f'mongodb+srv://hone1er:{mongop}@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority'
         client = MongoClient(conn)
         self.db = client.HoneCode
         self.username = username
@@ -93,8 +93,8 @@ class Business:
                                 'total': income, 'fee': {'amount': fee_amount, 'ref_id': fee_id}, 'net': net}}}}, upsert=True)
 
     def insert_expenses(self, form, receiptIMG=None):
-        self.db.users.insert_one(
-            {'username': self.username}, {'$push': {'expenses': {'item_id': ObjectId(), 'name': form.item.data, 'category': form.category.data, 'cost': float(form.cost.data)*-(1), 'receipt': receiptIMG, 'date': datetime.datetime.combine(form.date.data, datetime.datetime.min.time())}}})
+        self.db.users.update(
+            {'username': self.username}, {'$push': {'expenses': {'item_id': ObjectId(), 'name': form.item.data, 'category': form.category.data, 'cost': float(form.cost.data)*-(1), 'receipt': receiptIMG, 'date': datetime.datetime.combine(form.date.data, datetime.datetime.min.time())}}}, upsert=True)
 
     def remove_expense(self, eid, db):
         print(eid)
@@ -116,7 +116,7 @@ class Business:
 class User(UserMixin):
     def __init__(self, username=None, email=None, password=None, business=None):
         # CONNECT TO MONGODB
-        conn = f"mongodb+srv://hone1er:{mongop}@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority"
+        conn = f'mongodb+srv://hone1er:{mongop}@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority'
         client = MongoClient(conn)
         self.db = client.HoneCode
         self.username = username

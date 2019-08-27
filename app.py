@@ -31,7 +31,7 @@ from mongohelper import Business, User
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = 'static/import'
+UPLOAD_FOLDER = os.path.join(os.path.dirname('__file__'),'static/import')
 ALLOWED_EXTENSIONS = {'xlsx', 'csv', 'xlrd'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = SECRET_KEY
@@ -40,7 +40,7 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
-conn = f"mongodb+srv://hone1er:{mongop}@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority"
+conn = f'mongodb+srv://hone1er:{mongop}@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority'
 client = MongoClient(conn)
 db = client.HoneCode
 users = db.users
