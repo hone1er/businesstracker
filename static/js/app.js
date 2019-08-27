@@ -35,21 +35,6 @@ function removeIncome(value) {
   });
 
     $(`[name=${value}]`).parents("div").css("display", "none");
-    total = 0
-
-    let item =  document.getElementsByClassName('income') 
-    for (var i=0; i<item.length; i++) {
-      
-      if ($(item[i]).parents("div").css("display") == 'none') {
-        console.log(item[i].innerText.replace(/[^0-9.]/g, ""))
-        item[i] -= parseFloat(item[i].innerText.replace(/[^0-9.]/g, ""));
-      }
-      else {
-        total += parseFloat(item[i].innerText.replace(/[^0-9.]/g, ""));
-      }
-    };
-console.log(total)
-$('#totalincome').text('$'+total*(-1))
     calculate()
 }
 

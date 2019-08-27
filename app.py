@@ -105,7 +105,7 @@ def logout():
 ######################################################################################
 
 
-@app.route('/income', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 @login_required
 def income():
     # FILE UPLOAD

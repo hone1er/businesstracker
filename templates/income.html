@@ -1,5 +1,11 @@
 {% extends "layout.html" %} 
 
+
+{% block logout %}
+<a href="{{ url_for('logout') }}"><button class="btn btn-btn-primary">Logout</button></a>
+{% endblock %}
+
+
 {% block svgimg %}
 <img class="svghead" height="400px" src="{{ url_for('static', filename='images/invoices.svg') }}" alt="" srcset="">
 {% endblock %}

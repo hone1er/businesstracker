@@ -1,5 +1,8 @@
 {% extends "layout.html" %} 
 
+{% block logout %}
+<a href="{{ url_for('logout') }}"><button class="btn btn-btn-primary">Logout</button></a>
+{% endblock %}
 {% block svgimg %}
 <img class="svghead" height="400px" src="{{ url_for('static', filename='images/expenses.svg') }}" alt="" srcset="">
 {% endblock %}
@@ -10,7 +13,7 @@
 <!-- CHECK INCOME AND ADD EXPENSE BUTTONS -->
 {% block form %}
 <center style="margin-bottom: 20px;">
-  <form action="/income" method="GET">
+  <form action="{{ url_for('income') }}" method="GET">
     <button type="submit" class="btn btn-primary" style="margin-bottom: 25px;margin-top: 25px;">Check Income</button>
   </form>
   <a href="#addexpense"><button class="btn btn-outline-success">Add Expense</button></a>
