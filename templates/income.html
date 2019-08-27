@@ -24,26 +24,15 @@
   <div class="container totals">
     <div class="container-fluid">
       <h3 class="income">Income</h3>
-      {% for total in honecode.income %}
-      <p id="totalincome">${{ total.totalAmount }} 
-        
-        <!-- CURRENT USER HERE FOR TESTING UNTIL LOGIN IS WORKING -->
-          {{ current_user.username }}
-        <!--  -->
-        </p>
-      {% endfor %}
+      <p id="totalincome">${{ honecode.total_income }} </p>
     </div>
     <div class="container-fluid">
       <h3 class="fees">Fees</h3>
-      {% for total in honecode.total_fees %}
-      <p id="totalfees">${{ total.totalAmount }}</p>
-      {% endfor %}
+      <p id="totalfees">${{  honecode.total_fees }}</p>
     </div>
     <div class="container-fluid">
       <h3 class="expenses">Expenses</h3>
-      {% for total in honecode.expenses %}
-      <p id="totalexpenses">${{ total.totalAmount }}</p>
-      {% endfor %}
+      <p id="totalexpenses">${{  honecode.total_expenses }}</p>
     </div>
 
     <div class="container-fluid">

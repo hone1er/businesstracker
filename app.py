@@ -58,7 +58,7 @@ def load_user(username):
     u = db.users.find_one({"username": username})
     if not u:
         return None
-    return User(username=u['username'])
+    return User(username=u['username'], business=u['business'], email=u['email'])
 
 ################################################### WORKING ON REGISTRATION AND LOGIN
 @app.route("/register", methods=['GET', 'POST'])
@@ -79,12 +79,11 @@ def register():
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('income'))
-    honecode = Business()
     form = LoginForm()
     if form.validate_on_submit():
-        user = honecode.db.users.find_one({'email': form.email.data})
+        user = db.users.find_one({'email': form.email.data})
         if user and bcrypt.check_password_hash(user['password'], form.password.data):
-            user = User(username=user['username'], business=user['business'])
+            user = User(username=user['username'], business=user['business'], email=user['email'])
             login_user(user)
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('income'))
@@ -93,12 +92,18 @@ def login():
     return render_template('login.html', title='Login', form=form)
 
 
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 ######################################################################################
 
 @app.route('/income', methods=['GET', 'POST'])
+@login_required
 def income():
-    
+    print(current_user.username)
     # FILE UPLOAD
     if request.method == 'POST':
         # check if the post request has the file part
@@ -114,18 +119,18 @@ def income():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            honecode = Business()
+            honecode = Business(current_user.username)
             honecode.auto_insert_income('static/import/'+filename)
             flash("UPLOADED!")
             return redirect(url_for('income'))
     # END FILE UPLOAD
-    honecode = Business()
+    honecode = Business(current_user.username)
     return render_template('income.html', honecode=honecode, income_statement=honecode.income_statment, business_expenses=honecode.business_expenses)
 
-
 @app.route('/get_expenses', methods=['GET', 'POST'])
+@login_required
 def get_expenses():
-    honecode = Business()
+    honecode = Business(current_user.username)
     # CREATE THE ADD EXPENSE FORM USING THE HELPER CLASS FROM myForms.py
     form = ExpenseForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -139,8 +144,9 @@ def get_expenses():
 
 
 @app.route('/remove_expense/<expense>', methods=['POST'])
+@login_required
 def remove_expense(expense):
-    honecode = Business()
+    honecode = Business(current_user.username)
     if request.method == 'POST':
         honecode.remove_expense(expense)
     return redirect(url_for('get_expenses'))

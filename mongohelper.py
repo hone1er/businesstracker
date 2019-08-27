@@ -7,48 +7,30 @@ import time
 from flask_login import UserMixin
 
 class Business:
-    def __init__(self):
+    def __init__(self, username):
         # CONNECT TO MONGODB
         conn = "mongodb://localhost:27017"
         client = MongoClient(conn)
         self.db = client.HoneCode
         self.business_expenses_collection = self.db.business_expenses
         self.income_collection = self.db.income
-        self.income_statment = self.income_collection.find()
-        self.business_expenses = self.business_expenses_collection.find()
+        self.income_statment = self.income_collection.find({'username': username})
+        self.business_expenses = self.business_expenses_collection.find({'username': username})
+        self.username = username
+        self.total_expenses = 0
+        expenses = self.business_expenses_collection.find({'username': username})
+        for expense in expenses:
+            print(expense)
+            self.total_expenses += expense['item']['cost']
+
+        self.total_income = 0
+        for income in self.income_collection.find({'username': username}):
+            self.total_income += income['income']['total']
+    
+        self.total_fees = 0
+        for fee in self.income_collection.find({'username': username}):
+            self.total_fees += fee['income']['fee']['amount']
         
-        self.expenses = self.business_expenses_collection.aggregate([
-            {
-                '$group':
-                {
-                    '_id': {},
-                    'totalAmount': {'$sum': "$item.cost"},
-                    'count': {'$sum': 1}
-                }
-            }
-        ])
-
-        self.income = self.income_collection.aggregate([
-            {
-                '$group':
-                {
-                    '_id': {},
-                    'totalAmount': {'$sum': "$income.total"},
-                    'count': {'$sum': 1}
-                }
-            }
-        ])
-
-        self.total_fees = self.income_collection.aggregate([
-            {
-                '$group':
-                {
-                    '_id': {},
-                    'totalAmount': {'$sum': "$income.fee.amount"},
-                    'count': {'$sum': 1}
-                }
-            }
-        ])
 
     def insert_income(self, name, job, amount, ref_id=None, fee=None, fee_ref=None, platform=None, date=None):
         ''' manually insert data '''
@@ -56,8 +38,8 @@ class Business:
             return
         if date == None:
             date = datetime.datetime.utcnow()
-        self.income_collection.insert_one({'client': {'name': name, 'job': {'name': job, 'date': date, 'platform': platform, 'ref_id': ref_id}}, 'income': {
-                                          'total': float(amount), 'fee': {'amount': fee, 'ref_id': fee_ref}, 'net': (float(amount)-float(fee))}})
+        self.income_collection.insert_one({'username': self.username, 'client': {'name': name, 'job': {'name': job, 'date': date, 'platform': platform, 'ref_id': ref_id}}, 'income': {
+                                          'total': float(amount), 'fee': {'amount': fee, 'ref_id': fee_ref}, 'net': (float(amount)+float(fee))}})
 
     def auto_insert_income(self, csv):
         ''' for csv files downloaded from UpWork '''
@@ -84,17 +66,18 @@ class Business:
                     fee_amount = float(row[4])
                     income = float(df.iloc[idx+1]['Amount'])
                     job_description = df.iloc[idx+1]['Description']
-                    net = float(income) - float(fee_amount)
-                    self.db.income.insert_one({'client': {'name': client, 'job': {'name': job_description, 'date': date, 'platform': 'UpWork', 'ref_id': job_id}}, 'income': {
+                    net = float(income) + float(fee_amount)
+                    self.db.income.insert_one({'username': self.username, 'client': {'name': client, 'job': {'name': job_description, 'date': date, 'platform': 'UpWork', 'ref_id': job_id}}, 'income': {
                                               'total': income, 'fee': {'amount': fee_amount, 'ref_id': fee_id}, 'net': net}})
 
     def insert_expenses(self, form, receiptIMG=None):
         self.business_expenses_collection.insert_one(
-            {'item': {'name': form.item.data, 'category': form.category.data, 'cost': float(form.cost.data)*-(1), 'receipt': receiptIMG}, 'date': datetime.datetime.combine(form.date.data, datetime.datetime.min.time())})
+            {'username': self.username, 'item': {'name': form.item.data, 'category': form.category.data, 'cost': float(form.cost.data)*-(1), 'receipt': receiptIMG}, 'date': datetime.datetime.combine(form.date.data, datetime.datetime.min.time())})
 
     def remove_expense(self, id):
         found = {"_id": ObjectId(id)}
         result = self.db.business_expenses.delete_one(found)
+        print(result)
 
 
 
@@ -132,7 +115,6 @@ class User(UserMixin):
         return None
 
     def find_user(self, user):
-        print(user)
         if self.db.users.count_documents({'username': user.data}) > 0:
             return 1
         return None
