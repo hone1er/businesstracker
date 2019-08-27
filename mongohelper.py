@@ -88,10 +88,10 @@ class Business:
                         income = float(df.iloc[idx+1]['Amount'])
                         job_description = df.iloc[idx+1]['Description']
                         net = float(income) + float(fee_amount)
-                        self.db.users.update(
+                        result = self.db.users.update(
                             {'username': self.username}, {'$push': {'clients': {'name': client, 'job': {'name': job_description, 'date': date, 'platform': 'UpWork', 'ref_id': job_id}, 'income': {
                                 'total': income, 'fee': {'amount': fee_amount, 'ref_id': fee_id}, 'net': net}}}}, upsert=True)
-
+                        print(result)
     def insert_expenses(self, form, receiptIMG=None):
         self.db.users.update(
             {'username': self.username}, {'$push': {'expenses': {'item_id': ObjectId(), 'name': form.item.data, 'category': form.category.data, 'cost': float(form.cost.data)*-(1), 'receipt': receiptIMG, 'date': datetime.datetime.combine(form.date.data, datetime.datetime.min.time())}}}, upsert=True)

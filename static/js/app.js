@@ -1,5 +1,5 @@
 function success(result) {
-  alert("Item Removed!");
+  console.log("Item Removed!");
 }
 
 ///// SENDS POST REQUEST TO REMOVE AN EXPENSE
