@@ -6,6 +6,7 @@ from bson.objectid import ObjectId
 import time
 from flask_login import UserMixin
 
+
 class Business:
     def __init__(self, username):
         # CONNECT TO MONGODB
@@ -13,24 +14,39 @@ class Business:
         client = MongoClient(conn)
         self.db = client.HoneCode
         self.username = username
-
-
-
+        # attempt to retrieve data from MongoDB, if none available, set income_list and expense_list to empty list []
         try:
-            print("ELSE")  
+            self.expense_list = []
+            for i in self.db.users.find({'username': username}):
+                for j in i['expenses']:
+                    self.expense_list.append(j)
+        except:
+            self.expense_list = []
+        try:
+            self.income_list = []
+            for i in self.db.users.find({'username': username}):
+                for j in i['clients']:
+                    self.income_list.append(j)
+        except:
+            self.income_list = []
+
+        # Try calculating expenses, fees, and total. If no figures available, set to 0
+        try:
             expenses = self.db.users.find({'username': username})
             fees = self.db.users.find({'username': username})
             total = self.db.users.find({'username': username})
             for expense in expenses:
-                self.total_expenses = sum([i['cost'] for i in expense['expenses']])
+                self.total_expenses = sum([i['cost']
+                                           for i in expense['expenses']])
 
-    
             for fee in fees:
-                self.total_fees = sum([i['income']['fee']['amount'] for i in fee['clients']])
-    
+                self.total_fees = sum(
+                    [i['income']['fee']['amount'] for i in fee['clients']])
+
             for amount in total:
-                self.total_income = sum([i['income']['total'] for i in amount['clients']])
-            
+                self.total_income = sum([i['income']['total']
+                                         for i in amount['clients']])
+
         except:
             self.total_expenses = 0
             self.total_fees = 0
@@ -43,7 +59,7 @@ class Business:
         if date == None:
             date = datetime.datetime.utcnow()
         self.db.users.insert_one({'username': self.username, 'client': {'name': name, 'job': {'name': job, 'date': date, 'platform': platform, 'ref_id': ref_id}}, 'income': {
-                                          'total': float(amount), 'fee': {'amount': fee, 'ref_id': fee_ref}, 'net': (float(amount)+float(fee))}})
+            'total': float(amount), 'fee': {'amount': fee, 'ref_id': fee_ref}, 'net': (float(amount)+float(fee))}})
 
     def auto_insert_income(self, csv):
         ''' for csv files downloaded from UpWork '''
@@ -72,19 +88,18 @@ class Business:
                     job_description = df.iloc[idx+1]['Description']
                     net = float(income) + float(fee_amount)
                     self.db.users.update(
-            {'username': self.username}, {'$push': { 'clients': {'name': client, 'job': {'name': job_description, 'date': date, 'platform': 'UpWork', 'ref_id': job_id}, 'income': {
-                                              'total': income, 'fee': {'amount': fee_amount, 'ref_id': fee_id}, 'net': net}}}}, upsert=True)
+                        {'username': self.username}, {'$push': {'clients': {'name': client, 'job': {'name': job_description, 'date': date, 'platform': 'UpWork', 'ref_id': job_id}, 'income': {
+                            'total': income, 'fee': {'amount': fee_amount, 'ref_id': fee_id}, 'net': net}}}}, upsert=True)
 
     def insert_expenses(self, form, receiptIMG=None):
         self.db.users.update(
-            {'username': self.username}, {'$push': {'expenses': {'name': form.item.data, 'category': form.category.data, 'cost': float(form.cost.data)*-(1), 'receipt': receiptIMG, 'date': datetime.datetime.combine(form.date.data, datetime.datetime.min.time())}}}, upsert=True)
+            {'username': self.username}, {'$push': {'expenses': {'item_id': ObjectId(), 'name': form.item.data, 'category': form.category.data, 'cost': float(form.cost.data)*-(1), 'receipt': receiptIMG, 'date': datetime.datetime.combine(form.date.data, datetime.datetime.min.time())}}}, upsert=True)
 
-    def remove_expense(self, id):
-        found = {"_id": ObjectId(id)}
-        result = self.db.users.delete_one(found)
-        print(result)
-
-
+    def remove_expense(self, iid):
+        result = self.db.users.update(
+            {},
+            {'$pull': {'expenses': {'item_id': ObjectId(iid)}}}
+        )
 
 
 class User(UserMixin):
@@ -97,7 +112,6 @@ class User(UserMixin):
         self.business = business
         self.password = password
         self.email = email
-
 
     @staticmethod
     def is_authenticated():
@@ -112,7 +126,8 @@ class User(UserMixin):
         return False
 
     def add_user(self):
-        self.db.users.insert_one({'username': self.username, 'password': self.password, 'email': self.email, 'business': self.business})
+        self.db.users.insert_one(
+            {'username': self.username, 'password': self.password, 'email': self.email, 'business': self.business})
 
     def find_email(self, email):
         if self.db.users.count_documents({'email': email.data}) > 0:
@@ -129,7 +144,6 @@ class User(UserMixin):
 
     def get_name(self):
         return self.username
-
 
     def get_id(self):
         return self.username

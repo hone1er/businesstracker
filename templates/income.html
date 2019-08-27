@@ -66,11 +66,11 @@
       <div class=" container-fluid client">
         <div class="container">
           <ul>
-            <li id="clientname" class="jobattr">{{ file.client.name }}</li>
-            {% if file.client.job.platform %}
-            <li id="jobname" class="jobattr">{{ file.client.job.name }}</li>
+            <li id="clientname" class="jobattr">{{ file.name }}</li>
+            {% if file.job.platform %}
+            <li id="jobname" class="jobattr">{{ file.job.name }}</li>
             <li id="clientplatform" class="jobattr">
-              Platform: {{ file.client.job.platform }}
+              Platform: {{ file.job.platform }}
             </li>
             {% endif %}
           </ul>
@@ -84,7 +84,7 @@
               Fees: ${{ file.income.fee.amount }}
             </li>
             <li id="jobdate" class="jobattr">
-              Date: {{ file.client.job.date }}
+              Date: {{ file.job.date }}
             </li>
           </ul>
         </div>

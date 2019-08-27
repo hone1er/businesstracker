@@ -58,15 +58,15 @@
     <div class="container">
       <ul>
         <li id="itemname" class="itemattr" style="font-size: 1.25rem">
-          {{ doc.item.name }}
+          {{ doc.name }}
         </li>
-        <li id="itemcost" class="itemattr itemcost">${{ doc.item.cost }}</li>
+        <li id="itemcost" class="itemattr itemcost">${{ doc.cost }}</li>
         <li id="itemcategory" class="itemattr">
-          Category: {{ doc.item.category }}
+          Category: {{ doc.category }}
         </li>
         <li id="itemdate" class="itemattr">{{ doc.date }}</li>
         <li>
-          <button type="button" id="removeobject" class="btn btn-outline-danger" name="{{ doc._id }}" value="Remove"  onclick="sendPost(this.name)">Remove</button>
+          <button type="button" id="removeobject" class="btn btn-outline-danger" name="{{ doc.item_id }}" value="Remove"  onclick="sendPost(this.name)">Remove</button>
         </li>
       </ul>
     </div>

@@ -1,19 +1,18 @@
+# TRACK EXPENSES AND INCOME WITH BUSINESS TRACKER
+# Copyright (C) 2019  Joseph Villavicencio
 
-    # TRACK EXPENSES AND INCOME WITH BUSINESS TRACKER
-    # Copyright (C) 2019  Joseph Villavicencio
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 
-    # This program is free software: you can redistribute it and/or modify
-    # it under the terms of the GNU General Public License as published by
-    # the Free Software Foundation, either version 3 of the License, or
-    # (at your option) any later version.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 
-    # This program is distributed in the hope that it will be useful,
-    # but WITHOUT ANY WARRANTY; without even the implied warranty of
-    # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    # GNU General Public License for more details.
-
-    # You should have received a copy of the GNU General Public License
-    # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from pymongo import MongoClient, ASCENDING
 import datetime
@@ -51,7 +50,9 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-##### THIS IS NOT SAVING THE USER AT THE MOMENT ###############
+
+
+########### LOGIN/REGISTRATION/LOGOUT ##################
 
 @login_manager.user_loader
 def load_user(username):
@@ -60,15 +61,17 @@ def load_user(username):
         return None
     return User(username=u['username'], business=u['business'], email=u['email'])
 
-################################################### WORKING ON REGISTRATION AND LOGIN
+
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('income'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password, business=form.business.data)
+        hashed_password = bcrypt.generate_password_hash(
+            form.password.data).decode('utf-8')
+        user = User(username=form.username.data, email=form.email.data,
+                    password=hashed_password, business=form.business.data)
         user.add_user()
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
@@ -83,7 +86,8 @@ def login():
     if form.validate_on_submit():
         user = db.users.find_one({'email': form.email.data})
         if user and bcrypt.check_password_hash(user['password'], form.password.data):
-            user = User(username=user['username'], business=user['business'], email=user['email'])
+            user = User(username=user['username'],
+                        business=user['business'], email=user['email'])
             login_user(user)
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('income'))
@@ -100,10 +104,10 @@ def logout():
 
 ######################################################################################
 
+
 @app.route('/income', methods=['GET', 'POST'])
 @login_required
 def income():
-    print(current_user.username)
     # FILE UPLOAD
     if request.method == 'POST':
         # check if the post request has the file part
@@ -125,7 +129,8 @@ def income():
             return redirect(url_for('income'))
     # END FILE UPLOAD
     honecode = Business(current_user.username)
-    return render_template('income.html', honecode=honecode, income_statement=[], business_expenses=[])
+    return render_template('income.html', honecode=honecode, income_statement=honecode.income_list, business_expenses=honecode.expense_list)
+
 
 @app.route('/get_expenses', methods=['GET', 'POST'])
 @login_required
@@ -134,24 +139,23 @@ def get_expenses():
     # CREATE THE ADD EXPENSE FORM USING THE HELPER CLASS FROM myForms.py
     form = ExpenseForm(request.form)
     if request.method == 'POST' and form.validate():
-        # THIS POST REQUEST ADDS AN EXPENSE TO THE DB
+        # THIS POST REQUEST ADDS AN EXPENSE TO THE DB WHEN 'ADD' IS CLICKED ON THE get_expenses PAGE
         try:
             honecode.insert_expenses(form)
         except:
             pass
         return redirect(url_for('get_expenses'))
-    return render_template('expenses.html', form=form, honecode=honecode, income_statement=[], business_expenses=[])
+    return render_template('expenses.html', form=form, honecode=honecode, income_statement=honecode.income_list, business_expenses=honecode.expense_list)
 
 
 @app.route('/remove_expense/<expense>', methods=['POST'])
 @login_required
 def remove_expense(expense):
+    ''' removes an expense based on the item_id '''
     honecode = Business(current_user.username)
     if request.method == 'POST':
         honecode.remove_expense(expense)
     return redirect(url_for('get_expenses'))
-
-
 
 
 if __name__ == "__main__":
