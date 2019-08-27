@@ -3,7 +3,7 @@ function success(result) {
 }
 
 ///// SENDS POST REQUEST TO REMOVE AN EXPENSE
-function sendPost(value) {
+function removeExpense(value) {
   var data = {
     item: value,
   };
@@ -17,6 +17,39 @@ function sendPost(value) {
 
     $(`[name=${value}]`).parents("div").css("display", "none");
     removeExpenses()
+    calculate()
+}
+
+
+///// SENDS POST REQUEST TO REMOVE INCOME
+function removeIncome(value) {
+  var data = {
+    item: value,
+  };
+
+  $.ajax({
+    type: "POST",
+    url: "/remove_income/" + data.item,
+    data: { json: JSON.stringify(data) },
+    success: success,
+  });
+
+    $(`[name=${value}]`).parents("div").css("display", "none");
+    total = 0
+
+    let item =  document.getElementsByClassName('income') 
+    for (var i=0; i<item.length; i++) {
+      
+      if ($(item[i]).parents("div").css("display") == 'none') {
+        console.log(item[i].innerText.replace(/[^0-9.]/g, ""))
+        item[i] -= parseFloat(item[i].innerText.replace(/[^0-9.]/g, ""));
+      }
+      else {
+        total += parseFloat(item[i].innerText.replace(/[^0-9.]/g, ""));
+      }
+    };
+console.log(total)
+$('#totalincome').text('$'+total*(-1))
     calculate()
 }
 
@@ -45,7 +78,7 @@ function calculate() {
   totalid.innerHTML = '$'+total.toFixed(2);
 }
 
-//// DOES CALCULATION TO CHANGE EXPENSES VALUE WHEN AN EXPENSE IS REMOVED
+//// DOES CALCULATION TO CHANGE EXPENSES VALUE IN THE LAYOUT WHEN AN EXPENSE IS REMOVED
 function removeExpenses() {
  
   total = 0

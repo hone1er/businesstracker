@@ -72,15 +72,18 @@
             <li id="clientplatform" class="jobattr">
               Platform: {{ file.job.platform }}
             </li>
+            <li>
+              <button type="button" id="removeobject" class="btn btn-outline-danger" name="{{ file.job.ref_id }}" value="Remove"  onclick="removeIncome(this.name)">Remove</button>
+            </li>
             {% endif %}
           </ul>
         </div>
         <div class="container">
           <ul>
-            <li id="income" class="jobattr">
+            <li id="income" class="jobattr income">
               Income: ${{ file.income.total }}
             </li>
-            <li id="fee" class="jobattr">
+            <li id="fee" class="jobattr fees">
               Fees: ${{ file.income.fee.amount }}
             </li>
             <li id="jobdate" class="jobattr">

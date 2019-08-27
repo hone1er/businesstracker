@@ -82,23 +82,30 @@ class Business:
                     date = datetime.datetime(year, month, day)
                     fee_id = str(row[1])
                     job_id = str(df.iloc[idx+1]['Ref ID'])
-                    client = row[3]
-                    fee_amount = float(row[4])
-                    income = float(df.iloc[idx+1]['Amount'])
-                    job_description = df.iloc[idx+1]['Description']
-                    net = float(income) + float(fee_amount)
-                    self.db.users.update(
-                        {'username': self.username}, {'$push': {'clients': {'name': client, 'job': {'name': job_description, 'date': date, 'platform': 'UpWork', 'ref_id': job_id}, 'income': {
-                            'total': income, 'fee': {'amount': fee_amount, 'ref_id': fee_id}, 'net': net}}}}, upsert=True)
+                    if self.db.users.count_documents({'clients.job.ref_id': job_id}) == 0:
+                        client = row[3]
+                        fee_amount = float(row[4])
+                        income = float(df.iloc[idx+1]['Amount'])
+                        job_description = df.iloc[idx+1]['Description']
+                        net = float(income) + float(fee_amount)
+                        self.db.users.update(
+                            {'username': self.username}, {'$push': {'clients': {'name': client, 'job': {'name': job_description, 'date': date, 'platform': 'UpWork', 'ref_id': job_id}, 'income': {
+                                'total': income, 'fee': {'amount': fee_amount, 'ref_id': fee_id}, 'net': net}}}}, upsert=True)
 
     def insert_expenses(self, form, receiptIMG=None):
         self.db.users.update(
             {'username': self.username}, {'$push': {'expenses': {'item_id': ObjectId(), 'name': form.item.data, 'category': form.category.data, 'cost': float(form.cost.data)*-(1), 'receipt': receiptIMG, 'date': datetime.datetime.combine(form.date.data, datetime.datetime.min.time())}}}, upsert=True)
 
-    def remove_expense(self, iid):
-        result = self.db.users.update(
+    def remove_expense(self, eid):
+        self.db.users.update(
             {},
-            {'$pull': {'expenses': {'item_id': ObjectId(iid)}}}
+            {'$pull': {'expenses': {'item_id': ObjectId(eid)}}}
+        )
+
+    def remove_income(self, iid):
+        self.db.users.update(
+            {},
+            {'$pull': {'clients': {'job.ref_id': iid}}}
         )
 
 

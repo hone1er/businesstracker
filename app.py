@@ -51,7 +51,7 @@ def allowed_file(filename):
 
 
 
-
+ 
 ########### LOGIN/REGISTRATION/LOGOUT ##################
 
 @login_manager.user_loader
@@ -84,7 +84,7 @@ def login():
         return redirect(url_for('income'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = db.users.find_one({'email': form.email.data})
+        user = db.users.find_one({'username': form.username.data})
         if user and bcrypt.check_password_hash(user['password'], form.password.data):
             user = User(username=user['username'],
                         business=user['business'], email=user['email'])
@@ -92,7 +92,7 @@ def login():
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('income'))
         else:
-            flash('Login Unsuccessful. Please check email and password', 'danger')
+            flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
 
 
@@ -152,10 +152,21 @@ def get_expenses():
 @login_required
 def remove_expense(expense):
     ''' removes an expense based on the item_id '''
+    print(expense)
     honecode = Business(current_user.username)
     if request.method == 'POST':
         honecode.remove_expense(expense)
     return redirect(url_for('get_expenses'))
+
+@app.route('/remove_income/<income>', methods=['POST'])
+@login_required
+def remove_income(income):
+    ''' removes an incomebased on the item_id '''
+    print(income)
+    honecode = Business(current_user.username)
+    if request.method == 'POST':
+        honecode.remove_income(income)
+    return redirect(url_for('income'))
 
 
 if __name__ == "__main__":
