@@ -74,8 +74,9 @@
         <div class="container">
           <ul>
             <li id="clientname" class="jobattr">{{ file.name }}</li>
+            <li>
+              <li id="jobname" class="jobattr">{{ file.job.name }}</li>
             {% if file.job.platform %}
-            <li id="jobname" class="jobattr">{{ file.job.name }}</li>
             <li id="clientplatform" class="jobattr">
               Platform: {{ file.job.platform }}
             </li>
