@@ -44,7 +44,7 @@ Accepts CSV from UpWork transaction history
 ![](gitimg/img2.png)
 
 
-### Take a look at the latest version here – [@IncomeTracker](http://incometracker.herokuapp.com)
+### Take a look at the latest version here – [IncomeTracker](http://incometracker.herokuapp.com)
 ## Release History
 * 0.1.2 added manual income input, remove expense/income
 * 0.1.1 added Users login/registration
