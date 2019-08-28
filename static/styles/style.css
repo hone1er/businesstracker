@@ -21,6 +21,9 @@ html {
   font-size: 100%;
 }
 
+.jobinput {
+  margin: 64px 0;
+}
 .lowerform {
   -webkit-box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.34);
   -moz-box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.34);
@@ -284,7 +287,7 @@ dd input {
   }
 
   #fileinput {
-    margin-left: 15vw;
+    margin-left: 0vw;
   }
 
   #fileupload {

@@ -97,9 +97,9 @@
 {% block addexpense %}
 <center>
   <section id="addIncome" class="lowerform" style="display: flex">
-  <div class="container-fluid" style="margin: 25px;">
+  <div class="container-fluid">
         <!-- UPLOAD FILE -->
-  <div id="fileupload" style="margin: 15px">
+  <div id="fileupload">
   <title style="padding: 15px">Upload file from UpWork</title>
   <h1 id="newfile">Upload UpWork file or manually enter income below</h1>
   <form method=post enctype=multipart/form-data>
@@ -110,6 +110,7 @@
   </form>
 </div>
   <!-- END UPLOAD FILE -->
+  <div class="jobinput">
     <h4>Enter Income</h4>
     {% from "_formhelpers.html" import render_field %}
     <form name="newjob" method="post">
@@ -123,6 +124,7 @@
       </dl>
       <button type="submit" class="btn btn-success">Add</button>
     </form>
+  </div>
   </div>
 </section>
 </center>
