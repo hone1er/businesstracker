@@ -54,18 +54,7 @@
 <!-- END TOTAL EXPENSE HEADER -->
 
 
-<!-- UPLOAD FILE -->
-<center>
-<title style="padding: 15px">Upload file from UpWork</title>
-<h1 id="newfile">Upload UpWork file or manually enter income below</h1>
-<form method=post enctype=multipart/form-data>
-  <input id="fileinput" type=file name=file>
-  <br>
-  <br>
-  <button type=submit class="btn btn-outline-success" value=Upload style="margin-bottom: 15px">Upload</button>
-</form>
-</center>
-<!-- END UPLOAD FILE -->
+
 
 <!-- INCOME LIST -->
     {% for file in income_statement %}
@@ -109,6 +98,18 @@
 <center>
   <section id="addIncome" class="lowerform" style="display: flex">
   <div class="container-fluid" style="margin: 25px;">
+        <!-- UPLOAD FILE -->
+  <div id="fileupload" style="margin: 15px">
+  <title style="padding: 15px">Upload file from UpWork</title>
+  <h1 id="newfile">Upload UpWork file or manually enter income below</h1>
+  <form method=post enctype=multipart/form-data>
+    <input id="fileinput" type=file name=file>
+    <br>
+    <br>
+    <button type=submit class="btn btn-outline-success" value=Upload style="margin-bottom: 15px">Upload</button>
+  </form>
+</div>
+  <!-- END UPLOAD FILE -->
     <h4>Enter Income</h4>
     {% from "_formhelpers.html" import render_field %}
     <form name="newjob" method="post">
