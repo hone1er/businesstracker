@@ -21,6 +21,13 @@ html {
   font-size: 100%;
 }
 
+.lowerform {
+  -webkit-box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.34);
+  -moz-box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.34);
+  box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.34);
+  margin-top: -1px;
+}
+
 .newexpense {
   border-top: 135px solid rgba(95, 91, 104, 0.856);
   grid-area: expense;
