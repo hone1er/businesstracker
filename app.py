@@ -162,18 +162,23 @@ def remove_expense(expense):
         Business(current_user.username).remove_expense(expense, users)
     return redirect(url_for('get_expenses'))
 
+
+
 @app.route('/remove_income/<income>', methods=['POST'])
 @login_required
 def remove_income(income):
     ''' removes an incomebased on the item_id '''
     if request.method == 'POST':
+        print(income)
         Business(current_user.username).remove_income(income)
     return redirect(url_for('income'))
 
-@app.route('/add_income/', methods=['POST'])
+
+
+@app.route('/add_income', methods=['POST'])
 @login_required
 def add_income():
-    ''' removes an incomebased on the item_id '''
+    ''' adds an incomebased on the item_id '''
     form = IncomeForm(request.form)
     if request.method == 'POST' and form.validate():
         Business(current_user.username).add_income(form)
