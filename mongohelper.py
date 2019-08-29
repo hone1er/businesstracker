@@ -36,8 +36,8 @@ class Business:
             fees = self.db.users.find({'username': username})
             total = self.db.users.find({'username': username})
             for expense in expenses:
-                self.total_expenses = sum([i['cost']
-                                           for i in expense['expenses']])
+                self.total_expenses = round(sum([i['cost']
+                                           for i in expense['expenses']]), 2)
 
             for fee in fees:
                 self.total_fees = sum(
