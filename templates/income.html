@@ -82,28 +82,29 @@ src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
       <div class=" container-fluid client">
         <div class="container">
           <ul>
+              <li id="clientname" class="jobattr">{{ file.name }}</li>
+              <li id="jobname" class="jobattr">{{ file.job.name }}</li>
+              {% if file.job.platform %}
+              <li id="clientplatform" class="jobattr">
+                Platform: {{ file.job.platform }}
+              </li>
+              {% endif %}
+            <li id="jobdate" class="jobattr">
+              Date: {{ file.job.date }}
+            </li>
+            
+          </ul>
+        </div>
+        <div class="container">
+          <ul>
               <li id="income" class="incomeamount">
                   Income: ${{ file.income.total }}
                 </li>
                 <li id="fee" class="feeamount">
                   Fees: ${{ file.income.fee.amount }}
                 </li>
-            {% if file.job.platform %}
-            <li id="clientplatform" class="jobattr">
-              Platform: {{ file.job.platform }}
-            </li>
-            {% endif %}
-              <button type="submit" id="removeincome" class="btn btn-outline-danger" name="{{ file.job.ref_id }}" value="removeincome" onclick="removeIncome(this.name)">Remove</button>
-            </li>
-          </ul>
-        </div>
-        <div class="container">
-          <ul>
-              <li id="clientname" class="jobattr">{{ file.name }}</li>
-              <li id="jobname" class="jobattr">{{ file.job.name }}</li>
 
-            <li id="jobdate" class="jobattr">
-              Date: {{ file.job.date }}
+              <button type="submit" id="removeincome" class="btn btn-outline-danger" name="{{ file.job.ref_id }}" value="removeincome" onclick="removeIncome(this.name)">Remove</button>
             </li>
           </ul>
         </div>
