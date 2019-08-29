@@ -33,23 +33,24 @@ class Business:
         # Try calculating expenses, fees, and total. If no figures available, set to 0
         try:
             expenses = self.db.users.find({'username': username})
-            fees = self.db.users.find({'username': username})
-            total = self.db.users.find({'username': username})
             for expense in expenses:
                 self.total_expenses = round(sum([i['cost']
                                            for i in expense['expenses']]), 2)
-
-            for fee in fees:
-                self.total_fees = sum(
-                    [i['income']['fee']['amount'] for i in fee['clients']])
-
-            for amount in total:
-                self.total_income = sum([i['income']['total']
-                                         for i in amount['clients']])
-
         except:
             self.total_expenses = 0
+        try:
+            fees = self.db.users.find({'username': username})
+            for fee in fees:
+                self.total_fees = round(sum(
+                    [i['income']['fee']['amount'] for i in fee['clients']]),2)
+        except:
             self.total_fees = 0
+        try:
+            total = self.db.users.find({'username': username})
+            for amount in total:
+                self.total_income = round(sum([i['income']['total']
+                                         for i in amount['clients']]),2)
+        except:
             self.total_income = 0
 
 
