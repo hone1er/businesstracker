@@ -97,15 +97,15 @@ src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
         </div>
         <div class="container">
           <ul>
+            <li>
+          <button type="submit" id="removeincome" class="btn btn-outline-danger" name="{{ file.job.ref_id }}" value="removeincome" onclick="removeIncome(this.name)">Remove</button>
+        </li>
               <li id="income" class="incomeamount">
                   Income: ${{ file.income.total }}
                 </li>
                 <li id="fee" class="feeamount">
                   Fees: ${{ file.income.fee.amount }}
                 </li>
-
-              <button type="submit" id="removeincome" class="btn btn-outline-danger" name="{{ file.job.ref_id }}" value="removeincome" onclick="removeIncome(this.name)">Remove</button>
-            </li>
           </ul>
         </div>
       </div>

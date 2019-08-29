@@ -127,10 +127,12 @@ html {
 }
 
 ul {
-  padding: 0 100px;
+  text-align: center;
+  text-align: -webkit-center;
 }
 li {
-  text-align: left;
+  text-align: center;
+  text-align: -webkit-center;
   list-style: none;
   line-height: 2.25rem;
 }
