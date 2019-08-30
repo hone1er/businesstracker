@@ -40,6 +40,7 @@ html {
   padding-left: 0;
   padding-right: 0;
   justify-content: center;
+  text-align: center;
 }
 .totals {
   grid-area: totals;
@@ -94,11 +95,11 @@ html {
   margin: 15px;
 }
 #fileupload button {
-  margin-top: 25px
+  margin-top: 25px;
 }
 
 #fileinput {
-  margin-bottom: 25px
+  margin-bottom: 25px;
 }
 .client,
 .item {
@@ -111,10 +112,51 @@ html {
   font-size: 150%;
   margin: 1px auto;
 }
+.card {
+  box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.35);
+  -webkit-box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.35);
+  text-align: center;
+  border: none;
+  margin: 15px;
+  border-radius: 0px !important;
+  border: 1px solid rgba(0, 0, 0, 0.212) !important;
+}
+.card-body {
+  background: #10c99a67
+}
+.card-header {
+  letter-spacing: 0.15rem;
+  background: #ffffff
+}
+.card-footer,
+.card-header {
+  background: #ffffff00 !important;
+  border-bottom: none !important;
+  border-top: none !important;
+  border-radius: 55px !important;
+  height: 75px;
+}
 
+
+.simple {
+  color: #21813e
+}
+.secure {
+  color: rgb(5, 5, 143);
+}
+.tools {
+  color: rgb(56, 10, 94);
+}
 .container-fluid.project,
 .container-fluid.expense {
   padding: 0 15vw;
+}
+.log{
+  text-align: center;
+}
+.log a {
+  margin: 15px;
 }
 
 .headc h1 {
@@ -124,6 +166,13 @@ html {
   padding: 15px;
 
   font-size: 2.25rem;
+}
+
+.index {
+  display: flex;
+  text-align: center;
+  align-content: center;
+  justify-content: center;
 }
 
 ul {
@@ -215,11 +264,10 @@ dd input {
   #fileupload {
     width: 75%;
     font-size: 1.25rem;
-    padding: 45px
+    padding: 45px;
   }
+
 }
-
-
 
 @media only screen and (max-width: 765px) {
   .container-fluid.project,
@@ -251,7 +299,7 @@ dd input {
 
   #fileinput {
     margin-left: 5vw;
-    margin-bottom: 25px
+    margin-bottom: 25px;
   }
   #fileupload {
     width: 95%;

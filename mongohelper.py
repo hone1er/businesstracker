@@ -10,7 +10,7 @@ from config import mongop
 class Business:
     def __init__(self, username):
         # CONNECT TO MONGODB
-        conn = f'mongodb+srv://hone1er:{mongop}@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority'
+        conn = f'mongodb://localhost:27017'
         client = MongoClient(conn)
         self.db = client.HoneCode
         self.username = username
@@ -126,7 +126,7 @@ class Business:
 class User(UserMixin):
     def __init__(self, username=None, email=None, password=None, business=None):
         # CONNECT TO MONGODB
-        conn = f'mongodb+srv://hone1er:{mongop}@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority'
+        conn = f'mongodb://localhost:27017'
         client = MongoClient(conn)
         self.db = client.HoneCode
         self.username = username

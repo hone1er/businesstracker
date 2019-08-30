@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block google %}
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-146246516-3"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-146246516-3');
+</script>
+</script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+<script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
+{% endblock %}
+
+
+
+{% block body %}
+<!-- TOTAL EXPENSE HEADER -->
+<div class="container-fluid" style="margin: 15vh 0 175px">
+    <h1>WELCOME TO THE FREE INCOME & EXPENSE TRACKING TOOL</h1>
+</div>
+    <div class="container index">
+        <div class="card" style="width: 250px">
+            <div class="card-header secure">SECURE</div>
+            <div class="card-body">
+                <figure>
+                    <img height="150px" src="{{ url_for('static', filename='images/undraw_vault.svg') }}" alt="">
+                </figure>
+            </div>
+            <div class="card-footer secure">Keep your files protected!</div>
+        </div>
+        <div class="card centercard">
+            <div class="card-header simple">SIMPLE</div>
+            <div class="card-body">
+                <figure>
+                    <img height="150px" src="{{ url_for('static', filename='images/undraw_business_shop.svg') }}"
+                        alt="">
+                </figure>
+            </div>
+            <div class="card-footer simple">Just enter your income and expenses!</div>
+        </div>
+        <div class="card" style="width: 250px">
+                <div class="card-header tools">TOOLS</div>
+                <div class="card-body">
+                    <figure>
+                        <img height="150px" src="{{ url_for('static', filename='images/undraw_revenue.svg') }}"
+                            alt="">
+                    </figure>
+                </div>
+                <div class="card-footer tools">See how you're doing at a glance!</div>
+            </div>
+    </div>
+
+<!-- END TOTAL EXPENSE HEADER -->
+
+<div class="log">
+<a href="{{ url_for('login') }}"><button class="btn btn-btn-primary">Login</button></a>
+<a href="{{ url_for('register') }}"><button class="btn btn-btn-primary">Register</button></a>
+</div>
+
+
+{% endblock %}
+
+{% block addexpense %}
+
+
+{% endblock %}

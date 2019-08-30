@@ -40,7 +40,7 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
-conn = f'mongodb+srv://hone1er:{mongop}@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority'
+conn = f'mongodb://localhost:27017'
 client = MongoClient(conn)
 db = client.HoneCode
 users = db.users
@@ -106,8 +106,11 @@ def logout():
 
 ######################################################################################
 
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/income', methods=['GET', 'POST'])
 @login_required
 def income():
     # FILE UPLOAD
