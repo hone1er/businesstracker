@@ -87,7 +87,6 @@ html {
 }
 #fileupload {
   border: 20px solid rgb(43, 43, 43);
-  width: 50%;
   margin: 35px 0;
   padding: 95px;
 }
@@ -267,7 +266,6 @@ dd input {
   }
 
   #fileupload {
-    width: 75%;
     font-size: 1.25rem;
     padding: 45px;
   }
@@ -323,7 +321,6 @@ dd input {
     margin-bottom: 25px;
   }
   #fileupload {
-    width: 95%;
     font-size: 1.2rem;
     padding: 25px;
   }
