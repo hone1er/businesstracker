@@ -127,7 +127,8 @@ html {
 }
 .card-header {
   letter-spacing: 0.15rem;
-  background: #ffffff
+  background: #ffffff;
+  font-size: 1.45rem;
 }
 .card-footer,
 .card-header {
@@ -136,6 +137,10 @@ html {
   border-top: none !important;
   border-radius: 55px !important;
   height: 75px;
+}
+
+.sidecard {
+  width: 250px;
 }
 
 
@@ -267,8 +272,24 @@ dd input {
     padding: 45px;
   }
 
+
 }
 
+@media only screen and (max-width: 993px) {
+    .container{
+      width: 100% !important;
+    }
+    .index {
+      display: block;
+    }
+    .card {
+      width: unset;
+      max-height: min-content;
+    }
+    #welcome {
+      font-size: 1.75rem;
+    }
+}
 @media only screen and (max-width: 765px) {
   .container-fluid.project,
   .container-fluid.expense {
@@ -305,6 +326,10 @@ dd input {
     width: 95%;
     font-size: 1.2rem;
     padding: 25px;
+  }
+
+  #welcome {
+    font-size: 1.5rem;
   }
 }
 
