@@ -21,7 +21,13 @@ crossorigin="anonymous"
 src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
 </script>
 {% endblock %}
-
+{% block username %}
+<h1 id="main">
+          <!-- CURRENT USER HERE FOR TESTING UNTIL LOGIN IS WORKING -->
+          {{ current_user.business }}
+          <!--  -->
+</h1>
+{% endblock %}
 {% block logout %}
 <a href="{{ url_for('logout') }}"><button class="btn btn-btn-primary">Logout</button></a>
 {% endblock %}
