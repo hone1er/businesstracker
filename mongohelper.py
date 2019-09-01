@@ -92,7 +92,7 @@ class Business:
     def add_income(self, form, receiptIMG=None):
         income = float(form.earnings.data)
         try:
-            fees = float(form.fees.data)
+            fees = float(form.fees.data)*(-1)
         except:
             fees = 0
         if form.platform.data == None:
