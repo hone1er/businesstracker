@@ -18,7 +18,7 @@ function removeExpense(value) {
   $(`[name=${value}]`)
     .parents("div")
     .css("display", "none");
-  removeExpenses("itemcost", "#totalexpenses");
+  removeItems("itemcost", "#totalexpenses");
   calculate();
 }
 
@@ -38,8 +38,8 @@ function removeIncome(value) {
   $(`[name=${value}]`)
     .parents("div")
     .css("display", "none");
-  removeExpenses("incomeamount", "#totalincome");
-  removeExpenses("feeamount", "#totalfees");
+  removeItems("incomeamount", "#totalincome");
+  removeItems("feeamount", "#totalfees");
   calculate();
 }
 
@@ -68,7 +68,7 @@ function calculate() {
 }
 
 //// DOES CALCULATION TO CHANGE EXPENSES VALUE IN THE LAYOUT WHEN AN EXPENSE IS REMOVED
-function removeExpenses(classname, headerid) {
+function removeItems(classname, headerid) {
   total = 0;
 
   let item = document.getElementsByClassName(classname);
@@ -81,6 +81,7 @@ function removeExpenses(classname, headerid) {
     ) {
     } else {
       total += parseFloat(item[i].innerText.match(/\d+/g).map(Number));
+      console.log(parseFloat(item[i].innerText.match(/\d+/g).map(Number)))
     }
   }
   if (classname == "itemcost" || classname == "feeamount") {
