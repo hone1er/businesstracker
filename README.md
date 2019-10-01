@@ -8,7 +8,7 @@ This software is designed to help organize income and expenses, with freelancers
 - Add/remove expenses
 - Keep a running total of income, fees, expenses
 
-## Installation
+## Local Installation
 
 - Clone this repository to a local directory
 - cd to the directory where requirements.txt is located.
@@ -33,6 +33,9 @@ flask run
 
 
 You're all set!
+
+# Sign-up
+If you don't want/need to do a local install you can create an account on the live website here here – [IncomeTracker](http://incometracker.herokuapp.com)
 
 
 ## Expenses
