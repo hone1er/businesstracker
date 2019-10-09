@@ -100,6 +100,18 @@ html {
 #fileinput {
   margin-bottom: 25px;
 }
+
+.forms {
+  width: 425px;
+  margin: 75px auto;
+  text-align: center;
+}
+
+.form-group {
+  margin: 50px 0;
+}
+
+
 .client,
 .item {
   display: inline-flex;

@@ -81,7 +81,6 @@ function removeItems(classname, headerid) {
     ) {
     } else {
       total += parseFloat(item[i].innerText.match(/\d+/g).map(Number));
-      console.log(parseFloat(item[i].innerText.match(/\d+/g).map(Number)))
     }
   }
   if (classname == "itemcost" || classname == "feeamount") {

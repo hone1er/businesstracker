@@ -137,7 +137,10 @@ def income():
         else:
             Business(current_user.username).add_income(form)
     # END FILE UPLOAD
+    from_date = datetime.datetime(2019, 8, 26)
+    to_date = datetime.datetime(2019, 8, 30)
     honecode = Business(current_user.username)
+    honecode.filter_dates(from_date, to_date)
     return render_template('income.html', form=form, honecode=honecode, income_statement=honecode.income_list, business_expenses=honecode.expense_list)
 
 

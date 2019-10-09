@@ -7,6 +7,7 @@ import time
 from flask_login import UserMixin
 from config import mongop
 
+
 class Business:
     def __init__(self, username):
         # CONNECT TO MONGODB
@@ -35,24 +36,23 @@ class Business:
             expenses = self.db.users.find({'username': username})
             for expense in expenses:
                 self.total_expenses = round(sum([i['cost']
-                                           for i in expense['expenses']]), 2)
+                                                 for i in expense['expenses']]), 2)
         except:
             self.total_expenses = 0
         try:
             fees = self.db.users.find({'username': username})
             for fee in fees:
                 self.total_fees = round(sum(
-                    [i['income']['fee']['amount'] for i in fee['clients']]),2)
+                    [i['income']['fee']['amount'] for i in fee['clients']]), 2)
         except:
             self.total_fees = 0
         try:
             total = self.db.users.find({'username': username})
             for amount in total:
                 self.total_income = round(sum([i['income']['total']
-                                         for i in amount['clients']]),2)
+                                               for i in amount['clients']]), 2)
         except:
             self.total_income = 0
-
 
     def auto_insert_income(self, csv):
         ''' for csv files downloaded from UpWork '''
@@ -84,7 +84,7 @@ class Business:
                         result = self.db.users.update(
                             {'username': self.username}, {'$push': {'clients': {'name': client, 'job': {'name': job_description, 'date': date, 'platform': 'UpWork', 'ref_id': job_id}, 'income': {
                                 'total': income, 'fee': {'amount': fee_amount, 'ref_id': fee_id}, 'net': net}}}}, upsert=True)
-              
+
     def insert_expenses(self, form, receiptIMG=None):
         self.db.users.update(
             {'username': self.username}, {'$push': {'expenses': {'item_id': ObjectId(), 'name': form.item.data, 'category': form.category.data, 'cost': float(form.cost.data)*-(1), 'receipt': receiptIMG, 'date': datetime.datetime.combine(form.date.data, datetime.datetime.min.time())}}}, upsert=True)
@@ -108,7 +108,6 @@ class Business:
             {'$pull': {'expenses': {'item_id': ObjectId(eid)}}}
         )
 
-
     def remove_income(self, iid):
         result = self.db.users.update(
             {'username': self.username},
@@ -117,10 +116,13 @@ class Business:
 
         if result['nModified'] == 0:
             self.db.users.update(
-            {'username': self.username},
-            {'$pull': {'clients': {'job.ref_id': ObjectId(iid)}}}
-        )
+                {'username': self.username},
+                {'$pull': {'clients': {'job.ref_id': ObjectId(iid)}}}
+            )
 
+    def filter_dates(self, from_date, to_date):
+        for post in self.db.users.find({'expenses.date': {'$gte': from_date}}, {'expenses': {'$elemMatch': {'date': {'$gte': from_date, '$lt': to_date}}}}):
+            print(post)
 
 
 class User(UserMixin):
