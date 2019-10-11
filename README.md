@@ -35,7 +35,7 @@ flask run
 You're all set!
 
 # Sign-up
-If you don't want/need to do a local install you can create an account on the live website here here – [IncomeTracker](http://incometracker.herokuapp.com)
+If you don't want/need to do a local install you can create an account on the live website here here – [IncomeTracker](https://incometracker.herokuapp.com)
 
 
 ## Expenses
