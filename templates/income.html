@@ -91,7 +91,7 @@
         </li>
         {% endif %}
         <li id="jobdate" class="jobattr">
-          Date: {{ file.job.date }}
+          Date: {{ file.job.date.strftime('%Y-%m-%d') }}
         </li>
 
       </ul>

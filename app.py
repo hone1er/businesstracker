@@ -40,7 +40,7 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
-conn = f'mongodb+srv://hone1er:{mongop}@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority'
+conn = mongop
 client = MongoClient(conn)
 db = client.HoneCode
 users = db.users
@@ -137,10 +137,10 @@ def income():
         else:
             Business(current_user.username).add_income(form)
     # END FILE UPLOAD
-    from_date = datetime.datetime(2019, 8, 26)
-    to_date = datetime.datetime(2019, 8, 30)
+    # from_date = datetime.datetime(2019, 8, 21)
+    # to_date = datetime.datetime(2019, 8, 30)
     honecode = Business(current_user.username)
-    honecode.filter_dates(from_date, to_date)
+    # honecode.filter_dates(from_date, to_date)
     return render_template('income.html', form=form, honecode=honecode, income_statement=honecode.income_list, business_expenses=honecode.expense_list)
 
 

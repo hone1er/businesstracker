@@ -258,6 +258,7 @@ li {
 
 dt label {
   font-family: "Comfortaa", cursive;
+  margin-top: 25px;
 }
 dd input {
   border-radius: 6px;

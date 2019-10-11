@@ -95,7 +95,7 @@ src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
         <li id="itemcategory" class="itemattr">
           Category: {{ doc.category }}
         </li>
-        <li id="itemdate" class="itemattr">{{ doc.date }}</li>
+        <li id="itemdate" class="itemattr">{{ doc.date.strftime('%Y-%m-%d') }}</li>
         <li>
           <button type="button" id="removeobject" class="btn btn-outline-danger" name="{{ doc.item_id }}" value="Remove"  onclick="removeExpense(this.name)">Remove</button>
         </li>
@@ -114,12 +114,14 @@ src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
   <div class="container-fluid" style="margin: 25px;">
     <h4>Enter New Expense</h4>
     {% from "_formhelpers.html" import render_field %}
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
       <dl>
         {{ render_field(form.item) }}
         {{ render_field(form.cost) }}
-        {{ render_field(form.category) }}
         {{ render_field(form.date) }}
+        {{ form.csrf_token }}
+        {{ render_field(form.category) }}
+
       </dl>
       <button type="submit" class="btn btn-success">Add</button>
     </form>

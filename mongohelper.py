@@ -11,7 +11,7 @@ from config import mongop
 class Business:
     def __init__(self, username):
         # CONNECT TO MONGODB
-        conn = f'mongodb+srv://hone1er:{mongop}@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority'
+        conn = mongop
         client = MongoClient(conn)
         self.db = client.HoneCode
         self.username = username
@@ -85,9 +85,9 @@ class Business:
                             {'username': self.username}, {'$push': {'clients': {'name': client, 'job': {'name': job_description, 'date': date, 'platform': 'UpWork', 'ref_id': job_id}, 'income': {
                                 'total': income, 'fee': {'amount': fee_amount, 'ref_id': fee_id}, 'net': net}}}}, upsert=True)
 
-    def insert_expenses(self, form, receiptIMG=None):
+    def insert_expenses(self, form):
         self.db.users.update(
-            {'username': self.username}, {'$push': {'expenses': {'item_id': ObjectId(), 'name': form.item.data, 'category': form.category.data, 'cost': float(form.cost.data)*-(1), 'receipt': receiptIMG, 'date': datetime.datetime.combine(form.date.data, datetime.datetime.min.time())}}}, upsert=True)
+            {'username': self.username}, {'$push': {'expenses': {'item_id': ObjectId(), 'name': form.item.data, 'category': form.category.data, 'cost': float(form.cost.data)*-(1), 'date': datetime.datetime.combine(form.date.data, datetime.datetime.min.time())}}}, upsert=True)
 
     def add_income(self, form, receiptIMG=None):
         income = float(form.earnings.data)
@@ -102,7 +102,6 @@ class Business:
             {'username': self.username}, {'$push': {'clients': {'name': form.client.data, 'job': {'name': form.job.data, 'date': datetime.datetime.combine(form.date.data, datetime.datetime.min.time()), 'platform': form.platform.data, 'ref_id': ObjectId()}, 'income': {'total': income, 'fee': {'amount': fees}, 'net': net}}}}, upsert=True)
 
     def remove_expense(self, eid, db):
-
         result = db.update_one(
             {'username': self.username},
             {'$pull': {'expenses': {'item_id': ObjectId(eid)}}}
@@ -120,15 +119,33 @@ class Business:
                 {'$pull': {'clients': {'job.ref_id': ObjectId(iid)}}}
             )
 
-    def filter_dates(self, from_date, to_date):
-        for post in self.db.users.find({'expenses.date': {'$gte': from_date}}, {'expenses': {'$elemMatch': {'date': {'$gte': from_date, '$lt': to_date}}}}):
-            print(post)
-
+#     def filter_dates(self, from_date, to_date):
+#         result = self.db.collection.aggregate([
+#         #Pre-filter to have data arrays with at least one matching date
+# 	{'$match': {'username': self.username, 'expenses.date': {'$gte': from_date, '$lte': to_date}}},
+#         #Filter the items array
+# 	{
+# 		'$addFields': {
+# 			'items': {
+# 				'$filter': {
+# 					'input': '$expenses', 'as': 'item', 'cond': {
+# 						'$and': [
+# 							{'$gte': ["$$item.date", from_date]},
+# 							{'$lte': ["$$item.date", to_date]}
+# 						]
+# 					}
+# 				}
+# 			}
+# 		}
+# 	}
+# ])
+#         x = [x for x in result]
+#         print(x)
 
 class User(UserMixin):
     def __init__(self, username=None, email=None, password=None, business=None):
         # CONNECT TO MONGODB
-        conn = f'mongodb+srv://hone1er:{mongop}@incometracker-blo7g.azure.mongodb.net/test?retryWrites=true&w=majority'
+        conn = mongop
         client = MongoClient(conn)
         self.db = client.HoneCode
         self.username = username
