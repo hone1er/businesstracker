@@ -1,3 +1,24 @@
+function sort_it(value) {
+  if (value == 'cost') {
+      $('#expense-out').append($('#expense-out .expense').sort(function(a,b){
+        return a.getAttribute(value)-b.getAttribute(value);
+      }));
+  }
+  else if (value == 'date') {
+    $('#expense-out').append($('#expense-out .expense').sort(function(a,b){
+      // Turn your strings into dates, and then subtract them
+      // to get a value that is either negative, positive, or zero.
+      return new Date(b.getAttribute(value)) - new Date(a.getAttribute(value));
+    }));
+  }
+  else if (value == 'name' || value == 'category') {
+    $('#expense-out').append($('#expense-out .expense').sort(function (a, b) {
+      return ('' + a.getAttribute(value)).localeCompare(b.getAttribute(value));
+  }))
+  }
+}
+
+
 function success(result) {
   console.log("Item Removed!");
 }

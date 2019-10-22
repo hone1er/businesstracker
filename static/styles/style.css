@@ -264,6 +264,14 @@ dd input {
   border-radius: 6px;
   text-align: center;
 }
+
+#filters {
+  width: 100%;
+}
+#sort {
+  display: block;
+  margin: 0 auto;
+}
 @media only screen and (max-width: 1024px) {
   .client,
   .item {

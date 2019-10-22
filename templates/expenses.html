@@ -78,13 +78,24 @@ src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
   <div class="headc">
     <h1 class="clienthead">Expenses</h1>
   </div>
+  <div id="filters">
+    <label for="sort">SORT BY:</label>
+    <select name="sort" id="sort" onchange="sort_it(this.value)">
+      <option value=""></option>
+      <option value="name">Name</option>
+      <option value="cost">Cost</option>
+      <option value="category">Category</option>
+      <option value ="date">Date</option>
+    </select>
+  </div>
 </div>
 <!-- END TOTAL EXPENSE HEADER -->
 
 <!-- BUSINESS EXPENSE LIST -->
+<div id="expense-out">
 {% for doc in business_expenses %}
 <center>
-<div class="container-fluid expense">
+<div class="container-fluid expense" cost="{{ doc.cost }}" category="{{ doc.category }}" name="{{ doc.name }}" date="{{ doc.date.strftime('%Y-%m-%d')}}">
   <div class=" container-fluid item">
     <div class="container">
       <ul>
@@ -104,7 +115,10 @@ src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
   </div>
 </div>
 </center>
-{% endfor %} {% endblock %} 
+{% endfor %} 
+</div>
+{% endblock %} 
+
 <!-- END BUSINESS EXPENSE LIST -->
 
 <!-- ADD EXPENSE FORM  -->
