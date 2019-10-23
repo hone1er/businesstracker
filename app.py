@@ -171,12 +171,12 @@ def remove_expense():
 
 
 
-@app.route('/remove_income/<income>', methods=['POST'])
+@app.route('/remove_income/', methods=['POST'])
 @login_required
-def remove_income(income):
+def remove_income():
     ''' removes an incomebased on the item_id '''
     if request.method == 'POST':
-        print(income)
+        income = request.form['object']
         Business(current_user.username).remove_income(income)
     return redirect(url_for('income'))
 

@@ -107,9 +107,11 @@
             Fees: ${{ file.income.fee.amount }}
           </li>
           <li>
-            <button type="submit" id="removeincome" class="btn btn-outline-danger" name="{{ file.job.ref_id }}"
-              value="removeincome" onclick="removeIncome(this.name)">Remove</button>
-          </li>
+              <form action="{{ url_for('remove_income') }}" method="post">
+                <input type="hidden" name="object" value={{ file.job.ref_id }}>
+                <input class="btn btn-outline-danger" type="submit" id="object" value="Remove">
+              </form>
+            </li>
         </ul>
       </div>
     </div>
