@@ -123,6 +123,7 @@
 <center>
   <section id="addIncome" class="lowerform" style="display: flex">
     <div class="container-fluid">
+      {% if current_user.business == 'Hone Code LLC' %}
       <!-- UPLOAD FILE -->
       <div id="fileupload">
         <title style="padding: 15px">Upload file from UpWork</title>
@@ -134,6 +135,7 @@
         </form>
       </div>
       <!-- END UPLOAD FILE -->
+      {% endif %}
       <div class="jobinput">
         <h4>Enter Income</h4>
         {% from "_formhelpers.html" import render_field %}
