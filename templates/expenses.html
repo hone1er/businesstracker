@@ -95,7 +95,7 @@ src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
 <div id="expense-out">
 {% for doc in business_expenses %}
 <center>
-<div class="container-fluid expense" id="{{ doc.item_id }} cost="{{ doc.cost }}" category="{{ doc.category }}" name="{{ doc.name }}" date="{{ doc.date.strftime('%Y-%m-%d')}}">
+<div class="container-fluid expense" id="{{ doc.item_id }}" cost="{{ doc.cost }}" category="{{ doc.category }}" name="{{ doc.name }}" date="{{ doc.date.strftime('%Y-%m-%d')}}">
   <div class=" container-fluid item">
     <div class="container">
       <ul>
