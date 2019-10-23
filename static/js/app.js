@@ -72,7 +72,7 @@ function calculate() {
     if (item == null) {
       item = 0;
     } else {
-      total += parseFloat(item.innerText.replace(/\$/g, ""));
+      total += parseFloat(item.innerText.replace(/\$/g, ""))*100;
     }
   });
 
@@ -84,7 +84,7 @@ function calculate() {
     totalid.style.color = "rgba(158, 9, 9)";
   }
 
-  totalid.innerHTML = "$" + total.toFixed(2);
+  totalid.innerHTML = "$" + (total/100).toFixed(2);
 }
 
 //// DOES CALCULATION TO CHANGE EXPENSES VALUE IN THE LAYOUT WHEN AN EXPENSE IS REMOVED
