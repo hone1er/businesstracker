@@ -1,23 +1,30 @@
 function sort_it(value) {
-  if (value == 'cost') {
-      $('#expense-out').append($('#expense-out .expense').sort(function(a,b){
-        return a.getAttribute(value)-b.getAttribute(value);
-      }));
-  }
-  else if (value == 'date') {
-    $('#expense-out').append($('#expense-out .expense').sort(function(a,b){
-      // Turn your strings into dates, and then subtract them
-      // to get a value that is either negative, positive, or zero.
-      return new Date(b.getAttribute(value)) - new Date(a.getAttribute(value));
-    }));
-  }
-  else if (value == 'name' || value == 'category') {
-    $('#expense-out').append($('#expense-out .expense').sort(function (a, b) {
-      return ('' + a.getAttribute(value)).localeCompare(b.getAttribute(value));
-  }))
+  if (value == "cost") {
+    $("#expense-out").append(
+      $("#expense-out .expense").sort(function(a, b) {
+        return a.getAttribute(value) - b.getAttribute(value);
+      })
+    );
+  } else if (value == "date") {
+    $("#expense-out").append(
+      $("#expense-out .expense").sort(function(a, b) {
+        // Turn your strings into dates, and then subtract them
+        // to get a value that is either negative, positive, or zero.
+        return (
+          new Date(b.getAttribute(value)) - new Date(a.getAttribute(value))
+        );
+      })
+    );
+  } else if (value == "name" || value == "category") {
+    $("#expense-out").append(
+      $("#expense-out .expense").sort(function(a, b) {
+        return ("" + a.getAttribute(value)).localeCompare(
+          b.getAttribute(value)
+        );
+      })
+    );
   }
 }
-
 
 function success(result) {
   console.log("Item Removed!");
@@ -26,18 +33,17 @@ function success(result) {
 ///// SENDS POST REQUEST TO REMOVE AN EXPENSE
 function removeExpense(value) {
   var data = {
-    item: value,
+    item: value
   };
 
   $.ajax({
     type: "POST",
     url: "/remove_expense/" + data.item,
     data: { json: JSON.stringify(data) },
-    success: success,
+    success: success
   });
 
-  $(`[id=${value}]`)
-    .css("display", "none");
+  $(`[id=${value}]`).css("display", "none");
   removeItems("itemcost", "#totalexpenses");
   calculate();
 }
@@ -45,14 +51,14 @@ function removeExpense(value) {
 ///// SENDS POST REQUEST TO REMOVE INCOME
 function removeIncome(value) {
   var data = {
-    item: value,
+    item: value
   };
 
   $.ajax({
     type: "POST",
     url: "/remove_income/" + data.item,
     data: { json: JSON.stringify(data) },
-    success: success,
+    success: success
   });
 
   $(`[name=${value}]`)
@@ -72,7 +78,7 @@ function calculate() {
     if (item == null) {
       item = 0;
     } else {
-      total += parseFloat(item.innerText.replace(/\$/g, ""))*100;
+      total += parseFloat(item.innerText.replace(/\$/g, "")) * 100;
     }
   });
 
@@ -84,7 +90,7 @@ function calculate() {
     totalid.style.color = "rgba(158, 9, 9)";
   }
 
-  totalid.innerHTML = "$" + (total/100).toFixed(2);
+  totalid.innerHTML = "$" + (total / 100).toFixed(2);
 }
 
 //// DOES CALCULATION TO CHANGE EXPENSES VALUE IN THE LAYOUT WHEN AN EXPENSE IS REMOVED
@@ -108,6 +114,40 @@ function removeItems(classname, headerid) {
   } else {
     $(headerid).text("$" + total);
   }
+}
+
+function plotExpenses() {
+  var temp_dates = $(".expense").sort(function(a, b) {
+    return ("" + a.getAttribute("date")).localeCompare(b.getAttribute("date"));
+  });
+
+  let dates = [];
+  let cost = [];
+  let text = [];
+  for (let i = 0; i < temp_dates.length; i++) {
+    const element = temp_dates[i];
+    dates.push(element.getAttribute("date"));
+    cost.push(element.getAttribute("cost") * -1);
+    text.push(element.getAttribute("name"));
+  }
+  var data = [
+    {
+      x: dates,
+      y: cost,
+      text: text,
+      type: "scatter",
+      line: {
+        color: "rgb(204,37,41)"
+      }
+    }
+  ];
+  const layout = {
+    yaxis: {
+      tickformat: "$,"
+    }
+  };
+
+  Plotly.newPlot("plot", data, layout, { responsive: true });
 }
 
 //// IF FILE UPLOAD IS SUCCESSFUL, SET THE CLASS OF THE BANNER TO ALERT-PRIMARY TO SHOW BLUE BANNER
@@ -135,4 +175,8 @@ let item = document.getElementsByClassName("itemcost");
 for (let i = 0; i < item.length; i++) {
   const element = item[i];
   element.innerText = element.innerText.replace("$-", "$");
+}
+
+if (window.location.pathname == "/get_expenses") {
+  plotExpenses();
 }
