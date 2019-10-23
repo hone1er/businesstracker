@@ -115,8 +115,8 @@ function calculate() {
 //   }
 // }
 
-function plotExpenses() {
-  var temp_dates = $(".expense").sort(function(a, b) {
+function plotExpenses(type) {
+  var temp_dates = $(type).sort(function(a, b) {
     return ("" + a.getAttribute("date")).localeCompare(b.getAttribute("date"));
   });
 
@@ -195,10 +195,13 @@ function plotExpenses() {
         month = "Dec";
         cost[11] = cost[11] + element.getAttribute("cost") * -1;
     }
-    console.log(month);
-    // dates.push(month);
-    // cost.push(element.getAttribute("cost") * -1);
-    // text.push(element.getAttribute("name"), element.getAttribute("category"));
+    var color
+    if (type == '.expense') {
+      color = "rgba(204,37,41, 0.89)"
+    }
+    else {
+      color = "rgba(36, 131, 36, 0.869)"
+    }
   }
   for (let i = 0; i < cost.length; i++) {
     const element = cost[i];
@@ -210,7 +213,7 @@ function plotExpenses() {
     base: base,
     hovertemplate: '<b>Expenses</b>: $%{base:.2f}' +
     '<br><b>Month</b>: %{x}<br><extra></extra>',
-    marker: { color: "rgb(204,37,41)" },
+    marker: { color: color },
     type: "bar",
     line: {
       color: "rgb(204,37,41)"
@@ -276,5 +279,9 @@ for (let i = 0; i < item.length; i++) {
 }
 
 if (window.location.pathname == "/get_expenses") {
-  plotExpenses();
+  plotExpenses('.expense');
+}
+
+if (window.location.pathname == "/income") {
+  plotExpenses('.project');
 }

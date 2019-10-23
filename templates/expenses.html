@@ -1,31 +1,26 @@
-{% extends "layout.html" %} 
+{% extends "layout.html" %}
 
 {% block google %}
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146246516-3"></script>
 <script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
 
-gtag('config', 'UA-146246516-3');
+  gtag('config', 'UA-146246516-3');
 </script>
 </script>
-<script
-type="text/javascript"
-src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-crossorigin="anonymous"
-></script>
-<script async custom-element="amp-auto-ads"
-src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+<script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
 </script>
 {% endblock %}
 {% block username %}
 <h1 id="main">
-          <!-- CURRENT USER HERE FOR TESTING UNTIL LOGIN IS WORKING -->
-          {{ current_user.business }}
-          <!--  -->
+  <!-- CURRENT USER HERE FOR TESTING UNTIL LOGIN IS WORKING -->
+  {{ current_user.business }}
+  <!--  -->
 </h1>
 {% endblock %}
 {% block logout %}
@@ -37,7 +32,6 @@ src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
 
 
 
-
 <!-- CHECK INCOME AND ADD EXPENSE BUTTONS -->
 {% block form %}
 <div style="margin-bottom: 20px; text-align:center;">
@@ -46,11 +40,11 @@ src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
   </form>
   <a href="#addexpense"><button class="btn btn-outline-success">Add Expense</button></a>
 </div>
-{% endblock %} 
+{% endblock %}
 <!-- END INCOME EXPENSE BUTTONS -->
 
-{% block body %} 
-<div id="plot"></div>
+{% block body %}
+
 <!-- TOTAL EXPENSE HEADER -->
 <div class="container-fluid wrapper">
   <div class="newexpense">
@@ -69,13 +63,16 @@ src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
       <h3 class="expenses">Expenses</h3>
       <p id="totalexpenses">${{ honecode.total_expenses }}</p>
     </div>
-
     <div class="container-fluid">
       <h3>Profit/Loss</h3>
       <p id="profitloss"></p>
     </div>
+
   </div>
+
   <div class="headc">
+    <!-- PLOTLY BAR CHART -->
+    <div id="plot"></div>
     <h1 class="clienthead">Expenses</h1>
   </div>
   <div id="filters">
@@ -85,7 +82,7 @@ src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
       <option value="name">Name</option>
       <option value="cost">Cost</option>
       <option value="category">Category</option>
-      <option value ="date">Date</option>
+      <option value="date">Date</option>
     </select>
   </div>
 </div>
@@ -93,31 +90,32 @@ src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
 
 <!-- BUSINESS EXPENSE LIST -->
 <ul id="expense-out">
-{% for doc in business_expenses %}
-<li class="container-fluid expense" id="{{ doc.item_id }}" cost="{{ doc.cost }}" category="{{ doc.category }}" name="{{ doc.name }}" date="{{ doc.date.strftime('%Y-%m-%d')}}">
-  <div class=" container-fluid item">
-    <div class="container">
-      <ul>
-        <li id="itemname" class="itemattr" style="font-size: 1.25rem">
-          {{ doc.name }}
-        </li>
-        <li id="itemcost" class="itemattr itemcost">${{ doc.cost }}</li>
-        <li id="itemcategory" class="itemattr">
-          Category: {{ doc.category }}
-        </li>
-        <li id="itemdate" class="itemattr">{{ doc.date.strftime('%Y-%m-%d') }}</li>
-        <li>
-          <form action="{{ url_for('remove_expense') }}" method="post">
-            <input type="hidden" name="object" value={{ doc.item_id }}>
-          <input type="submit" id="object" value="Remove">
-        </form>
-        </li>
-      </ul>
+  {% for doc in business_expenses %}
+  <li class="container-fluid expense" id="{{ doc.item_id }}" cost="{{ doc.cost }}" category="{{ doc.category }}"
+    name="{{ doc.name }}" date="{{ doc.date.strftime('%Y-%m-%d')}}">
+    <div class=" container-fluid item" style="padding-bottom: 10px">
+      <div class="container">
+        <ul>
+          <li id="itemname" class="itemattr" style="font-size: 1.25rem">
+            {{ doc.name }}
+          </li>
+          <li id="itemcost" class="itemattr itemcost">${{ doc.cost }}</li>
+          <li id="itemcategory" class="itemattr">
+            Category: {{ doc.category }}
+          </li>
+          <li id="itemdate" class="itemattr">{{ doc.date.strftime('%Y-%m-%d') }}</li>
+          <li>
+            <form action="{{ url_for('remove_expense') }}" method="post">
+              <input type="hidden" name="object" value={{ doc.item_id }}>
+              <input type="submit" id="object" value="Remove">
+            </form>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-{% endfor %} 
+    {% endfor %}
 </ul>
-{% endblock %} 
+{% endblock %}
 
 <!-- END BUSINESS EXPENSE LIST -->
 
@@ -125,22 +123,22 @@ src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
 {% block addexpense %}
 <center>
   <section id="addexpense" class="lowerform" style="display: flex">
-  <div class="container-fluid" style="margin: 25px;">
-    <h4>Enter New Expense</h4>
-    {% from "_formhelpers.html" import render_field %}
-    <form method="post" enctype="multipart/form-data">
-      <dl>
-        {{ render_field(form.item) }}
-        {{ render_field(form.cost) }}
-        {{ render_field(form.date) }}
-        {{ form.csrf_token }}
-        {{ render_field(form.category) }}
+    <div class="container-fluid" style="margin: 25px;">
+      <h4>Enter New Expense</h4>
+      {% from "_formhelpers.html" import render_field %}
+      <form method="post" enctype="multipart/form-data">
+        <dl>
+          {{ render_field(form.item) }}
+          {{ render_field(form.cost) }}
+          {{ render_field(form.date) }}
+          {{ form.csrf_token }}
+          {{ render_field(form.category) }}
 
-      </dl>
-      <button type="submit" class="btn btn-success">Add</button>
-    </form>
-  </div>
-</section>
+        </dl>
+        <button type="submit" class="btn btn-success">Add</button>
+      </form>
+    </div>
+  </section>
 </center>
 {% endblock %}
- <!-- END ADD EXPENSE FORM -->
+<!-- END ADD EXPENSE FORM -->

@@ -22,9 +22,9 @@
 
 {% block username %}
 <h1 id="main">
-          <!-- CURRENT USER HERE FOR TESTING UNTIL LOGIN IS WORKING -->
-          {{ current_user.business }}
-          <!--  -->
+  <!-- CURRENT USER HERE FOR TESTING UNTIL LOGIN IS WORKING -->
+  {{ current_user.business }}
+  <!--  -->
 </h1>
 {% endblock %}
 {% block svgimg %}
@@ -62,13 +62,14 @@
       <h3 class="expenses">Expenses</h3>
       <p id="totalexpenses">${{  honecode.total_expenses }}</p>
     </div>
-
     <div class="container-fluid">
       <h3>Profit/Loss</h3>
       <p id="profitloss"></p>
     </div>
   </div>
   <div class="headc">
+    <!-- PLOTLY BAR CHART -->
+    <div id="plot"></div>
     <h1 class="clienthead">Income</h1>
   </div>
 </div>
@@ -76,43 +77,45 @@
 
 
 
-
 <!-- INCOME LIST -->
-{% for file in income_statement %}
-<div class="container-fluid project">
-  <div class=" container-fluid client">
-    <div class="container">
-      <ul>
-        <li id="clientname" class="jobattr">{{ file.name }}</li>
-        <li id="jobname" class="jobattr">{{ file.job.name }}</li>
-        {% if file.job.platform %}
-        <li id="clientplatform" class="jobattr">
-          Platform: {{ file.job.platform }}
-        </li>
-        {% endif %}
-        <li id="jobdate" class="jobattr">
-          Date: {{ file.job.date.strftime('%Y-%m-%d') }}
-        </li>
+<ul>
+  {% for file in income_statement %}
+  <li class="container-fluid project" id="{{ file.job.ref_id }}" fee="{{ file.income.fee.amount }}"
+    cost="{{ file.income.total }}" date="{{ file.job.date.strftime('%Y-%m-%d') }}">
+    <div class=" container-fluid client">
+      <div class="container">
+        <ul>
+          <li id="clientname" class="jobattr">{{ file.name }}</li>
+          <li id="jobname" class="jobattr">{{ file.job.name }}</li>
+          {% if file.job.platform %}
+          <li id="clientplatform" class="jobattr">
+            Platform: {{ file.job.platform }}
+          </li>
+          {% endif %}
+          <li id="jobdate" class="jobattr">
+            Date: {{ file.job.date.strftime('%Y-%m-%d') }}
+          </li>
 
-      </ul>
+        </ul>
+      </div>
+      <div class="container" style="padding-bottom: 10px;">
+        <ul>
+          <li id="income" class="incomeamount">
+            Income: ${{ file.income.total }}
+          </li>
+          <li id="fee" class="feeamount">
+            Fees: ${{ file.income.fee.amount }}
+          </li>
+          <li>
+            <button type="submit" id="removeincome" class="btn btn-outline-danger" name="{{ file.job.ref_id }}"
+              value="removeincome" onclick="removeIncome(this.name)">Remove</button>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="container">
-      <ul>
-        <li id="income" class="incomeamount">
-          Income: ${{ file.income.total }}
-        </li>
-        <li id="fee" class="feeamount">
-          Fees: ${{ file.income.fee.amount }}
-        </li>
-        <li>
-          <button type="submit" id="removeincome" class="btn btn-outline-danger" name="{{ file.job.ref_id }}"
-            value="removeincome" onclick="removeIncome(this.name)">Remove</button>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
-{% endfor %}
+  </li>
+  {% endfor %}
+</ul>
 <!-- END INCOME LIST -->
 {% endblock %}
 
