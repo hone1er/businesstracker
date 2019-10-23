@@ -37,7 +37,6 @@ function removeExpense(value) {
   });
 
   $(`[name=${value}]`)
-    .parents("div")
     .css("display", "none");
   removeItems("itemcost", "#totalexpenses");
   calculate();
