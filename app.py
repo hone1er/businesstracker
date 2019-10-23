@@ -160,11 +160,12 @@ def get_expenses():
     return render_template('expenses.html', form=form, honecode=honecode, income_statement=honecode.income_list, business_expenses=honecode.expense_list)
 
 
-@app.route('/remove_expense/<expense>', methods=['POST'])
+@app.route('/remove_expense/', methods=['POST'])
 @login_required
-def remove_expense(expense):
+def remove_expense():
     ''' removes an expense based on the item_id '''
     if request.method == 'POST' :
+        expense = request.form['object']
         Business(current_user.username).remove_expense(expense, users)
     return redirect(url_for('get_expenses'))
 

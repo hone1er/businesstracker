@@ -40,12 +40,12 @@ src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
 
 <!-- CHECK INCOME AND ADD EXPENSE BUTTONS -->
 {% block form %}
-<center style="margin-bottom: 20px;">
+<div style="margin-bottom: 20px; text-align:center;">
   <form action="{{ url_for('income') }}" method="GET">
     <button type="submit" class="btn btn-primary" style="margin-bottom: 25px;margin-top: 25px;">Check Income</button>
   </form>
   <a href="#addexpense"><button class="btn btn-outline-success">Add Expense</button></a>
-</center>
+</div>
 {% endblock %} 
 <!-- END INCOME EXPENSE BUTTONS -->
 
@@ -92,10 +92,9 @@ src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
 <!-- END TOTAL EXPENSE HEADER -->
 
 <!-- BUSINESS EXPENSE LIST -->
-<div id="expense-out">
+<ul id="expense-out">
 {% for doc in business_expenses %}
-<center>
-<div class="container-fluid expense" id="{{ doc.item_id }}" cost="{{ doc.cost }}" category="{{ doc.category }}" name="{{ doc.name }}" date="{{ doc.date.strftime('%Y-%m-%d')}}">
+<li class="container-fluid expense" id="{{ doc.item_id }}" cost="{{ doc.cost }}" category="{{ doc.category }}" name="{{ doc.name }}" date="{{ doc.date.strftime('%Y-%m-%d')}}">
   <div class=" container-fluid item">
     <div class="container">
       <ul>
@@ -108,15 +107,16 @@ src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
         </li>
         <li id="itemdate" class="itemattr">{{ doc.date.strftime('%Y-%m-%d') }}</li>
         <li>
-          <button type="button" id="removeobject" class="btn btn-outline-danger" name="{{ doc.item_id }}" value="Remove"  onclick="removeExpense(this.name)">Remove</button>
+          <form action="{{ url_for('remove_expense') }}" method="post">
+            <input type="hidden" name="object" value={{ doc.item_id }}>
+          <input type="submit" id="object" value="Remove">
+        </form>
         </li>
       </ul>
     </div>
   </div>
-</div>
-</center>
 {% endfor %} 
-</div>
+</ul>
 {% endblock %} 
 
 <!-- END BUSINESS EXPENSE LIST -->

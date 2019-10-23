@@ -83,14 +83,14 @@
     {% block logout %}
   
     {% endblock %}
-    <center>
+    <div style="text-align: center;">
     {% block username %}
 
      {% endblock %}
      {% block svgimg %}
 <!-- IMAGE BLOCK -->
      {% endblock %}
-    </center>
+    </div style="text-align: center;">
 
     <!-- FLASH MESSAGES WHEN UPLOADING FILES -->
     {% with messages = get_flashed_messages() %} {% if messages %} {% for

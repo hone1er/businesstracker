@@ -112,7 +112,6 @@ html {
   margin: 50px 0;
 }
 
-
 .client,
 .item {
   display: inline-flex;
@@ -135,7 +134,7 @@ html {
   border: 1px solid rgba(0, 0, 0, 0.212) !important;
 }
 .card-body {
-  background: #10c99a67
+  background: #10c99a67;
 }
 .card-header {
   letter-spacing: 0.15rem;
@@ -155,9 +154,8 @@ html {
   width: 250px;
 }
 
-
 .simple {
-  color: #21813e
+  color: #21813e;
 }
 .secure {
   color: rgb(5, 5, 143);
@@ -169,7 +167,7 @@ html {
 .container-fluid.expense {
   padding: 0 15vw;
 }
-.log{
+.log {
   text-align: center;
 }
 .log a {
@@ -193,6 +191,7 @@ html {
 }
 
 ul {
+  padding-left: 0;
   text-align: center;
   text-align: -webkit-center;
 }
@@ -264,7 +263,10 @@ dd input {
   border-radius: 6px;
   text-align: center;
 }
-
+#expense-out {
+  text-align: center;
+  padding: 0;
+}
 #filters {
   width: 100%;
 }
@@ -291,24 +293,22 @@ dd input {
     font-size: 1.25rem;
     padding: 45px;
   }
-
-
 }
 
 @media only screen and (max-width: 993px) {
-    .container{
-      width: 100% !important;
-    }
-    .index {
-      display: block;
-    }
-    .card {
-      width: unset;
-      max-height: min-content;
-    }
-    #welcome {
-      font-size: 1.75rem;
-    }
+  .container {
+    width: 100% !important;
+  }
+  .index {
+    display: block;
+  }
+  .card {
+    width: unset;
+    max-height: min-content;
+  }
+  #welcome {
+    font-size: 1.75rem;
+  }
 }
 @media only screen and (max-width: 765px) {
   .container-fluid.project,

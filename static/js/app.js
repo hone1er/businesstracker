@@ -30,23 +30,23 @@ function success(result) {
   console.log("Item Removed!");
 }
 
-///// SENDS POST REQUEST TO REMOVE AN EXPENSE
-function removeExpense(value) {
-  var data = {
-    item: value
-  };
+// ///// SENDS POST REQUEST TO REMOVE AN EXPENSE, NOT IN USE BECAUSE PAGE NEEDED TO BE RELOADED TO UPDATE CHARTS
+// function removeExpense(value) {
+//   var data = {
+//     item: value
+//   };
 
-  $.ajax({
-    type: "POST",
-    url: "/remove_expense/" + data.item,
-    data: { json: JSON.stringify(data) },
-    success: success
-  });
+//   $.ajax({
+//     type: "POST",
+//     url: "/remove_expense/" + data.item,
+//     data: { json: JSON.stringify(data) },
+//     success: success
+//   });
 
-  $(`[id=${value}]`).css("display", "none");
-  removeItems("itemcost", "#totalexpenses");
-  calculate();
-}
+//   $(`[id=${value}]`).css("display", "none");
+//   removeItems("itemcost", "#totalexpenses");
+//   calculate();
+// }
 
 ///// SENDS POST REQUEST TO REMOVE INCOME
 function removeIncome(value) {
@@ -66,10 +66,9 @@ function removeIncome(value) {
     .css("display", "none");
   removeItems("incomeamount", "#totalincome");
   removeItems("feeamount", "#totalfees");
-  calculate();
 }
 
-//// SUMS THE TOTAL OF INCOME, FEES, AND EXPENSES
+//// SUMS THE TOTAL OF INCOME, FEES, AND EXPENSES FOR PROFIT/LOSS
 function calculate() {
   i = ["totalincome", "totalexpenses", "totalfees"];
   total = 0;
@@ -78,7 +77,7 @@ function calculate() {
     if (item == null) {
       item = 0;
     } else {
-      total += parseFloat(item.innerText.replace(/\$/g, "")) * 100;
+      total += parseFloat(item.innerText.replace(/\$/g, ""));
     }
   });
 
@@ -90,60 +89,159 @@ function calculate() {
     totalid.style.color = "rgba(158, 9, 9)";
   }
 
-  totalid.innerHTML = "$" + (total / 100).toFixed(2);
+  totalid.innerHTML = "$" + total.toFixed(2);
 }
 
-//// DOES CALCULATION TO CHANGE EXPENSES VALUE IN THE LAYOUT WHEN AN EXPENSE IS REMOVED
-function removeItems(classname, headerid) {
-  total = 0;
+// //// DOES CALCULATION TO CHANGE EXPENSES VALUE IN THE LAYOUT WHEN AN EXPENSE IS REMOVED
+// function removeItems(classname, headerid) {
+//   total = 0;
 
-  let item = document.getElementsByClassName(classname);
+//   let item = document.getElementsByClassName(classname);
 
-  for (var i = 0; i < item.length; i++) {
-    if (
-      $(item[i])
-        .parents("div")
-        .css("display") == "none"
-    ) {
-    } else {
-      total += parseFloat(item[i].innerText.match(/\d+/g).map(Number));
-    }
-  }
-  if (classname == "itemcost" || classname == "feeamount") {
-    $(headerid).text("$" + total * -1);
-  } else {
-    $(headerid).text("$" + total);
-  }
-}
+//   for (var i = 0; i < item.length; i++) {
+//     if (
+//       $(item[i])
+//         .parents("div")
+//         .css("display") == "none"
+//     ) {
+//     } else {
+//       total += parseFloat(item[i].innerText.match(/\d+/g).map(Number));
+//     }
+//   }
+//   if (classname == "itemcost" || classname == "feeamount") {
+//     $(headerid).text("$" + total * -1);
+//   } else {
+//     $(headerid).text("$" + total);
+//   }
+// }
 
 function plotExpenses() {
   var temp_dates = $(".expense").sort(function(a, b) {
     return ("" + a.getAttribute("date")).localeCompare(b.getAttribute("date"));
   });
 
-  let dates = [];
-  let cost = [];
-  let text = [];
-  for (let i = 0; i < temp_dates.length; i++) {
-    const element = temp_dates[i];
-    dates.push(element.getAttribute("date"));
-    cost.push(element.getAttribute("cost") * -1);
-    text.push(element.getAttribute("name"));
+  if (temp_dates.length <= 1) {
+    return;
   }
-  var data = [
-    {
-      x: dates,
-      y: cost,
-      text: text,
-      type: "scatter",
-      line: {
-        color: "rgb(204,37,41)"
-      }
-    }
+  var data = [];
+  let dates = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
   ];
+  let cost = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  let base = []
+
+  for (let i = 0; i < temp_dates.length; i++) {
+    // let text = [];
+    const element = temp_dates[i];
+    var month;
+
+    switch (element.getAttribute("date").slice(5, -3)) {
+      case "01":
+        month = "Jan";
+        cost[0] = cost[0] + element.getAttribute("cost") * -1;
+        break;
+      case "02":
+        month = "Feb";
+        cost[1] = cost[1] + element.getAttribute("cost") * -1;
+        break;
+      case "03":
+        month = "Mar";
+        cost[2] = cost[2] + element.getAttribute("cost") * -1;
+        break;
+      case "04":
+        month = "Apr";
+        cost[3] = cost[3] + element.getAttribute("cost") * -1;
+        break;
+      case "05":
+        month = "May";
+        cost[4] = cost[4] + element.getAttribute("cost") * -1;
+        break;
+      case "06":
+        month = "June";
+        cost[5] = cost[5] + element.getAttribute("cost") * -1;
+        break;
+      case "07":
+        month = "July";
+        cost[6] = cost[6] + element.getAttribute("cost") * -1;
+        break;
+      case "08":
+        month = "Aug";
+        cost[7] = cost[7] + element.getAttribute("cost") * -1;
+        break;
+      case "09":
+        month = "Sep";
+        cost[8] = cost[8] + element.getAttribute("cost") * -1;
+        break;
+      case "10":
+        month = "Oct";
+        cost[9] = cost[9] + element.getAttribute("cost") * -1;
+        break;
+      case "11":
+        month = "Nov";
+        cost[10] = cost[10] + element.getAttribute("cost") * -1;
+        break;
+      case "12":
+        month = "Dec";
+        cost[11] = cost[11] + element.getAttribute("cost") * -1;
+    }
+    console.log(month);
+    // dates.push(month);
+    // cost.push(element.getAttribute("cost") * -1);
+    // text.push(element.getAttribute("name"), element.getAttribute("category"));
+  }
+  for (let i = 0; i < cost.length; i++) {
+    const element = cost[i];
+    base.push(element*-1)
+  }
+  var trace = {
+    x: dates,
+    y: cost,
+    base: base,
+    hovertemplate: '<b>Expenses</b>: $%{base:.2f}' +
+    '<br><b>Month</b>: %{x}<br><extra></extra>',
+    marker: { color: "rgb(204,37,41)" },
+    type: "bar",
+    line: {
+      color: "rgb(204,37,41)"
+    }
+  };
+  data.push(trace);
   const layout = {
+    barmode: "stack",
+    xaxis: {
+      tickfont: {
+        size: 14,
+        color: "rgb(107, 107, 107)"
+      }
+    },
     yaxis: {
-      tickformat: "$,"
+      title: "USD ($)",
+      tickformat: "$",
+      titlefont: {
+        size: 16,
+        color: "rgb(107, 107, 107)"
+      },
+      tickfont: {
+        size: 14,
+        color: "rgb(107, 107, 107)"
+      }
+    },
+    legend: {
+      x: 0,
+      y: 1.5,
+      bgcolor: "rgba(255, 255, 255, 0)",
+      bordercolor: "rgba(255, 255, 255, 0)"
     }
   };
 
