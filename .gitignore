@@ -10,3 +10,4 @@ config.cpython-37.pyc
 mongohelper.cpython-37.pyc
 myForms.cpython-37.pyc
 config.py
+settings.py

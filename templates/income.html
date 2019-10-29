@@ -42,7 +42,6 @@
 <!-- END EXPENSES BUTTON -->
 
 
-
 {% block body %}
 <!-- TOTAL EXPENSE HEADER -->
 <div class="container-fluid wrapper">
@@ -72,16 +71,27 @@
     <div id="plot"></div>
     <h1 class="clienthead">Income</h1>
   </div>
+  <div id="filters">
+    <label for="sort">SORT BY:</label>
+    <select name="sort" id="sort" onchange="sort_it(this.value)">
+      <option value=""></option>
+      <option value="name">Name</option>
+      <option value="income">Income</option>
+      <option value="platform">Platform</option>
+      <option value="date">Date</option>
+    </select>
+    <i class="fa fa-arrows-v" aria-hidden="true" onclick="reverse_list()"></i>
+  </div>
 </div>
 <!-- END TOTAL EXPENSE HEADER -->
 
 
 
 <!-- INCOME LIST -->
-<ul>
+<ul id="expense-out">
   {% for file in income_statement %}
-  <li class="container-fluid project" id="{{ file.job.ref_id }}" fee="{{ file.income.fee.amount }}"
-    cost="{{ file.income.total }}" date="{{ file.job.date.strftime('%Y-%m-%d') }}">
+  <li class="container-fluid project expense" id="{{ file.job.ref_id }}" name="{{ file.name }}" fee="{{ file.income.fee.amount }}"
+    income="{{ file.income.total }}" cost="{{ file.income.total }}" date="{{ file.job.date.strftime('%Y-%m-%d') }}" {% if file.job.platform %}platform="{{ file.job.platform }}" {% else %}platform="0" {% endif %}>
     <div class=" container-fluid client">
       <div class="container">
         <ul>
@@ -122,10 +132,10 @@
 {% endblock %}
 
 {% block addexpense %}
-<center>
+<div style="text-align: center;">
   <section id="addIncome" class="lowerform" style="display: flex">
     <div class="container-fluid">
-      {% if current_user.business == 'Hone Code LLC' %}
+      {% if current_user.username == 'hone1er' %}
       <!-- UPLOAD FILE -->
       <div id="fileupload">
         <title style="padding: 15px">Upload file from UpWork</title>
@@ -155,5 +165,5 @@
       </div>
     </div>
   </section>
-</center>
+</div>
 {% endblock %}

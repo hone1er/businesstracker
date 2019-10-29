@@ -5,7 +5,15 @@ function sort_it(value) {
         return a.getAttribute(value) - b.getAttribute(value);
       })
     );
-  } else if (value == "date") {
+  } 
+  else if (value == "income") {
+    $("#expense-out").append(
+      $("#expense-out .expense").sort(function(a, b) {
+        return b.getAttribute(value) - a.getAttribute(value);
+      })
+    );
+  }
+  else if (value == "date") {
     $("#expense-out").append(
       $("#expense-out .expense").sort(function(a, b) {
         // Turn your strings into dates, and then subtract them
@@ -15,7 +23,7 @@ function sort_it(value) {
         );
       })
     );
-  } else if (value == "name" || value == "category") {
+  } else if (value == "name" || value == "category" || "platform") {
     $("#expense-out").append(
       $("#expense-out .expense").sort(function(a, b) {
         return ("" + a.getAttribute(value)).localeCompare(
@@ -24,6 +32,13 @@ function sort_it(value) {
       })
     );
   }
+}
+
+function reverse_list(){
+  var expense = document.getElementById("expense-out");
+  var i = expense.childNodes.length;
+  while (i--)
+    expense.appendChild(expense.childNodes[i]);
 }
 
 function success(result) {
@@ -120,7 +135,7 @@ function plotExpenses(type) {
     return ("" + a.getAttribute("date")).localeCompare(b.getAttribute("date"));
   });
 
-  if (temp_dates.length <= 1) {
+  if (temp_dates.length <= 0) {
     return;
   }
   var data = [];

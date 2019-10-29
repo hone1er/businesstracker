@@ -44,7 +44,7 @@ class ExpenseForm(Form):
 
     item = StringField('Item', [validators.Length(
         min=3, max=35), validators.InputRequired()], render_kw={"placeholder": "Item"})
-    category = SelectField('Category', [validators.InputRequired()], choices=[("Business","Business"), ("Computer Hardware", "Computer Hardware"), ("Computer Software", "Computer Software"), ("Web Hosting", "Web Hosting"), ("Office Supplies", "Office Supplies")])
+    category = SelectField('Category', [validators.InputRequired()], choices=[("Business","Business"), ("Computer Hardware", "Computer Hardware"), ("Computer Software", "Computer Software"), ("Office Supplies", "Office Supplies"), ("Web Hosting", "Web Hosting"), ("Other", "Other")])
     cost  = StringField('Cost', [validators.regexp(
         r'^[1-9][\.\d]*(,\d+)?$'), validators.InputRequired()], render_kw={"placeholder": "Cost"})
     # receipt = FileField('Upload Receipt')

@@ -81,7 +81,7 @@ class Business:
                         income = float(df.iloc[idx+1]['Amount'])
                         job_description = df.iloc[idx+1]['Description']
                         net = float(income) + float(fee_amount)
-                        result = self.db.users.update(
+                        self.db.users.update(
                             {'username': self.username}, {'$push': {'clients': {'name': client, 'job': {'name': job_description, 'date': date, 'platform': 'UpWork', 'ref_id': job_id}, 'income': {
                                 'total': income, 'fee': {'amount': fee_amount, 'ref_id': fee_id}, 'net': net}}}}, upsert=True)
 
@@ -102,7 +102,7 @@ class Business:
             {'username': self.username}, {'$push': {'clients': {'name': form.client.data, 'job': {'name': form.job.data, 'date': datetime.datetime.combine(form.date.data, datetime.datetime.min.time()), 'platform': form.platform.data, 'ref_id': ObjectId()}, 'income': {'total': income, 'fee': {'amount': fees}, 'net': net}}}}, upsert=True)
 
     def remove_expense(self, eid, db):
-        result = db.update_one(
+        db.update_one(
             {'username': self.username},
             {'$pull': {'expenses': {'item_id': ObjectId(eid)}}}
         )

@@ -57,7 +57,8 @@ def allowed_file(filename):
 ########### LOGIN/REGISTRATION/LOGOUT ##################
 
 @login_manager.user_loader
-def load_user(username):
+def load_user(username: str) -> User:
+    """Searches DB for user. Returns User Class if found, otherwise returns None """
     u = db.users.find_one({"username": username})
     if not u:
         return None
@@ -66,6 +67,9 @@ def load_user(username):
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
+    """Authenticate new user registration
+    
+    Validates form before creating a new User and adding them to the DB """
     if current_user.is_authenticated:
         return redirect(url_for('income'))
     form = RegistrationForm()
@@ -82,6 +86,7 @@ def register():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    """Login for valid Users """
     if current_user.is_authenticated:
         return redirect(url_for('income'))
     form = LoginForm()

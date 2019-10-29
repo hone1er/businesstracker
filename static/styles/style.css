@@ -269,6 +269,14 @@ dd input {
 }
 #filters {
   width: 100%;
+  display: block ruby;
+  padding: 10px;
+}
+.fa-arrows-v {
+  padding: 10px;
+}
+.fa-arrows-v:hover {
+  cursor: pointer; 
 }
 #sort {
   display: block;
