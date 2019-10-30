@@ -5,13 +5,13 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 import time
 from flask_login import UserMixin
-from config import mongop
+
 
 
 class Business:
     def __init__(self, username):
         # CONNECT TO MONGODB
-        conn = mongop
+        conn = os.environ['MONGODB']
         client = MongoClient(conn)
         self.db = client.HoneCode
         self.username = username
@@ -145,7 +145,7 @@ class Business:
 class User(UserMixin):
     def __init__(self, username=None, email=None, password=None, business=None):
         # CONNECT TO MONGODB
-        conn = mongop
+        conn = os.environ['MONGODB']
         client = MongoClient(conn)
         self.db = client.HoneCode
         self.username = username

@@ -23,7 +23,6 @@ import re
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, redirect, send_from_directory, request, flash, url_for
 from flask_bcrypt import Bcrypt
-from config import SECRET_KEY, mongop
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required, UserMixin
 from myForms import ExpenseForm, RegistrationForm, LoginForm, IncomeForm
 from mongohelper import Business, User
@@ -34,13 +33,13 @@ app = Flask(__name__)
 UPLOAD_FOLDER = os.path.join(os.path.dirname('__file__'), 'static/import')
 ALLOWED_EXTENSIONS = {'xlsx', 'csv', 'xlrd'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.secret_key = SECRET_KEY
+app.secret_key = os.environ['SECRET_KEY']
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
-conn = mongop
+conn = os.environ['MONGODB']
 client = MongoClient(conn)
 db = client.HoneCode
 users = db.users
@@ -203,4 +202,4 @@ def dashboard():
 #########################################
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
