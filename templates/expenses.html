@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% set active_page="expenses" %}
 
 {% block google %}
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -23,8 +24,7 @@
   <!--  -->
 </h1>
 {% endblock %}
-{% block logout %}
-<a href="{{ url_for('logout') }}"><button class="btn btn-btn-primary">Logout</button></a>
+{% block navbar %}
 {% endblock %}
 {% block svgimg %}
 <img class="svghead" height="400px" src="{{ url_for('static', filename='images/expenses.svg') }}" alt="" srcset="">
@@ -33,47 +33,16 @@
 
 <!-- CHECK INCOME AND ADD EXPENSE BUTTONS -->
 {% block form %}
-<div style="margin-bottom: 20px; text-align:center;">
-  <form action="{{ url_for('income') }}" method="GET">
-    <button type="submit" class="btn btn-primary" style="margin-bottom: 25px;margin-top: 25px;">Check Income</button>
-  </form>
+<div style="margin-top: 20px; text-align:center;">
   <a href="#addexpense"><button class="btn btn-outline-success">Add Expense</button></a>
 </div>
 {% endblock %}
 <!-- END INCOME EXPENSE BUTTONS -->
 
 {% block body %}
-
-<!-- TOTAL EXPENSE HEADER -->
-<div class="container-fluid wrapper">
-  <div class="newexpense">
-
+  <h1 class="clienthead">Expenses</h1>
   </div>
-  <div class="container totals">
-    <div class="container-fluid">
-      <h3 class="income">Income</h3>
-      <p id="totalincome">${{ honecode.total_income }}</p>
-    </div>
-    <div class="container-fluid">
-      <h3 class="fees">Fees</h3>
-      <p id="totalfees">${{ honecode.total_fees }}</p>
-    </div>
-    <div class="container-fluid">
-      <h3 class="expenses">Expenses</h3>
-      <p id="totalexpenses">${{ honecode.total_expenses }}</p>
-    </div>
-    <div class="container-fluid">
-      <h3>Profit/Loss</h3>
-      <p id="profitloss"></p>
-    </div>
-
-  </div>
-
-  <div class="headc">
-    <!-- PLOTLY BAR CHART -->
-    <div id="plot"></div>
-    <h1 class="clienthead">Expenses</h1>
-  </div>
+  {% block options %}
   <div id="filters">
     <label for="sort">SORT BY:</label>
     <select name="sort" id="sort" onchange="sort_it(this.value)">
@@ -85,6 +54,7 @@
     </select>
     <i class="fa fa-arrows-v" aria-hidden="true" onclick="reverse_list()"></i>
   </div>
+  {% endblock %}
 </div>
 <!-- END TOTAL EXPENSE HEADER -->
 

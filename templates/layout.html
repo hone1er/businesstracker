@@ -1,140 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    {% block google %}
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-146246516-3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'UA-146246516-3');
-</script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "ca-pub-1735234617072553",
-          enable_page_level_ads: true
-     });
-</script>
-    <script
-      type="text/javascript"
-      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-      integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-      crossorigin="anonymous"
-    ></script>
-    <script async custom-element="amp-auto-ads"
-        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
-</script>
-{% endblock %}
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-    />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="description" content="Track your business expenses and income. Made with Freelancers and small businesses in mind.">
-    <meta name="keywords" content="Income, Business, Tracker, Track, Expenses, Freelancers, UpWork">
-    <meta name="author" content="Hone Code LLC">
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="{{url_for('static', filename='styles/style.css')}}"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Righteous|Roboto|Special+Elite&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap"
-      rel="stylesheet"
-    />
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    rel="stylesheet"
-    />
-    
-    <script
-      src="http://code.jquery.com/jquery-2.2.0.min.js"
-      type="text/javascript"
-    ></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <title>Hone Code LLC</title>
+<head>
+  {% block google %}
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146246516-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-146246516-3');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-1735234617072553",
+      enable_page_level_ads: true
+    });
+  </script>
+
+  <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+  </script>
+  {% endblock %}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="description"
+    content="Track your business expenses and income. Made with Freelancers and small businesses in mind.">
+  <meta name="keywords" content="Income, Business, Tracker, Track, Expenses, Freelancers, UpWork">
+  <meta name="author" content="Hone Code LLC">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{url_for('static', filename='styles/style.css')}}" />
+  <link href="https://fonts.googleapis.com/css?family=Righteous|Roboto|Special+Elite&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet" />
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <title>Hone Code LLC</title>
 
 
-    <!-- script for scroll down arrow -->
-    <script type="text/javascript">
-      $(function() {
-        $("a[href*=#]").on("click", function(e) {
-          e.preventDefault();
-          $("html, body").animate(
-            { scrollTop: $($(this).attr("href")).offset().top },
-            500,
-            "linear"
-          );
-        });
+  <!-- script for scroll down arrow -->
+  <script type="text/javascript">
+    $(function () {
+      $("a[href*=#]").on("click", function (e) {
+        e.preventDefault();
+        $("html, body").animate(
+          { scrollTop: $($(this).attr("href")).offset().top },
+          500,
+          "linear"
+        );
       });
-    </script>
-  </head>
+    });
+  </script>
+</head>
 
-  <body>
-    {% block logout %}
+<body>
   
-    {% endblock %}
-    <div style="text-align: center;">
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" id="income_nav" href="{{ url_for('income') }}">Income <span
+            class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" id="get_expenses" href="{{ url_for('get_expenses') }}">Expenses</a>
+        <a class="nav-item nav-link" id="dashboard_nav" href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a class="nav-item nav-link" id="logout" href="{{ url_for('logout') }}">Logout</a>
+      </div>
+    </div>
+  </nav>
+  {% block navbar %}
+  {% endblock %}
+  <div style="text-align: center;">
     {% block username %}
 
-     {% endblock %}
-     {% block svgimg %}
-<!-- IMAGE BLOCK -->
-     {% endblock %}
-    </div style="text-align: center;">
+    {% endblock %}
+    {% block svgimg %}
+    <!-- IMAGE BLOCK -->
+    {% endblock %}
+  </div style="text-align: center;">
 
-    <!-- FLASH MESSAGES WHEN UPLOADING FILES -->
-    {% with messages = get_flashed_messages() %} {% if messages %} {% for
+  <!-- FLASH MESSAGES WHEN UPLOADING FILES -->
+  {% with messages = get_flashed_messages() %} {% if messages %} {% for
     message in messages %}
-    <div
-      class="alert alert-danger alert-dismissible fade show"
-      runat="server"
-      id="modalEditError"
-      visible="false"
-    >
-      <strong id="message">{{ message }}</strong>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+  <div class="alert alert-danger alert-dismissible fade show" runat="server" id="modalEditError" visible="false">
+    <strong id="message">{{ message }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %} {% endif %} {% endwith %}
+  <!-- END MESSAGE FLASH -->
+
+  {% block form %}
+  <!-- FORM BLOCK -->
+  <amp-auto-ads type="adsense" data-ad-client="ca-pub-1735234617072553">
+  </amp-auto-ads>
+  {% endblock %}
+  <!-- TOTAL EXPENSE HEADER -->
+<div class="container-fluid wrapper">
+  <div class="newexpense">
+
+  </div>
+  <div class="container totals">
+    <div class="container-fluid">
+      <h3 class="income">Income</h3>
+      <p id="totalincome">${{ honecode.total_income }} </p>
     </div>
-    {% endfor %} {% endif %} {% endwith %}
-<!-- END MESSAGE FLASH -->
+    <div class="container-fluid">
+      <h3 class="fees">Fees</h3>
+      <p id="totalfees">${{  honecode.total_fees }}</p>
+    </div>
+    <div class="container-fluid">
+      <h3 class="expenses">Expenses</h3>
+      <p id="totalexpenses">${{  honecode.total_expenses }}</p>
+    </div>
+    <div class="container-fluid">
+      <h3>Profit/Loss</h3>
+      <p id="profitloss"></p>
+    </div>
+  </div>
+  <div class="headc">
+    <!-- PLOTLY BAR CHART -->
+    <div id="plot"></div>
+  {% block body %}
+  <!-- BODY BLOCK -->
+  {% endblock %}
+  {% block addexpense %}
+  <!-- ADD EXPENSE FORM BLOCK -->
+  {% endblock %}
+  <footer style="margin-top: 45px"></footer>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/app.js')}}"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-    {% block form %}
-<!-- FORM BLOCK -->
-<amp-auto-ads type="adsense"
-              data-ad-client="ca-pub-1735234617072553">
-</amp-auto-ads>
-    {% endblock %}
-    {% block body %} 
-    <!-- BODY BLOCK -->
-    {% endblock %} 
-    {% block addexpense %}
-    <!-- ADD EXPENSE FORM BLOCK -->
-    {% endblock %}
-    <footer style="margin-top: 45px"></footer>
-    <script
-      type="text/javascript"
-      src="{{ url_for('static', filename='js/app.js')}}"
-    ></script>
+</body>
 
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
-  </body>
 </html>

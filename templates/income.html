@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-
+{% set active_page = "income" %}
 {% block google %}
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146246516-3"></script>
@@ -16,8 +16,8 @@
 <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
 </script>
 {% endblock %}
-{% block logout %}
-<a href="{{ url_for('logout') }}"><button class="btn btn-btn-primary">Logout</button></a>
+{% block navbar %}
+
 {% endblock %}
 
 {% block username %}
@@ -32,44 +32,15 @@
 {% endblock %}
 <!-- EXPENSES BUTTON -->
 {% block form %}
-<center>
-  <form action="/get_expenses" method="GET" style="padding: 15px">
-    <button type="submit" class="btn btn-primary">Check Expenses</button>
-  </form>
+<div style="margin-top: 20px; text-align: center;">
   <a href="#addIncome"><button class="btn btn-outline-success">Add Income</button></a>
-</center>
+</div>
 {% endblock %}
 <!-- END EXPENSES BUTTON -->
 
 
 {% block body %}
-<!-- TOTAL EXPENSE HEADER -->
-<div class="container-fluid wrapper">
-  <div class="newexpense">
-
-  </div>
-  <div class="container totals">
-    <div class="container-fluid">
-      <h3 class="income">Income</h3>
-      <p id="totalincome">${{ honecode.total_income }} </p>
-    </div>
-    <div class="container-fluid">
-      <h3 class="fees">Fees</h3>
-      <p id="totalfees">${{  honecode.total_fees }}</p>
-    </div>
-    <div class="container-fluid">
-      <h3 class="expenses">Expenses</h3>
-      <p id="totalexpenses">${{  honecode.total_expenses }}</p>
-    </div>
-    <div class="container-fluid">
-      <h3>Profit/Loss</h3>
-      <p id="profitloss"></p>
-    </div>
-  </div>
-  <div class="headc">
-    <!-- PLOTLY BAR CHART -->
-    <div id="plot"></div>
-    <h1 class="clienthead">Income</h1>
+    <h1 class="clienthead">{% block main_head %}Income{% endblock %}</h1>
   </div>
   <div id="filters">
     <label for="sort">SORT BY:</label>
@@ -90,8 +61,10 @@
 <!-- INCOME LIST -->
 <ul id="expense-out">
   {% for file in income_statement %}
-  <li class="container-fluid project expense" id="{{ file.job.ref_id }}" name="{{ file.name }}" fee="{{ file.income.fee.amount }}"
-    income="{{ file.income.total }}" cost="{{ file.income.total }}" date="{{ file.job.date.strftime('%Y-%m-%d') }}" {% if file.job.platform %}platform="{{ file.job.platform }}" {% else %}platform="0" {% endif %}>
+  <li class="container-fluid project expense" id="{{ file.job.ref_id }}" name="{{ file.name }}"
+    fee="{{ file.income.fee.amount }}" income="{{ file.income.total }}" cost="{{ file.income.total }}"
+    date="{{ file.job.date.strftime('%Y-%m-%d') }}" {% if file.job.platform %}platform="{{ file.job.platform }}"
+    {% else %}platform="0" {% endif %}>
     <div class=" container-fluid client">
       <div class="container">
         <ul>
@@ -117,53 +90,50 @@
             Fees: ${{ file.income.fee.amount }}
           </li>
           <li>
-              <form action="{{ url_for('remove_income') }}" method="post">
-                <input type="hidden" name="object" value={{ file.job.ref_id }}>
-                <input class="btn btn-outline-danger" type="submit" id="object" value="Remove">
-              </form>
-            </li>
+            <form action="{{ url_for('remove_income') }}" method="post">
+              <input type="hidden" name="object" value={{ file.job.ref_id }}>
+              <input class="btn btn-outline-danger" type="submit" id="object" value="Remove">
+            </form>
+          </li>
         </ul>
       </div>
     </div>
-  </li>
-  {% endfor %}
-</ul>
-<!-- END INCOME LIST -->
-{% endblock %}
+  </li> {% endfor %} </ul> <!-- END INCOME LIST -->
+  {% endblock %}
 
-{% block addexpense %}
-<div style="text-align: center;">
-  <section id="addIncome" class="lowerform" style="display: flex">
-    <div class="container-fluid">
-      {% if current_user.username == 'hone1er' %}
-      <!-- UPLOAD FILE -->
-      <div id="fileupload">
-        <title style="padding: 15px">Upload file from UpWork</title>
-        <h1 id="newfile">Upload UpWork file or manually enter income below</h1>
-        <form method=post enctype=multipart/form-data> <input id="fileinput" type=file name=file>
-          <br>
-          <br>
-          <button type=submit class="btn btn-outline-success" value=Upload style="margin-bottom: 15px">Upload</button>
-        </form>
+  {% block addexpense %}
+  <div style="text-align: center;">
+    <section id="addIncome" class="lowerform" style="display: flex">
+      <div class="container-fluid">
+        {% if current_user.username == 'hone1er' %}
+        <!-- UPLOAD FILE -->
+        <div id="fileupload">
+          <title style="padding: 15px">Upload file from UpWork</title>
+          <h1 id="newfile">Upload UpWork file or manually enter income below</h1>
+          <form method=post enctype=multipart/form-data> <input id="fileinput" type=file name=file>
+            <br>
+            <br>
+            <button type=submit class="btn btn-outline-success" value=Upload style="margin-bottom: 15px">Upload</button>
+          </form>
+        </div>
+        <!-- END UPLOAD FILE -->
+        {% endif %}
+        <div class="jobinput">
+          <h4>Enter Income</h4>
+          {% from "_formhelpers.html" import render_field %}
+          <form name="newjob" method="post">
+            <dl>
+              {{ render_field(form.client) }}
+              {{ render_field(form.job) }}
+              {{ render_field(form.earnings) }}
+              {{ render_field(form.fees) }}
+              {{ render_field(form.platform) }}
+              {{ render_field(form.date) }}
+            </dl>
+            <button type="submit" class="btn btn-success">Add</button>
+          </form>
+        </div>
       </div>
-      <!-- END UPLOAD FILE -->
-      {% endif %}
-      <div class="jobinput">
-        <h4>Enter Income</h4>
-        {% from "_formhelpers.html" import render_field %}
-        <form name="newjob" method="post">
-          <dl>
-            {{ render_field(form.client) }}
-            {{ render_field(form.job) }}
-            {{ render_field(form.earnings) }}
-            {{ render_field(form.fees) }}
-            {{ render_field(form.platform) }}
-            {{ render_field(form.date) }}
-          </dl>
-          <button type="submit" class="btn btn-success">Add</button>
-        </form>
-      </div>
-    </div>
-  </section>
-</div>
-{% endblock %}
+    </section>
+  </div>
+  {% endblock %}

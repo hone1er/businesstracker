@@ -31,7 +31,7 @@ from mongohelper import Business, User
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = os.path.join(os.path.dirname('__file__'),'static/import')
+UPLOAD_FOLDER = os.path.join(os.path.dirname('__file__'), 'static/import')
 ALLOWED_EXTENSIONS = {'xlsx', 'csv', 'xlrd'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = SECRET_KEY
@@ -46,14 +46,11 @@ db = client.HoneCode
 users = db.users
 
 
-
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-
- 
 ########### LOGIN/REGISTRATION/LOGOUT ##################
 
 @login_manager.user_loader
@@ -68,7 +65,7 @@ def load_user(username: str) -> User:
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     """Authenticate new user registration
-    
+
     Validates form before creating a new User and adding them to the DB """
     if current_user.is_authenticated:
         return redirect(url_for('income'))
@@ -81,7 +78,7 @@ def register():
         user.add_user()
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('register.html', title='Register', form=form, honecode=None)
 
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -100,7 +97,7 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('income'))
         else:
             flash('Login Unsuccessful. Please check username and password', 'danger')
-    return render_template('login.html', title='Login', form=form)
+    return render_template('login.html', title='Login', form=form, honecode=None)
 
 
 @app.route("/logout")
@@ -111,9 +108,11 @@ def logout():
 
 ######################################################################################
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 @app.route('/income', methods=['GET', 'POST'])
 @login_required
@@ -142,13 +141,12 @@ def income():
         else:
             Business(current_user.username).add_income(form)
     # END FILE UPLOAD
-    # from_date = datetime.datetime(2019, 8, 21)
-    # to_date = datetime.datetime(2019, 8, 30)
+
     honecode = Business(current_user.username)
-    # honecode.filter_dates(from_date, to_date)
     return render_template('income.html', form=form, honecode=honecode, income_statement=honecode.income_list, business_expenses=honecode.expense_list)
 
 
+# ADDING AND REMOVING EXPENSES/INCOME
 @app.route('/get_expenses', methods=['GET', 'POST'])
 @login_required
 def get_expenses():
@@ -169,11 +167,10 @@ def get_expenses():
 @login_required
 def remove_expense():
     ''' removes an expense based on the item_id '''
-    if request.method == 'POST' :
+    if request.method == 'POST':
         expense = request.form['object']
         Business(current_user.username).remove_expense(expense, users)
     return redirect(url_for('get_expenses'))
-
 
 
 @app.route('/remove_income/', methods=['POST'])
@@ -186,7 +183,6 @@ def remove_income():
     return redirect(url_for('income'))
 
 
-
 @app.route('/add_income', methods=['POST'])
 @login_required
 def add_income():
@@ -195,7 +191,16 @@ def add_income():
     if request.method == 'POST' and form.validate():
         Business(current_user.username).add_income(form)
     return redirect(url_for('income'))
+##########################################
+# DASHBOARD ENDPOINTS
+@app.route('/dashboard', methods=['GET', 'POST'])
+@login_required
+def dashboard():
+    honecode = Business(current_user.username)
+    return render_template('dashboard.html', honecode=honecode)
 
+
+#########################################
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)

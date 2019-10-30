@@ -1,5 +1,62 @@
-{% extends "layout.html" %}
-{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% block google %}
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146246516-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-146246516-3');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-1735234617072553",
+      enable_page_level_ads: true
+    });
+  </script>
+
+  <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+  </script>
+  {% endblock %}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="description"
+    content="Track your business expenses and income. Made with Freelancers and small businesses in mind.">
+  <meta name="keywords" content="Income, Business, Tracker, Track, Expenses, Freelancers, UpWork">
+  <meta name="author" content="Hone Code LLC">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{url_for('static', filename='styles/style.css')}}" />
+  <link href="https://fonts.googleapis.com/css?family=Righteous|Roboto|Special+Elite&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet" />
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <title>Hone Code LLC</title>
+
+
+  <!-- script for scroll down arrow -->
+  <script type="text/javascript">
+    $(function () {
+      $("a[href*=#]").on("click", function (e) {
+        e.preventDefault();
+        $("html, body").animate(
+          { scrollTop: $($(this).attr("href")).offset().top },
+          500,
+          "linear"
+        );
+      });
+    });
+  </script>
+</head>
+
+<body>
     <div class="content-section forms">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
@@ -82,4 +139,10 @@
             Already Have An Account? <a class="ml-2" href="{{ url_for('login') }}">Sign In</a>
         </small>
     </div>
-{% endblock body %}
+    <footer style="margin-top: 45px"></footer>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/app.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+    </body>

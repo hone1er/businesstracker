@@ -285,6 +285,8 @@ $(".close").on("click touchend", function(event) {
   }
 });
 
+
+
 calculate();
 
 let item = document.getElementsByClassName("itemcost");
@@ -295,8 +297,14 @@ for (let i = 0; i < item.length; i++) {
 
 if (window.location.pathname == "/get_expenses") {
   plotExpenses('.expense');
+  document.getElementById('get_expenses').classList.add('active')
 }
 
 if (window.location.pathname == "/income") {
   plotExpenses('.project');
+  document.getElementById('income_nav').classList.add('active')
+}
+
+if (window.location.pathname == "/dashboard") {
+  document.getElementById('dashboard_nav').classList.add('active')
 }

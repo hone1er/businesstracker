@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% set active_page = "dashboard" %}
+
+
+{% block google %}
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-146246516-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-146246516-3');
+</script>
+</script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+<script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
+{% endblock %}
+{% block navbar %}
+{% endblock %}
+
+{% block username %}
+<h1 id="main">
+  <!-- CURRENT USER HERE FOR TESTING UNTIL LOGIN IS WORKING -->
+  {{ current_user.business }}
+  <!--  -->
+</h1>
+{% endblock %}
+{% block svgimg %}
+<img class="svghead" height="400px" src="{{ url_for('static', filename='images/invoices.svg') }}" alt="" srcset="">
+{% endblock %}
+<!-- EXPENSES BUTTON -->
+{% block form %}
+
+{% endblock %}
+<!-- END EXPENSES BUTTON -->
+
+
+{% block body %}
+    <h1 class="clienthead">Analytics</h1>
+  </div>
+<!-- END TOTAL EXPENSE HEADER -->
+
+<div id="revenue" style="text-align: center; width: 200%"><h1><b>COMING SOON!</b></h1><br><p>New interactive charts and graphs in the next update!</p></div>
+
+
+
+{% endblock %}
+
+{% block addexpense %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/dashboard.js')}}"></script>
+{% endblock %}
