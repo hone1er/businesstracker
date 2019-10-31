@@ -46,16 +46,22 @@ html {
   text-align: center;
 }
 .revenue {
+  border: 2px solid;
   grid-area: revenue;
 }
 .tables {
+  border: 2px solid;
+  border-bottom: 4px solid;
   grid-area: tables;
   text-align: left;
 }
 .pie {
+  border: 2px solid;
   grid-area: pie;
 }
 .net {
+  border: 2px solid;
+  border-bottom: 4px solid;
   grid-area: net;
 }
 
@@ -73,6 +79,9 @@ html {
   padding-left: 0px !important;
   padding-right: 0px !important;
   box-shadow: -1px -1px -1px #222;
+}
+#bottom_table {
+  border-top: 4px solid;
 }
 .totals {
   grid-area: totals;
@@ -323,10 +332,8 @@ tr, td, th{
   font-size: .825rem;
 }
 .table {
+  padding-left: 20px;
   display: inline-block;
-  width: 30vw;
-  padding: 15px;
-  margin: 10px;
   margin-bottom: 150px;
   max-height: 400px;
 }
