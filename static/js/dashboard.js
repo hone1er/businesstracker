@@ -1,6 +1,3 @@
-const income = document.getElementsByClassName("income_row");
-const expenses = document.getElementsByClassName("expense_row");
-
 function create_traces(target_class, attribute) {
   var temp_dates = $(target_class).sort(function(a, b) {
     return ("" + a.getAttribute("date")).localeCompare(b.getAttribute("date"));
@@ -31,7 +28,6 @@ function create_traces(target_class, attribute) {
     // let text = [];
     const element = temp_dates[i];
     var month;
-    console.log(element.getAttribute("date").slice(5, -3));
     switch (element.getAttribute("date").slice(5, -3)) {
       case "01":
         month = "Jan";
@@ -103,7 +99,14 @@ function create_traces(target_class, attribute) {
   var trace = {
     x: dates,
     y: cost,
-    base: base,
+    base: base.map(function(e,i) {
+      if (e == 0) {
+        return e * -1
+      }
+      else {
+        return e
+      }
+    }),
     hovertemplate:
       `<b>${label}</b>: $%{base:.2f}` +
       "<br><b>Month</b>: %{x}<br><extra></extra>",
@@ -119,7 +122,7 @@ function create_traces(target_class, attribute) {
 
 function barChart(data, div) {
   const layout = {
-      barmode: 'stack',
+    barmode: "stack",
     xaxis: {
       tickfont: {
         size: 14,
@@ -150,45 +153,98 @@ function barChart(data, div) {
 }
 
 function createPieTrace() {
-    var trace = {}
-    const expenses = document.getElementsByClassName("expense_row");
-    for (let i = 0; i < expenses.length; i++) {
-        const element = expenses[i];
-        const category = element.getAttribute('category')
-        if (category in trace) {
-            trace[category] += parseInt(element.getAttribute('cost'))
-        }
-        else {
-            trace[category] = parseInt(element.getAttribute('cost'))
-        }
+  var trace = {};
+  const expenses = document.getElementsByClassName("expense_row");
+  for (let i = 0; i < expenses.length; i++) {
+    const element = expenses[i];
+    const category = element.getAttribute("category");
+    if (category in trace) {
+      trace[category] += parseInt(element.getAttribute("cost"));
+    } else {
+      trace[category] = parseInt(element.getAttribute("cost"));
     }
-   return trace
+  }
+  return trace;
 }
 
 function pieChart(trace) {
-    var values = []
-    var labels = []
-    Object.keys(trace).forEach(function(key) {
-        values.push(trace[key]*-1)
-        labels.push(key)
-    });
-    console.log(values, labels)
-    var data = [{
-        values: values,
-        labels: labels,
-        hole: .4,
-        type: 'pie'
-      }];
-      
+  var values = [];
+  var labels = [];
+  Object.keys(trace).forEach(function(key) {
+    values.push(trace[key] * -1);
+    labels.push(key);
+  });
+  var total = values.reduce(function(a, b) {
+    return a + b;
+  });
+  var data = [
+    {
+      values: values,
+      labels: labels,
+      hole: 0.4,
+      type: "pie",
+      textinfo: 'text',
+      hovertemplate:
+      "<b>Expenses</b>: $%{value:.2f}" +
+      "<br><b>Category</b>: %{label}<br><extra></extra>" + "%{text}",
+    }
+  ];
+  var trace = data[0]
+  var total = trace.values.reduce(function(a, b) {
+    return a + b;
+  });
+  
+  trace.text = trace.values.map(function(v) {
+    return ((v / total) * 100).toFixed(2) + '%';
+  });
+  
+  trace.hoverinfo = 'text';
 
-      
-      Plotly.newPlot('pie_chart', data, {responsive: true});
+  Plotly.newPlot("pie_chart", data, { responsive: true });
 }
+
+
+function netBarChart(data) {
+  var months = data[0]["x"];
+  var netY = data[0]["y"].map(function(e, i) {
+    var result;
+    if (data[1]["y"][i] + e != 0) {
+      result = (data[1]["y"][i] + e) * -1;
+    } else {
+      result = data[1]["y"][i] + e;
+    }
+    return result;
+  });
+  
+  var trace = {
+    x: months,
+    y: netY,
+    hovertemplate:
+    "<b>Net Revenue</b>: $%{y:.2f}" +
+    "<br><b>Month</b>: %{x}<br><extra></extra>",
+    marker: { color: netY.map(function(e,i) {
+      
+      if (e >= 0) {
+        return "rgba(36, 131, 36, 0.869)"
+      }
+      else {
+        return "rgba(204,37,41, 0.89)"
+      }
+    }) },
+    type: "bar",
+    line: {
+      color: "rgb(204,37,41)"
+    },
+    name: "Net Revenue"
+  };
+  Plotly.newPlot("net_plot", [trace], {responsive: true})
+}
+
 
 var data = [create_traces(".income_row", "gross")];
 data.push(create_traces(".expense_row", "cost"));
-console.log(data);
 
 barChart(data, "revenue_plot");
-const pieTrace = createPieTrace()
-pieChart(pieTrace)
+netBarChart(data)
+const pieTrace = createPieTrace();
+pieChart(pieTrace);
