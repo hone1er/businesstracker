@@ -337,6 +337,35 @@ tr, td, th{
   margin-bottom: 150px;
   max-height: 400px;
 }
+@media only screen and (min-width: 1525px) {
+  .tables{
+    max-width: 28vw;
+    min-width: 28vw;
+  }
+
+  .revenue{
+    min-width: 72vw;
+  }
+}
+@media only screen and (max-width: 1525px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "tables tables"
+      "revenue revenue"
+      "pie pie"
+      "net net";
+  }
+  #bottom_table {
+    border: none;
+  }
+  .table {
+    display: inline-table;
+  }
+  .table {
+    margin-bottom: 64px;
+  }
+}
 @media only screen and (max-width: 1024px) {
   .client,
   .item {
