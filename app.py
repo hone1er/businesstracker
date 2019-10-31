@@ -39,7 +39,7 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
-conn = 'os.environ['MONGODB']'
+conn = os.environ['MONGODB']
 client = MongoClient(conn)
 db = client.HoneCode
 users = db.users
