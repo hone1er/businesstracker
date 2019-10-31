@@ -35,7 +35,7 @@ flask run
 You're all set!
 
 # Sign-up
-If you don't want/need to do a local install you can create an account on the live website here here – [IncomeTracker](https://incometracker.herokuapp.com)
+If you don't want/need to do a local install you can create an account on the live website here – [IncomeTracker](https://incometracker.herokuapp.com)
 
 
 ## Expenses
@@ -47,7 +47,7 @@ Accepts CSV from UpWork transaction history
 ![](gitimg/img2.png)
 
 
-### Take a look at the latest version here – [IncomeTracker](http://incometracker.herokuapp.com)
+### Take a look at the latest version here – [IncomeTracker](https//incometracker.herokuapp.com)
 ## Release History
 * 0.2.2 patched remove item bug
 * 0.2.1 data visualizations for expenses added
