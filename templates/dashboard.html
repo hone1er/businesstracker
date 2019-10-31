@@ -29,7 +29,7 @@
 </h1>
 {% endblock %}
 {% block svgimg %}
-<img class="svghead" height="400px" src="{{ url_for('static', filename='images/invoices.svg') }}" alt="" srcset="">
+<img class="svghead" height="400px" src="{{ url_for('static', filename='images/data.svg') }}" alt="" srcset="">
 {% endblock %}
 <!-- EXPENSES BUTTON -->
 {% block form %}
@@ -39,11 +39,98 @@
 
 
 {% block body %}
-    <h1 class="clienthead">Analytics</h1>
-  </div>
+<h1 class="clienthead">Analytics</h1>
+</div>
+</div>
 <!-- END TOTAL EXPENSE HEADER -->
 
-<div id="revenue" style="text-align: center; width: 200%"><h1><b>COMING SOON!</b></h1><br><p>New interactive charts and graphs in the next update!</p></div>
+<div class="container-fluid dashboard">
+  <div class="tables" style="margin-top: 50px">
+  <table class="table table-sm table-responsive">
+      <caption style="caption-side:top">Income</caption>
+      <thead class="thead-dark">
+          <tr>
+              <a value="client" onclick="sort_it(this.value)"><th scope="col" >Client</th></a>
+              <th scope="col">Date</th>
+            <th scope="col">Job</th>
+            <th scope="col">Fees</th>
+            <th scope="col">Gross</th>
+            <th scope="col">Net</th>
+          </tr>
+        </thead>
+      <tbody>
+    {% for doc in honecode.income_list %}
+    <tr class="income_row" name="{{ doc.name }}" job="{{ doc.job.name }}" date="{{ doc.job.date.strftime('%Y-%m-%d') }}" fees="{{ doc.income.fees }}" gross="{{ doc.income.total }}" net="{{ doc.income.net }}">
+      <td>
+        {{ doc.name }}
+      </td>
+      <td>
+        {{ doc.job.date.strftime('%Y-%m-%d') }}
+      </td>
+      <td>
+        {{ doc.job.name }}
+      </td>
+      <td>
+          {{ doc.income.fees }}
+        </td>
+      <td>
+        {{ doc.income.total }}
+      </td>
+      <td>
+          {{ doc.income.net }}
+        </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+  <table class="table table-sm table-responsive">
+      <caption style="caption-side:top">Expenses</caption>
+      <thead class="thead-dark">
+          <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Date</th>
+            <th scope="col">Category</th>
+            <th scope="col">Cost</th>
+          </tr>
+        </thead>
+      <tbody>
+    {% for doc in honecode.expense_list %}
+    <tr class="expense_row" name="{{ doc.name }}" category="{{ doc.category }}" date="{{ doc.date.strftime('%Y-%m-%d') }}" cost="{{ doc.cost }}">
+      <td>
+        {{ doc.name }}
+      </td>
+      <td>
+          {{ doc.date.strftime('%Y-%m-%d') }}
+        </td>
+      <td>
+        {{ doc.category }}
+      </td>
+      <td>
+        {{ doc.cost }}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+</div>
+<div class="revenue">
+  <label style="margin-top:40px;" for="revenue_plot">REVENUE</label>
+  <div id="revenue_plot">
+
+  </div>
+</div>
+<div class="pie">
+  <div id="pie_chart">
+
+  </div>
+</div>
+<div class="net">
+  <div id="net_plot">
+
+  </div>
+</div>
+</div>
+
 
 
 

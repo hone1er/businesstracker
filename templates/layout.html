@@ -59,7 +59,7 @@
 <body>
   
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
       aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -104,9 +104,9 @@
   {% endblock %}
   <!-- TOTAL EXPENSE HEADER -->
 <div class="container-fluid wrapper">
-  <div class="newexpense">
+    <div class="newexpense">
 
-  </div>
+      </div>
   <div class="container totals">
     <div class="container-fluid">
       <h3 class="income">Income</h3>
@@ -128,6 +128,7 @@
   <div class="headc">
     <!-- PLOTLY BAR CHART -->
     <div id="plot"></div>
+
   {% block body %}
   <!-- BODY BLOCK -->
   {% endblock %}
