@@ -120,28 +120,6 @@ class Business:
                 {'$pull': {'clients': {'job.ref_id': ObjectId(iid)}}}
             )
 
-#     def filter_dates(self, from_date, to_date):
-#         result = self.db.collection.aggregate([
-#         #Pre-filter to have data arrays with at least one matching date
-# 	{'$match': {'username': self.username, 'expenses.date': {'$gte': from_date, '$lte': to_date}}},
-#         #Filter the items array
-# 	{
-# 		'$addFields': {
-# 			'items': {
-# 				'$filter': {
-# 					'input': '$expenses', 'as': 'item', 'cond': {
-# 						'$and': [
-# 							{'$gte': ["$$item.date", from_date]},
-# 							{'$lte': ["$$item.date", to_date]}
-# 						]
-# 					}
-# 				}
-# 			}
-# 		}
-# 	}
-# ])
-#         x = [x for x in result]
-#         print(x)
 
 class User(UserMixin):
     def __init__(self, username=None, email=None, password=None, business=None):

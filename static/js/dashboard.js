@@ -237,7 +237,34 @@ function netBarChart(data) {
     },
     name: "Net Revenue"
   };
-  Plotly.newPlot("net_plot", [trace], {responsive: true})
+  const layout = {
+    barmode: "stack",
+    xaxis: {
+      tickfont: {
+        size: 14,
+        color: "rgb(107, 107, 107)"
+      }
+    },
+    yaxis: {
+      title: "USD ($)",
+      tickformat: "$",
+      titlefont: {
+        size: 16,
+        color: "rgb(107, 107, 107)"
+      },
+      tickfont: {
+        size: 14,
+        color: "rgb(107, 107, 107)"
+      }
+    },
+    legend: {
+      x: 0,
+      y: 1.5,
+      bgcolor: "rgba(255, 255, 255, 0)",
+      bordercolor: "rgba(255, 255, 255, 0)"
+    }
+  };
+  Plotly.newPlot("net_plot", [trace], layout, {responsive: true})
 }
 
 

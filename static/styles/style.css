@@ -343,9 +343,10 @@ tr, td, th{
     min-width: 28vw;
   }
 
-  .revenue{
+  .revenue, .net{
     min-width: 72vw;
   }
+  
 }
 @media only screen and (max-width: 1525px) {
   .dashboard {

@@ -211,11 +211,14 @@ function plotExpenses(type) {
         cost[11] = cost[11] + element.getAttribute("cost") * -1;
     }
     var color
+    var incomeExpense
     if (type == '.expense') {
-      color = "rgba(204,37,41, 0.89)"
+      color = "rgba(204,37,41, 0.89)";
+      incomeExpense = "Expenses"
     }
     else {
-      color = "rgba(36, 131, 36, 0.869)"
+      color = "rgba(36, 131, 36, 0.869)";
+      incomeExpense = "Income"
     }
   }
   for (let i = 0; i < cost.length; i++) {
@@ -226,7 +229,7 @@ function plotExpenses(type) {
     x: dates,
     y: cost,
     base: base,
-    hovertemplate: '<b>Expenses</b>: $%{base:.2f}' +
+    hovertemplate: `<b>${incomeExpense}</b>: $%{base:.2f}` +
     '<br><b>Month</b>: %{x}<br><extra></extra>',
     marker: { color: color },
     type: "bar",
