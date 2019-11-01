@@ -347,12 +347,9 @@ tr, td, th{
     max-width: 28vw;
     min-width: 28vw;
   }
-  }
-
   .revenue, .net{
     min-width: 72vw;
   }
-  
 }
 @media only screen and (max-width: 1850px) {
   .dashboard {
