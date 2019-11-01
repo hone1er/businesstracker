@@ -342,7 +342,7 @@ tr, td, th{
   display: inline-block;
   max-height: 400px;
 }
-@media only screen and (min-width: 1725px) {
+@media only screen and (min-width: 1850px) {
   .tables{
     max-width: 28vw;
     min-width: 28vw;
@@ -353,7 +353,7 @@ tr, td, th{
   }
   
 }
-@media only screen and (max-width: 1725px) {
+@media only screen and (max-width: 1850px) {
   .dashboard {
     grid-template-columns: 1fr;
     grid-template-areas:
