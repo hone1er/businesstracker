@@ -347,8 +347,6 @@ tr, td, th{
     max-width: 28vw;
     min-width: 28vw;
   }
-  #top-table {
-    margin-bottom: 30vh;
   }
 
   .revenue, .net{
