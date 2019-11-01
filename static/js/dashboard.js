@@ -275,3 +275,6 @@ barChart(data, "revenue_plot");
 netBarChart(data)
 const pieTrace = createPieTrace();
 pieChart(pieTrace);
+$(document).ready(function() {
+  $('table').DataTable();
+} );

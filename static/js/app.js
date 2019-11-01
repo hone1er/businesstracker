@@ -223,7 +223,12 @@ function plotExpenses(type) {
   }
   for (let i = 0; i < cost.length; i++) {
     const element = cost[i];
-    base.push(element*-1)
+    if (element != 0){
+      base.push(element*-1)
+    }
+    else {
+      base.push(element)
+    }
   }
   var trace = {
     x: dates,

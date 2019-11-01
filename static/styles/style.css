@@ -1,3 +1,6 @@
+table.dataTable thead .sorting_asc, .sorting_desc, .sorting {
+  background-image: none !important;
+}
 body {
   font-family: "Roboto", sans-serif;
   background-color: rgb(255, 255, 255);
@@ -331,10 +334,12 @@ tr, td, th{
   text-align: center !important;
   font-size: .825rem;
 }
+.dataTables_wrapper {
+  margin: 64px 0 128px;
+}
 .table {
   padding-left: 20px;
   display: inline-block;
-  margin-bottom: 150px;
   max-height: 400px;
 }
 @media only screen and (min-width: 1525px) {
