@@ -338,7 +338,6 @@ tr, td, th{
   margin: 64px 0 128px;
 }
 .table {
-  padding-left: 20px;
   display: inline-block;
   max-height: 400px;
 }
