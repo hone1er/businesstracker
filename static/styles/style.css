@@ -341,10 +341,14 @@ tr, td, th{
   display: inline-block;
   max-height: 400px;
 }
+
 @media only screen and (min-width: 1850px) {
   .tables{
     max-width: 28vw;
     min-width: 28vw;
+  }
+  #top-table {
+    margin-bottom: 30vh;
   }
 
   .revenue, .net{
