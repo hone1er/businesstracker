@@ -276,5 +276,7 @@ netBarChart(data)
 const pieTrace = createPieTrace();
 pieChart(pieTrace);
 $(document).ready(function() {
-  $('table').DataTable();
+  $('table').DataTable({
+    "pagingType": "simple"
+  });
 } );
